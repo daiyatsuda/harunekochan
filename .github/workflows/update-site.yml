@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name "haruneko-bot"
           git config user.email "actions@github.com"
-          git add index.html theories/ assets/ post_queue.md || true
+          git add index.html theories/ assets/ post_queue.md blog/ || true
           if git diff --cached --quiet; then
             echo "変更なし — スキップ"
           else

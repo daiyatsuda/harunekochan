@@ -20,6 +20,7 @@ from collections import Counter, defaultdict
 
 NOTION_API_KEY      = os.environ["NOTION_API_KEY"]
 NOTION_DATABASE_ID  = os.environ["NOTION_DATABASE_ID"]
+BLOG_DATABASE_ID    = "72e7bb27a6fe40e0ae5e111e94163f7a"
 NOTION_VERSION      = "2022-06-28"
 JST                 = timezone(timedelta(hours=9))
 SITE_URL            = "https://keieiriron.github.io/harunekochan/"
@@ -729,6 +730,211 @@ def generate_insights_html(items: list[dict], today_str: str) -> str:
 {theory_list_link}"""
 
 
+# ── ブログ: Notion取得 & パース ────────────────────────────────
+def fetch_all_blog_posts() -> list[dict]:
+    payload = {
+        "filter": {"property": "公開", "checkbox": {"equals": True}},
+        "sorts": [{"property": "公開日", "direction": "descending"}],
+        "page_size": 100,
+    }
+    return notion_request(f"databases/{BLOG_DATABASE_ID}/query", payload).get("results", [])
+
+
+def blog_page_to_item(page: dict) -> dict:
+    props = page.get("properties", {})
+    return {
+        "title":    extract_text(props.get("タイトル", {})),
+        "lead":     extract_text(props.get("リード文", {})),
+        "body":     extract_text(props.get("本文", {})),
+        "category": extract_text(props.get("カテゴリ", {})),
+        "tags":     extract_text(props.get("タグ", {})) or [],
+        "date":     extract_text(props.get("公開日", {})),
+        "slug":     extract_text(props.get("スラッグ", {})),
+    }
+
+
+BLOG_CSS = """<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAF7F2;color:#2B2620;font-family:'Noto Sans JP',sans-serif;line-height:1.75;min-height:100vh}
+nav{background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid #E5DFD4;height:56px;padding:0 28px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:400}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#2B2620;font-weight:700;font-size:1rem}
+.nav-logo img{width:28px;height:28px}
+.nav-back{font-size:.8rem;color:#6B8F71;text-decoration:none;margin-left:auto;font-weight:700}
+.nav-back:hover{color:#4F6E55}
+.hero{background:#fff;border-bottom:1px solid #E5DFD4;padding:52px 28px 40px}
+.hero-inner{max-width:860px;margin:0 auto}
+.hero-kicker{font-size:.68rem;font-weight:700;color:#4F6E55;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.hero-kicker::before{content:'';width:16px;height:2px;background:#6B8F71;display:block}
+h1{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;line-height:1.25;margin-bottom:14px;font-family:serif}
+.hero-lead{font-size:.9rem;color:#6B645C;line-height:1.85;max-width:580px}
+.container{max-width:860px;margin:0 auto;padding:48px 28px 80px}
+.blog-list{display:flex;flex-direction:column;gap:24px}
+.blog-card{background:#fff;border:1.5px solid #E5DFD4;border-top:4px solid #6B8F71;border-radius:16px;padding:26px 28px 20px;box-shadow:0 4px 18px rgba(43,38,32,.06);transition:box-shadow .2s,transform .2s;text-decoration:none;color:inherit;display:block}
+.blog-card:hover{box-shadow:0 10px 36px rgba(43,38,32,.12);transform:translateY(-2px)}
+.blog-card-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.cat-badge{font-size:.62rem;font-weight:700;padding:3px 10px;border-radius:20px;background:#6B8F71;color:#fff;letter-spacing:.04em}
+.date-badge{font-size:.66rem;color:#A89F96;font-weight:500}
+.tag-badge{font-size:.62rem;padding:3px 10px;border-radius:6px;background:#FAF7F2;border:1px solid #E5DFD4;color:#A89F96}
+.blog-card-title{font-size:1.15rem;font-weight:800;line-height:1.5;margin-bottom:10px;font-family:serif;color:#2B2620}
+.blog-card-lead{font-size:.86rem;color:#6B645C;line-height:1.8;margin-bottom:14px}
+.read-more{font-size:.76rem;font-weight:700;color:#4F6E55;display:inline-flex;align-items:center;gap:4px}
+.read-more::after{content:'→'}
+/* Single post */
+.post-hero{background:#fff;border-bottom:1px solid #E5DFD4;padding:52px 28px 40px}
+.post-hero-inner{max-width:740px;margin:0 auto}
+.post-hero .cat-badge{display:inline-block;margin-bottom:14px}
+.post-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;line-height:1.3;margin-bottom:16px;font-family:serif}
+.post-hero-lead{font-size:.95rem;color:#6B645C;line-height:1.85;padding:18px 22px;background:#EEF4EF;border-left:3px solid #6B8F71;border-radius:0 10px 10px 0}
+.post-meta{margin-top:16px;font-size:.72rem;color:#A89F96;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.post-body{max-width:740px;margin:0 auto;padding:48px 28px 80px}
+.post-body p{font-size:.93rem;line-height:1.95;color:#2B2620;margin-bottom:1.4em}
+.post-body h2{font-family:serif;font-size:1.2rem;font-weight:800;color:#2B2620;margin:2em 0 .8em;padding-bottom:.4em;border-bottom:2px solid #E5DFD4}
+.post-body h3{font-family:serif;font-size:1rem;font-weight:700;color:#2B2620;margin:1.5em 0 .6em}
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;font-weight:700;color:#4F6E55;background:#EEF4EF;border:1px solid #D4E6D7;padding:10px 22px;border-radius:24px;text-decoration:none;margin-top:32px;transition:background .15s}
+.back-btn:hover{background:#D4E6D7}
+.empty-state{text-align:center;padding:60px 24px;color:#A89F96;font-size:.9rem}
+footer{background:#1A1410;color:rgba(255,255,255,.45);padding:24px 28px;text-align:center;font-size:.75rem}
+@media(max-width:600px){
+  nav{padding:0 14px;height:52px}
+  .hero,.post-hero{padding:36px 16px 28px}
+  .container,.post-body{padding:28px 16px 60px}
+  .blog-card{padding:18px 16px 14px}
+  .blog-card-title{font-size:1rem}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" rel="stylesheet">"""
+
+
+def _body_to_html(body: str) -> str:
+    if not body:
+        return ""
+    html_parts = []
+    for block in body.replace("\r", "").split("\n\n"):
+        block = block.strip()
+        if not block:
+            continue
+        if block.startswith("## "):
+            html_parts.append(f"<h2>{block[3:].strip()}</h2>")
+        elif block.startswith("# "):
+            html_parts.append(f"<h2>{block[2:].strip()}</h2>")
+        elif block.startswith("### "):
+            html_parts.append(f"<h3>{block[4:].strip()}</h3>")
+        else:
+            inner = block.replace("\n", "<br>")
+            html_parts.append(f"<p>{inner}</p>")
+    return "\n".join(html_parts)
+
+
+def generate_blog_pages(posts: list[dict]) -> None:
+    Path("blog/posts").mkdir(parents=True, exist_ok=True)
+
+    # ── 個別記事ページ ──────────────────────────────
+    for post in posts:
+        slug = post["slug"] or re.sub(r"[^\w\-]", "-", post["title"])[:40]
+        if not slug:
+            continue
+        body_html = _body_to_html(post["body"])
+        tags_html = "".join(f'<span class="tag-badge">{t}</span>' for t in post["tags"])
+        cat_html  = f'<span class="cat-badge">{post["category"]}</span>' if post["category"] else ""
+        date_ja   = format_date_ja(post["date"])
+
+        post_html = f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{post["title"]} | はるねこちゃんブログ</title>
+<meta name="description" content="{post['lead'][:120]}">
+<meta property="og:title" content="{post['title']}">
+<meta property="og:description" content="{post['lead'][:120]}">
+<meta property="og:url" content="{SITE_URL}blog/posts/{slug}/">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+{BLOG_CSS}
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../../../"><img src="../../../favicon.svg" alt="">はるねこちゃん</a>
+  <a class="nav-back" href="../../">← ブログ一覧</a>
+</nav>
+<div class="post-hero">
+  <div class="post-hero-inner">
+    {cat_html}
+    <h1>{post["title"]}</h1>
+    <p class="post-hero-lead">{post["lead"]}</p>
+    <div class="post-meta">
+      <span>📅 {date_ja}</span>
+      {tags_html}
+    </div>
+  </div>
+</div>
+<div class="post-body">
+  {body_html}
+  <a class="back-btn" href="../../">← ブログ一覧に戻る</a>
+</div>
+<footer>© 2025 はるねこちゃん — 人事・経営ニュース × 経営理論</footer>
+</body>
+</html>"""
+        out_dir = Path("blog/posts") / slug
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "index.html").write_text(post_html, encoding="utf-8")
+
+    # ── ブログ一覧ページ ────────────────────────────
+    cards_html = ""
+    for post in posts:
+        slug = post["slug"] or re.sub(r"[^\w\-]", "-", post["title"])[:40]
+        if not slug:
+            continue
+        tags_html = "".join(f'<span class="tag-badge">{t}</span>' for t in post["tags"])
+        cat_html  = f'<span class="cat-badge">{post["category"]}</span>' if post["category"] else ""
+        date_ja   = format_date_ja(post["date"])
+        cards_html += f"""<a class="blog-card" href="posts/{slug}/">
+  <div class="blog-card-meta">{cat_html}<span class="date-badge">📅 {date_ja}</span>{tags_html}</div>
+  <div class="blog-card-title">{post["title"]}</div>
+  <div class="blog-card-lead">{post["lead"]}</div>
+  <span class="read-more">続きを読む</span>
+</a>\n"""
+
+    if not cards_html:
+        cards_html = '<div class="empty-state">まだブログ記事がありません。<br>近日公開予定です。</div>'
+
+    index_html = f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ブログ | はるねこちゃん — 人事・経営コラム</title>
+<meta name="description" content="人事・組織・経営に関するコラム。経営理論を実務に接続するHRプロフェッショナルの視点でお届けします。">
+<meta property="og:title" content="ブログ | はるねこちゃん">
+<meta property="og:url" content="{SITE_URL}blog/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+{BLOG_CSS}
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../"><img src="../favicon.svg" alt="">はるねこちゃん</a>
+  <a class="nav-back" href="../">← トップへ</a>
+</nav>
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Blog — HR &amp; Management Column</p>
+    <h1>ブログ</h1>
+    <p class="hero-lead">人事・組織・経営に関するコラム。ニュース解説とは別に、実務で感じたことや経営理論の実践的な使い方を書いています。</p>
+  </div>
+</div>
+<div class="container">
+  <div class="blog-list">
+    {cards_html}
+  </div>
+</div>
+<footer>© 2025 はるねこちゃん — 人事・経営ニュース × 経営理論</footer>
+</body>
+</html>"""
+
+    (Path("blog") / "index.html").write_text(index_html, encoding="utf-8")
+    print(f"✅ ブログページ生成完了（{len(posts)}件）")
+
+
 # ── メイン ────────────────────────────────────────────────────
 def main():
     pages = fetch_all_news()
@@ -828,6 +1034,11 @@ def main():
 
     # ─ T1: OGP画像
     generate_og_images(items, today_str)
+
+    # ─ ブログ
+    blog_pages = fetch_all_blog_posts()
+    blog_posts = [blog_page_to_item(p) for p in blog_pages]
+    generate_blog_pages(blog_posts)
 
 
 if __name__ == "__main__":
