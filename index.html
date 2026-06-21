@@ -209,16 +209,19 @@
     /* ─── NEWS CARD ─── */
     .card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
+      border-top: 4px solid var(--green);
       border-radius: 16px;
       padding: 28px 28px 22px;
-      margin-bottom: 20px;
+      margin-bottom: 32px;
       position: relative;
-      transition: box-shadow .2s, border-color .2s;
+      box-shadow: 0 4px 16px rgba(43,38,32,.07);
+      transition: box-shadow .2s, border-color .2s, transform .2s;
     }
     .card:hover {
-      box-shadow: 0 8px 30px rgba(43,38,32,.09);
+      box-shadow: 0 10px 36px rgba(43,38,32,.13);
       border-color: var(--green-lt);
+      transform: translateY(-2px);
     }
     .card-num {
       position: absolute;
@@ -670,26 +673,8 @@
       <h2 class="card-headline">若手の失敗経験、6割超が成長につながると回答</h2>
       <p class="card-summary">ジェイックが20代正社員258名を調査したところ、直近1年で大きな失敗を経験したのは約3割、そのうち6割超が「成長につながった」と回答した。失敗の主因は知識・スキル不足と判断ミスであり、上司が原因分析に伴走するマネジメントスタイルが成長促進に有効であることが示唆された。</p>
       <div class="theory-box">
-          <svg class="theory-box-cat" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="16" r="10" fill="#6B8F71"/>
-          <polygon points="12,10 14,4 18,10" fill="#6B8F71"/>
-          <polygon points="28,10 26,4 22,10" fill="#6B8F71"/>
-          <polygon points="12.5,9 14.5,5 17.5,9" fill="#E8A0B4"/>
-          <polygon points="27.5,9 25.5,5 22.5,9" fill="#E8A0B4"/>
-          <ellipse cx="16" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <ellipse cx="24" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <circle cx="16.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <circle cx="24.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <ellipse cx="20" cy="20" rx="1.5" ry="1" fill="#E8A0B4"/>
-          <ellipse cx="20" cy="31" rx="10" ry="8" fill="#6B8F71"/>
-          <ellipse cx="13" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <ellipse cx="27" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <text x="28" y="10" font-size="7" fill="#E8A0B4">?</text>
-        </svg>
-          <div class="theory-box-content">
-            <div class="theory-box-label">経営理論の視点 ▶ センスメイキング理論</div>
-            <p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。</p>
-          </div>
+          <div class="theory-box-label">📚 経営理論の視点 ▶ センスメイキング理論</div>
+          <p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。</p>
         </div>
       <div class="card-footer">
         <span class="card-source">日本の人事部（ジェイック調査） 2026年6月18日</span>
@@ -706,26 +691,8 @@
       <h2 class="card-headline">採用AIを5割超の企業が「機能していない」</h2>
       <p class="card-summary">TalentXが従業員500名超の企業の人事担当者213名を調査。採用AIを導入した企業の53.3%が工数削減や費用対効果を実現できていないと回答し、67.9%がAIと人の役割分担が不明確と答えた。成功の鍵はツール導入ではなく、候補者体験を軸とした採用戦略の再設計にあるとされる。</p>
       <div class="theory-box">
-          <svg class="theory-box-cat" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="16" r="10" fill="#6B8F71"/>
-          <polygon points="12,10 14,4 18,10" fill="#6B8F71"/>
-          <polygon points="28,10 26,4 22,10" fill="#6B8F71"/>
-          <polygon points="12.5,9 14.5,5 17.5,9" fill="#E8A0B4"/>
-          <polygon points="27.5,9 25.5,5 22.5,9" fill="#E8A0B4"/>
-          <ellipse cx="16" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <ellipse cx="24" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <circle cx="16.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <circle cx="24.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <ellipse cx="20" cy="20" rx="1.5" ry="1" fill="#E8A0B4"/>
-          <ellipse cx="20" cy="31" rx="10" ry="8" fill="#6B8F71"/>
-          <ellipse cx="13" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <ellipse cx="27" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <text x="28" y="10" font-size="7" fill="#E8A0B4">?</text>
-        </svg>
-          <div class="theory-box-content">
-            <div class="theory-box-label">経営理論の視点 ▶ ダイナミック・ケイパビリティ</div>
-            <p class="theory-box-text">環境変化に合わせて自社の能力を感知・捕捉・再構成する力。テクノロジーが急変する時代において、静的な強みではなく変化する能力そのものが競争優位になります。</p>
-          </div>
+          <div class="theory-box-label">📚 経営理論の視点 ▶ ダイナミック・ケイパビリティ</div>
+          <p class="theory-box-text">環境変化に合わせて自社の能力を感知・捕捉・再構成する力。テクノロジーが急変する時代において、静的な強みではなく変化する能力そのものが競争優位になります。</p>
         </div>
       <div class="card-footer">
         <span class="card-source">TalentX / PR TIMES 2026年6月18日</span>
@@ -757,26 +724,8 @@
       <h2 class="card-headline">「管理職になりたくない」、背景に負担増</h2>
       <p class="card-summary">HR総研の調査で、管理職の役割や負担が増す中、若手が昇進を避ける傾向が浮き彫りに。本人の意欲だけでなく、役割設計そのものの見直しが必要との指摘が出ている。</p>
       <div class="theory-box">
-          <svg class="theory-box-cat" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="16" r="10" fill="#6B8F71"/>
-          <polygon points="12,10 14,4 18,10" fill="#6B8F71"/>
-          <polygon points="28,10 26,4 22,10" fill="#6B8F71"/>
-          <polygon points="12.5,9 14.5,5 17.5,9" fill="#E8A0B4"/>
-          <polygon points="27.5,9 25.5,5 22.5,9" fill="#E8A0B4"/>
-          <ellipse cx="16" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <ellipse cx="24" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <circle cx="16.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <circle cx="24.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <ellipse cx="20" cy="20" rx="1.5" ry="1" fill="#E8A0B4"/>
-          <ellipse cx="20" cy="31" rx="10" ry="8" fill="#6B8F71"/>
-          <ellipse cx="13" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <ellipse cx="27" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <text x="28" y="10" font-size="7" fill="#E8A0B4">?</text>
-        </svg>
-          <div class="theory-box-content">
-            <div class="theory-box-label">経営理論の視点 ▶ センスメイキング理論</div>
-            <p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。</p>
-          </div>
+          <div class="theory-box-label">📚 経営理論の視点 ▶ センスメイキング理論</div>
+          <p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。</p>
         </div>
       <div class="card-footer">
         <span class="card-source">HR総研 調査(2026年4月実施)</span>
@@ -808,26 +757,8 @@
       <h2 class="card-headline">新卒採用、6割超がAI書類選考で不合格経験</h2>
       <p class="card-summary">新卒採用担当者の64%が、AIによる書類選考で学生を不合格にした経験があると回答。一方で判定基準を社内で整備できている企業は15%未満にとどまる。</p>
       <div class="theory-box">
-          <svg class="theory-box-cat" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="16" r="10" fill="#6B8F71"/>
-          <polygon points="12,10 14,4 18,10" fill="#6B8F71"/>
-          <polygon points="28,10 26,4 22,10" fill="#6B8F71"/>
-          <polygon points="12.5,9 14.5,5 17.5,9" fill="#E8A0B4"/>
-          <polygon points="27.5,9 25.5,5 22.5,9" fill="#E8A0B4"/>
-          <ellipse cx="16" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <ellipse cx="24" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <circle cx="16.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <circle cx="24.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <ellipse cx="20" cy="20" rx="1.5" ry="1" fill="#E8A0B4"/>
-          <ellipse cx="20" cy="31" rx="10" ry="8" fill="#6B8F71"/>
-          <ellipse cx="13" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <ellipse cx="27" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <text x="28" y="10" font-size="7" fill="#E8A0B4">?</text>
-        </svg>
-          <div class="theory-box-content">
-            <div class="theory-box-label">経営理論の視点 ▶ ダイナミック・ケイパビリティ</div>
-            <p class="theory-box-text">環境変化に合わせて自社の能力を感知・捕捉・再構成する力。テクノロジーが急変する時代において、静的な強みではなく変化する能力そのものが競争優位になります。</p>
-          </div>
+          <div class="theory-box-label">📚 経営理論の視点 ▶ ダイナミック・ケイパビリティ</div>
+          <p class="theory-box-text">環境変化に合わせて自社の能力を感知・捕捉・再構成する力。テクノロジーが急変する時代において、静的な強みではなく変化する能力そのものが競争優位になります。</p>
         </div>
       <div class="card-footer">
         <span class="card-source">調査機関発表(2026年6月)</span>
@@ -965,8 +896,6 @@
       </p>
     </div>
     <div class="foot-links">
-      <a href="https://github.com/daiyatsuda/harunekochan" target="_blank">GitHub</a>
-      <a href="https://www.notion.so/" target="_blank">Notion</a>
       <a href="#today">↑ トップへ</a>
     </div>
   </div>
