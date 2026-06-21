@@ -5,6 +5,7 @@ GitHub Actionsから毎日7:00 JSTに実行される。
 
 import os
 import json
+import re
 import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -14,6 +15,7 @@ NOTION_API_KEY = os.environ["NOTION_API_KEY"]
 NOTION_DATABASE_ID = os.environ["NOTION_DATABASE_ID"]
 NOTION_VERSION = "2022-06-28"
 JST = timezone(timedelta(hours=9))
+SITE_URL = "https://daiyatsuda.github.io/harunekochan/"
 
 THEORY_DESCRIPTIONS = {
     # ── 競争戦略系 ──
@@ -45,7 +47,6 @@ THEORY_DESCRIPTIONS = {
     "イノベーションのジレンマ": "優良企業が持続的イノベーションに集中するあまり、破壊的イノベーターに市場を奪われるパラドックスを説くクリステンセンの理論。既存事業の優等生ほど危ない理由です。",
     "アントレプレナーシップ理論": "新たな機会を発見・創造し、資源を結合して価値を生み出す企業家的行動を扱う理論。大企業の社内起業（イントラプレナーシップ）や新規事業開発にも応用されます。",
     "スピンオフ理論": "既存組織から独立した新事業・新企業が生まれるプロセスとその成功要因を扱う理論。親組織の知識・資源・人材がどう次世代イノベーションを生むかを分析します。",
-    # ── フォールバック ──
     "未分類": "現時点では既存の経営理論に明確に分類しにくいニュースです。今後の理論的文脈の変化とともに再分類される可能性があります。",
 }
 
@@ -65,7 +66,7 @@ def notion_request(path: str, payload: dict) -> dict:
         return json.loads(resp.read())
 
 
-def fetch_all_news(limit: int = 50) -> list[dict]:
+def fetch_all_news(limit: int = 60) -> list[dict]:
     payload = {
         "sorts": [{"property": "配信日", "direction": "descending"}],
         "page_size": limit,
@@ -108,62 +109,156 @@ def page_to_item(page: dict) -> dict:
     }
 
 
+def parse_summary_sections(text: str) -> dict:
+    """要約テキストから【事実】【考察】【示唆】マーカーを解析してセクションに分割する。"""
+    sections = {"facts": "", "analysis": "", "insights": "", "plain": ""}
+    markers = {
+        "【事実】": "facts",
+        "【考察】": "analysis",
+        "【示唆】": "insights",
+    }
+    has_marker = any(m in text for m in markers)
+    if not has_marker:
+        sections["plain"] = text
+        return sections
+
+    current_key = "plain"
+    for line in text.replace("\r", "").split("\n"):
+        matched = False
+        for marker, key in markers.items():
+            if line.startswith(marker):
+                current_key = key
+                rest = line[len(marker):].strip()
+                if rest:
+                    sections[current_key] = (sections[current_key] + " " + rest).strip()
+                matched = True
+                break
+        if not matched and line.strip():
+            sections[current_key] = (sections[current_key] + " " + line.strip()).strip()
+
+    return sections
+
+
 def render_theory_box(theory: str) -> str:
     desc = THEORY_DESCRIPTIONS.get(theory, "")
     if not desc:
         return ""
-    return f"""<div class="theory-box">
-          <div class="theory-box-label">📚 経営理論の視点 ▶ {theory}</div>
-          <p class="theory-box-text">{desc}</p>
-        </div>"""
+    return (
+        f'<div class="theory-box">'
+        f'<div class="theory-box-label">📚 経営理論の視点 ▶ {theory}</div>'
+        f'<p class="theory-box-text">{desc}</p>'
+        f'</div>'
+    )
+
+
+def render_fb_share(link: str = "") -> str:
+    share_url = link if link else SITE_URL
+    encoded = urllib.parse.quote(share_url, safe="") if link else urllib.parse.quote(SITE_URL, safe="")
+    return (
+        f'<a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u={encoded}" '
+        f'target="_blank" rel="noopener">'
+        f'<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>'
+        f'シェア</a>'
+    )
 
 
 def render_card(item: dict, num: int, is_today: bool = True) -> str:
     tags_html = "".join(f'<span class="tag">{t}</span>' for t in item["tags"])
     theory = item["theory"] or "未分類"
+    new_badge = '<span class="badge-new">NEW</span>' if is_today else ""
+
+    # Parse structured sections
+    sections = parse_summary_sections(item["summary"])
+    content_html = ""
+    if sections["facts"]:
+        content_html += (
+            f'<div class="art-section fact">'
+            f'<span class="art-label">📰 事実</span>'
+            f'<p>{sections["facts"]}</p>'
+            f'</div>'
+        )
+    if sections["analysis"]:
+        content_html += (
+            f'<div class="art-section analysis">'
+            f'<span class="art-label">🔍 考察</span>'
+            f'<p>{sections["analysis"]}</p>'
+            f'</div>'
+        )
+    if sections["insights"]:
+        content_html += (
+            f'<div class="art-section insight">'
+            f'<span class="art-label">💡 示唆</span>'
+            f'<p>{sections["insights"]}</p>'
+            f'</div>'
+        )
+    if not content_html and sections["plain"]:
+        content_html = f'<p class="card-summary">{sections["plain"]}</p>'
+
     theory_box = render_theory_box(theory) if is_today else ""
-    new_badge = '<span class="new-badge">NEW</span>' if is_today else ""
-    link_html = (
-        f'<a class="read-link" href="{item["link"]}" target="_blank" rel="noopener">元記事を読む →</a>'
+
+    source_text = item["source"]
+    if item["link"]:
+        source_html = f'<a class="card-source" href="{item["link"]}" target="_blank" rel="noopener">📎 {source_text}</a>'
+    else:
+        source_html = f'<span class="card-source">{source_text}</span>'
+
+    link_btn = (
+        f'<a class="read-btn" href="{item["link"]}" target="_blank" rel="noopener">元記事 →</a>'
         if item["link"] else ""
     )
-    return f"""    <div class="news-card">
-      <div class="card-num">{num:02d}</div>
-      <div class="card-meta">
-        <span class="theory-badge">{theory}</span>
-        {new_badge}
-        {tags_html}
-      </div>
-      <h2 class="card-headline">{item["headline"]}</h2>
-      <p class="card-summary">{item["summary"]}</p>
-      {theory_box}
-      <div class="card-footer">
-        <span class="card-source">{item["source"]}</span>
-        {link_html}
-      </div>
-    </div>"""
+
+    fb = render_fb_share(item.get("link", ""))
+
+    return f"""<div class="card">
+  <div class="card-num">{num:02d}</div>
+  <div class="card-meta">
+    <span class="badge-theory">📚 {theory}</span>
+    {new_badge}
+    {tags_html}
+  </div>
+  <h2 class="card-headline">{item["headline"]}</h2>
+  {content_html}
+  {theory_box}
+  <div class="card-foot">
+    {source_html}
+    <div class="card-foot-right">
+      {link_btn}
+      {fb}
+    </div>
+  </div>
+</div>"""
 
 
 def render_archive_card(item: dict, num: int) -> str:
     tags_html = "".join(f'<span class="tag">{t}</span>' for t in item["tags"])
     theory = item["theory"] or "未分類"
-    link_html = (
-        f'<a class="read-link" href="{item["link"]}" target="_blank" rel="noopener">元記事を読む →</a>'
-        if item["link"] else ""
-    )
-    return f"""    <div class="news-card" style="opacity:0.85;">
-      <div class="card-num">{num:02d}</div>
-      <div class="card-meta">
-        <span class="theory-badge">{theory}</span>
-        {tags_html}
-      </div>
-      <h2 class="card-headline">{item["headline"]}</h2>
-      <p class="card-summary">{item["summary"]}</p>
-      <div class="card-footer">
-        <span class="card-source">{item["source"]}</span>
-        {link_html}
-      </div>
-    </div>"""
+    sections = parse_summary_sections(item["summary"])
+    summary_text = sections["plain"] or sections["facts"] or item["summary"]
+
+    if item["link"]:
+        source_html = f'<a class="card-source" href="{item["link"]}" target="_blank" rel="noopener">📎 {item["source"]}</a>'
+        link_btn = f'<a class="read-btn" href="{item["link"]}" target="_blank" rel="noopener">元記事 →</a>'
+    else:
+        source_html = f'<span class="card-source">{item["source"]}</span>'
+        link_btn = ""
+
+    fb = render_fb_share(item.get("link", ""))
+
+    return f"""<div class="arc-card">
+  <div class="card-meta">
+    <span class="badge-theory">📚 {theory}</span>
+    {tags_html}
+  </div>
+  <h3 class="card-headline">{item["headline"]}</h3>
+  <p class="card-summary">{summary_text}</p>
+  <div class="card-foot">
+    {source_html}
+    <div class="card-foot-right">
+      {link_btn}
+      {fb}
+    </div>
+  </div>
+</div>"""
 
 
 def format_date_ja(date_str: str) -> str:
@@ -176,6 +271,112 @@ def format_date_ja(date_str: str) -> str:
         return date_str
 
 
+def generate_insights_html(items: list[dict], today_str: str) -> str:
+    if not items:
+        return '<p style="color:var(--text-light);font-size:.9rem;">まだデータが蓄積されていません。</p>'
+
+    # Theory frequency
+    theory_counter: Counter = Counter()
+    for item in items:
+        t = item["theory"] or "未分類"
+        if t != "未分類":
+            theory_counter[t] += 1
+
+    max_cnt = max(theory_counter.values()) if theory_counter else 1
+    top_theories = theory_counter.most_common(6)
+
+    # Theory rank bars
+    rank_html = ""
+    for theory, cnt in top_theories:
+        pct = int(cnt / max_cnt * 100)
+        rank_html += (
+            f'<div class="rank-item">'
+            f'<span class="rank-label">{theory}</span>'
+            f'<div class="rank-bar-bg"><div class="rank-bar" style="width:{pct}%"></div></div>'
+            f'<span class="rank-cnt">{cnt}件</span>'
+            f'</div>'
+        )
+
+    # Featured theory (top 1)
+    featured_theory = top_theories[0][0] if top_theories else ""
+    featured_desc = THEORY_DESCRIPTIONS.get(featured_theory, "")
+    featured_html = ""
+    if featured_theory and featured_desc:
+        featured_html = (
+            f'<div class="theory-feature">'
+            f'<div class="theory-feature-name">🏆 最頻出理論：{featured_theory}</div>'
+            f'<div class="theory-feature-text">{featured_desc}</div>'
+            f'</div>'
+        )
+
+    # Tag frequency
+    tag_counter: Counter = Counter()
+    for item in items:
+        tag_counter.update(item["tags"])
+    top_tags = tag_counter.most_common(5)
+    tag_rank_html = ""
+    max_tag = max(tag_counter.values()) if tag_counter else 1
+    for tag, cnt in top_tags:
+        pct = int(cnt / max_tag * 100)
+        tag_rank_html += (
+            f'<div class="rank-item">'
+            f'<span class="rank-label">{tag}</span>'
+            f'<div class="rank-bar-bg"><div class="rank-bar" style="width:{pct}%;background:var(--rose)"></div></div>'
+            f'<span class="rank-cnt">{cnt}件</span>'
+            f'</div>'
+        )
+
+    # Recent week's articles with rich content (has sections)
+    rich_items = [i for i in items if "【考察】" in i["summary"] or "【示唆】" in i["summary"]][:5]
+    featured_articles_html = ""
+    if rich_items:
+        featured_articles_html = '<div class="insight-articles-title">💎 深掘り記事ピックアップ</div>'
+        for item in rich_items:
+            sections = parse_summary_sections(item["summary"])
+            insight_text = sections["insights"] or sections["analysis"] or ""
+            theory = item["theory"] or "未分類"
+            link_attr = f'href="{item["link"]}" target="_blank" rel="noopener"' if item["link"] else "href='#'"
+            featured_articles_html += f"""<div class="arc-card" style="margin-bottom:16px;">
+  <div class="card-meta">
+    <span class="badge-theory">📚 {theory}</span>
+  </div>
+  <h3 class="card-headline"><a {link_attr} style="text-decoration:none;color:inherit;">{item["headline"]}</a></h3>
+  {f'<div class="art-section insight"><span class="art-label">💡 示唆</span><p>{insight_text}</p></div>' if insight_text else f'<p class="card-summary">{sections["plain"]}</p>'}
+  <div class="card-foot">
+    <span class="card-source">{item["source"]} / {format_date_ja(item["date"])}</span>
+  </div>
+</div>"""
+
+    # Week summary note
+    recent_count = len([i for i in items if i["date"] >= (datetime.now(JST) - timedelta(days=7)).strftime("%Y-%m-%d")])
+
+    return f"""<div class="insights-grid">
+  <div class="insight-box">
+    <div class="insight-box-title">📊 よく出る経営理論 TOP6</div>
+    <div class="theory-rank">
+      {rank_html}
+    </div>
+    {featured_html}
+  </div>
+  <div class="insight-box">
+    <div class="insight-box-title">🏷 注目トピック TOP5</div>
+    <div class="theory-rank">
+      {tag_rank_html}
+    </div>
+    <div style="margin-top:20px;padding:14px;background:var(--bg);border-radius:10px;">
+      <div style="font-size:.72rem;font-weight:700;color:var(--text-light);margin-bottom:6px;">📈 直近7日間</div>
+      <div style="font-family:'Shippori Mincho',serif;font-size:1.6rem;font-weight:800;color:var(--text);">{recent_count}<small style="font-size:.85rem;font-weight:400;font-family:'Zen Kaku Gothic New',sans-serif;">件</small></div>
+      <div style="font-size:.72rem;color:var(--text-light);">のニュースを収集・解説</div>
+    </div>
+  </div>
+</div>
+{featured_articles_html}"""
+
+
+# urllib.parse is needed for URL encoding
+import urllib.parse
+
+
 def main():
     pages = fetch_all_news()
     items = [page_to_item(p) for p in pages]
@@ -184,87 +385,96 @@ def main():
     today_str = now.strftime("%Y-%m-%d")
     date_label = now.strftime("%-m月%-d日")
 
-    # Split today vs archive
-    today_items = [i for i in items if i["date"] == today_str]
+    today_items   = [i for i in items if i["date"] == today_str]
     archive_items = [i for i in items if i["date"] != today_str]
 
     # Today cards
     if today_items:
         today_cards_html = "\n".join(render_card(i, n + 1, True) for n, i in enumerate(today_items))
     else:
-        today_cards_html = """    <div class="empty-state">
-      <svg class="cat-sleep" viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="50" cy="45" rx="38" ry="20" fill="#9DB8A2"/>
-        <circle cx="20" cy="35" r="18" fill="#9DB8A2"/>
-        <polygon points="8,26 12,14 20,26" fill="#9DB8A2"/>
-        <polygon points="32,26 28,14 20,26" fill="#9DB8A2"/>
-        <polygon points="9,25 13,16 19,25" fill="#D4C4CA"/>
-        <polygon points="31,25 27,16 21,25" fill="#D4C4CA"/>
-        <path d="M13 34 Q20 31 27 34" stroke="#FAF7F2" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <ellipse cx="20" cy="40" rx="2" ry="1.5" fill="#D4C4CA"/>
-        <text x="38" y="28" font-size="12" fill="#9DB8A2">z</text>
-        <text x="52" y="20" font-size="9" fill="#9DB8A2">z</text>
-        <text x="63" y="14" font-size="7" fill="#9DB8A2">z</text>
-      </svg>
-      <p>今日のニュースはまだ届いていません。<br>毎朝6時に自動収集します。</p>
-    </div>"""
+        today_cards_html = """<div class="empty">
+  <svg width="80" height="60" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 20 Q18 8 26 12 Q25 17 19 22Z" fill="#C8BFB6" stroke="#8A7F78" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M44 20 Q42 8 34 12 Q35 17 41 22Z" fill="#C8BFB6" stroke="#8A7F78" stroke-width="1.5" stroke-linejoin="round"/>
+    <circle cx="30" cy="28" r="18" fill="#C8BFB6" stroke="#8A7F78" stroke-width="2"/>
+    <path d="M22 26 Q26 24 30 26" stroke="#8A7F78" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M30 26 Q34 24 38 26" stroke="#8A7F78" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <ellipse cx="30" cy="30" rx="2.5" ry="2" fill="#8A7F78"/>
+    <text x="44" y="14" font-size="10" fill="#A89F96">z</text>
+    <text x="52" y="8" font-size="7" fill="#A89F96">z</text>
+  </svg>
+  <p style="margin-top:12px;">今日のニュースはまだ届いていません。<br>毎朝6時に自動収集します。</p>
+</div>"""
 
     # Archive grouped by date
-    archive_by_date = defaultdict(list)
+    archive_by_date: defaultdict = defaultdict(list)
     for item in archive_items:
         archive_by_date[item["date"]].append(item)
 
-    archive_cards_html = ""
+    archive_html = ""
     card_num = 1
     for date_str in sorted(archive_by_date.keys(), reverse=True):
         date_items = archive_by_date[date_str]
         date_ja = format_date_ja(date_str)
-        archive_cards_html += f"""  <div style="margin-bottom:36px;">
-    <div style="font-family:'Shippori Mincho',serif;font-size:0.9rem;font-weight:700;color:var(--text-sub);letter-spacing:0.06em;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);">{date_ja}のニュース</div>
-"""
+        archive_html += f'<div class="archive-group"><div class="archive-group-head">{date_ja}のニュース</div>\n'
         for item in date_items:
-            archive_cards_html += render_archive_card(item, card_num) + "\n"
+            archive_html += render_archive_card(item, card_num) + "\n"
             card_num += 1
-        archive_cards_html += "  </div>\n"
+        archive_html += "</div>\n"
 
-    if not archive_cards_html:
-        archive_cards_html = '<p style="color:var(--text-light);font-size:0.85rem;">アーカイブはまだありません。</p>'
+    if not archive_html:
+        archive_html = '<p style="color:var(--text-light);font-size:.85rem;">アーカイブはまだありません。</p>'
 
     # Tag cloud
-    all_tags = []
+    all_tags: list[str] = []
     for item in items:
         all_tags.extend(item["tags"])
     tag_counts = Counter(all_tags)
 
     topic_tags_html = ""
     for tag, count in tag_counts.most_common():
-        topic_tags_html += f'<span class="topic-tag">{tag}<span class="topic-count">{count}</span></span>\n'
+        topic_tags_html += f'<span class="topic-pill">{tag}<span class="topic-cnt">{count}</span></span>\n'
 
-    # Sidebar archive list (recent 10)
+    # Sidebar archive list
     archive_list_html = ""
-    recent_archive = archive_items[:10]
-    if recent_archive:
+    recent = archive_items[:10]
+    if recent:
         cur_date = None
-        for item in recent_archive:
+        for item in recent:
             if item["date"] != cur_date:
                 cur_date = item["date"]
-                archive_list_html += f'<div class="archive-date">{format_date_ja(cur_date)}</div>\n'
-            link_start = f'<a class="archive-item" href="{item["link"]}" target="_blank" rel="noopener">' if item["link"] else '<div class="archive-item">'
-            link_end = "</a>" if item["link"] else "</div>"
-            archive_list_html += f'{link_start}<div class="archive-theory-dot"></div><div class="archive-headline">{item["headline"]}</div>{link_end}\n'
+                archive_list_html += f'<div class="arc-date-lbl">{format_date_ja(cur_date)}</div>\n'
+            if item["link"]:
+                archive_list_html += (
+                    f'<a class="arc-list-item" href="{item["link"]}" target="_blank" rel="noopener">'
+                    f'<div class="arc-dot"></div>'
+                    f'<div class="arc-text">{item["headline"]}</div>'
+                    f'</a>\n'
+                )
+            else:
+                archive_list_html += (
+                    f'<div class="arc-list-item">'
+                    f'<div class="arc-dot"></div>'
+                    f'<div class="arc-text">{item["headline"]}</div>'
+                    f'</div>\n'
+                )
     else:
-        archive_list_html = '<p style="color:var(--text-light);font-size:0.8rem;">まだありません。</p>'
+        archive_list_html = '<p style="color:var(--text-light);font-size:.8rem;">まだありません。</p>'
 
-    # Build index.html from template
+    # Insights page
+    insights_html = generate_insights_html(items, today_str)
+
+    # Build index.html
     template = Path("template.html").read_text(encoding="utf-8")
     html = template
-    html = html.replace("<!-- DATE_LABEL -->", date_label)
-    html = html.replace("<!-- TODAY_COUNT -->", str(len(today_items)))
-    html = html.replace("<!-- TOTAL_COUNT -->", str(len(items)))
-    html = html.replace("<!-- TODAY_CARDS -->", today_cards_html)
-    html = html.replace("<!-- ARCHIVE_HTML -->", archive_cards_html)
-    html = html.replace("<!-- TOPIC_TAGS_HTML -->", topic_tags_html)
+    html = html.replace("<!-- DATE_LABEL -->",       date_label)
+    html = html.replace("<!-- TODAY_COUNT -->",       str(len(today_items)))
+    html = html.replace("<!-- TOTAL_COUNT -->",       str(len(items)))
+    html = html.replace("<!-- TODAY_CARDS -->",       today_cards_html)
+    html = html.replace("<!-- ARCHIVE_HTML -->",      archive_html)
+    html = html.replace("<!-- TOPIC_TAGS_HTML -->",   topic_tags_html)
     html = html.replace("<!-- ARCHIVE_LIST_HTML -->", archive_list_html)
+    html = html.replace("<!-- INSIGHTS_HTML -->",     insights_html)
 
     Path("index.html").write_text(html, encoding="utf-8")
     print(f"✅ index.html を生成しました（今日 {len(today_items)} 件 / アーカイブ {len(archive_items)} 件 / 合計 {len(items)} 件）")

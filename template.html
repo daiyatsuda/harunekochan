@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>はるねこちゃん — 人事・経営ニュース × 経営理論</title>
-  <meta name="description" content="毎朝届く人事・経営ニュースを、世界標準の経営理論で読み解くAI解説サイト。">
+  <meta name="description" content="毎朝届く人事・経営ニュースを、入山章栄『世界標準の経営理論』で読み解くAI解説サイト。事実・考察・示唆の3ステップで現場で使えるインサイトをお届けします。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="はるねこちゃん — 人事・経営ニュース × 経営理論">
+  <meta property="og:description" content="毎朝届く人事・経営ニュースを、世界標準の経営理論で読み解くAI解説サイト。事実・考察・示唆で現場に役立つインサイトを提供します。">
+  <meta property="og:url" content="https://daiyatsuda.github.io/harunekochan/">
+  <meta property="og:site_name" content="はるねこちゃん">
+  <meta name="twitter:card" content="summary">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,188 +29,82 @@
       --green-lt:   #D4E6D7;
       --rose:       #E8A0B4;
       --rose-bg:    #FDF0F4;
-      --skin:       #FDDCCC;
-      --hair:       #4A3728;
+      --amber:      #C8824A;
+      --amber-bg:   #FDF5EE;
+      --blue:       #5B7FA6;
+      --blue-bg:    #EEF3F8;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Zen Kaku Gothic New', sans-serif;
-      line-height: 1.75;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'Zen Kaku Gothic New', sans-serif; line-height: 1.75; }
 
     /* ─── NAV ─── */
     nav {
-      background: rgba(255,255,255,0.94);
+      background: rgba(255,255,255,.95);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      height: 62px;
-      padding: 0 32px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 300;
+      height: 62px; padding: 0 32px;
+      display: flex; align-items: center; gap: 12px;
+      position: sticky; top: 0; z-index: 400;
     }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
     .nav-logo img { width: 36px; height: 36px; }
-    .nav-logo-text {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: 0.04em;
-    }
+    .nav-logo-text { font-family: 'Shippori Mincho', serif; font-size: 1.15rem; font-weight: 700; color: var(--text); letter-spacing: .04em; }
     .nav-spacer { flex: 1; }
-    .nav-links { display: flex; align-items: center; gap: 20px; }
-    .nav-links a {
-      font-size: 0.78rem;
-      color: var(--text-sub);
-      text-decoration: none;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      transition: color .15s;
-    }
-    .nav-links a:hover { color: var(--green-dk); }
-    .nav-pill {
-      background: var(--green);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 20px;
-      letter-spacing: 0.05em;
-    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-pill { background: var(--green); color: #fff; font-size: 0.65rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: .05em; }
+    .nav-contact-btn { font-size: 0.78rem; font-weight: 700; color: var(--green-dk); background: var(--green-bg); border: 1px solid var(--green-lt); padding: 6px 16px; border-radius: 20px; cursor: pointer; text-decoration: none; transition: background .15s; }
+    .nav-contact-btn:hover { background: var(--green-lt); }
 
     /* ─── HERO ─── */
-    .hero {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-    }
-    .hero-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 60px 40px 0;
-      display: grid;
-      grid-template-columns: 1fr 240px;
-      gap: 32px;
-      align-items: end;
-    }
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--green-dk);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-    .hero-kicker::before {
-      content: '';
-      width: 18px; height: 2px;
-      background: var(--green);
-      display: block;
-    }
-    .hero-h1 {
-      font-family: 'Shippori Mincho', serif;
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      font-weight: 800;
-      line-height: 1.22;
-      letter-spacing: .01em;
-      margin-bottom: 18px;
-    }
+    .hero { background: var(--surface); border-bottom: 1px solid var(--border); overflow: hidden; }
+    .hero-inner { max-width: 1080px; margin: 0 auto; padding: 60px 40px 0; display: grid; grid-template-columns: 1fr 240px; gap: 32px; align-items: end; }
+    .hero-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; color: var(--green-dk); letter-spacing: .16em; text-transform: uppercase; margin-bottom: 18px; }
+    .hero-kicker::before { content: ''; width: 18px; height: 2px; background: var(--green); display: block; }
+    .hero-h1 { font-family: 'Shippori Mincho', serif; font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.22; letter-spacing: .01em; margin-bottom: 18px; }
     .hero-h1 em { font-style: normal; color: var(--green); }
-    .hero-lead {
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      line-height: 1.85;
-      max-width: 520px;
-      margin-bottom: 36px;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 0;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-bottom: none;
-      border-radius: 12px 12px 0 0;
-      overflow: hidden;
-    }
-    .stat {
-      flex: 1;
-      padding: 18px 20px;
-      border-right: 1px solid var(--border);
-    }
+    .hero-lead { font-size: 0.9rem; color: var(--text-sub); line-height: 1.85; max-width: 520px; margin-bottom: 36px; }
+    .hero-stats { display: flex; background: var(--bg); border: 1px solid var(--border); border-bottom: none; border-radius: 12px 12px 0 0; overflow: hidden; }
+    .stat { flex: 1; padding: 18px 20px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
-    .stat-val {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 1.9rem;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .stat-val small {
-      font-size: 0.85rem;
-      font-weight: 400;
-      font-family: 'Zen Kaku Gothic New', sans-serif;
-    }
-    .stat-lbl {
-      font-size: 0.65rem;
-      color: var(--text-light);
-      letter-spacing: .07em;
-      font-weight: 500;
-    }
-
-    /* ─── CAT GIRL characters ─── */
+    .stat-val { font-family: 'Shippori Mincho', serif; font-size: 1.9rem; font-weight: 800; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .stat-val small { font-size: .85rem; font-weight: 400; font-family: 'Zen Kaku Gothic New', sans-serif; }
+    .stat-lbl { font-size: .65rem; color: var(--text-light); letter-spacing: .07em; font-weight: 500; }
     .cat-hero { width: 200px; animation: bob 4s ease-in-out infinite; }
     @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-    /* ─── LAYOUT ─── */
-    .wrap {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 52px 40px 80px;
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 52px;
-      align-items: start;
+    /* ─── TAB NAV ─── */
+    .tab-nav {
+      background: var(--surface);
+      border-bottom: 2px solid var(--border);
+      display: flex; overflow-x: auto; scrollbar-width: none;
+      position: sticky; top: 62px; z-index: 300;
     }
-    .main-col {}
-    .side-col {}
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 15px 28px; font-size: .85rem; font-weight: 700;
+      color: var(--text-sub); background: none; border: none;
+      border-bottom: 3px solid transparent; margin-bottom: -2px;
+      cursor: pointer; white-space: nowrap; letter-spacing: .03em;
+      transition: color .15s, border-color .15s;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+    }
+    .tab-btn:hover { color: var(--green-dk); }
+    .tab-btn.active { color: var(--green-dk); border-bottom-color: var(--green); }
 
-    /* ─── SECTION HEADING ─── */
-    .sec-head {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
-    }
-    .sec-icon { width: 40px; height: 40px; flex-shrink: 0; }
-    .sec-title {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: .05em;
-    }
-    .sec-sub {
-      font-size: 0.7rem;
-      color: var(--text-light);
-      margin-top: 2px;
-    }
+    /* ─── PAGES ─── */
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+
+    /* ─── LAYOUT ─── */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 40px 80px; display: grid; grid-template-columns: 1fr 300px; gap: 52px; align-items: start; }
+    .full-wrap { max-width: 900px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    /* ─── SECTION HEAD ─── */
+    .sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .sec-icon { width: 44px; height: 44px; flex-shrink: 0; }
+    .sec-title { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: .05em; }
+    .sec-sub { font-size: .7rem; color: var(--text-light); margin-top: 2px; }
 
     /* ─── NEWS CARD ─── */
     .card {
@@ -213,290 +113,165 @@
       border-top: 4px solid var(--green);
       border-radius: 16px;
       padding: 28px 28px 22px;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
       position: relative;
-      box-shadow: 0 4px 16px rgba(43,38,32,.07);
-      transition: box-shadow .2s, border-color .2s, transform .2s;
+      box-shadow: 0 4px 20px rgba(43,38,32,.07);
+      transition: box-shadow .2s, transform .2s;
     }
-    .card:hover {
-      box-shadow: 0 10px 36px rgba(43,38,32,.13);
-      border-color: var(--green-lt);
-      transform: translateY(-2px);
-    }
-    .card-num {
-      position: absolute;
-      top: 20px; right: 24px;
-      font-family: 'Shippori Mincho', serif;
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--border);
-      line-height: 1;
-      user-select: none;
-    }
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      padding-right: 56px;
-    }
-    .badge-theory {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--green);
-      color: #fff;
-      font-size: 0.64rem;
-      font-weight: 700;
-      padding: 4px 11px;
-      border-radius: 20px;
-      letter-spacing: .04em;
-    }
-    .badge-new {
-      background: var(--rose);
-      color: #fff;
-      font-size: 0.6rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      letter-spacing: .05em;
-    }
-    .tag {
-      color: var(--text-light);
-      font-size: 0.67rem;
-      padding: 3px 10px;
-      border-radius: 6px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-    }
-    .card-headline {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      line-height: 1.5;
-      margin-bottom: 12px;
-      letter-spacing: .01em;
-    }
-    .card-summary {
-      font-size: 0.87rem;
-      color: var(--text-sub);
-      line-height: 1.85;
-      margin-bottom: 18px;
-    }
+    .card:hover { box-shadow: 0 10px 40px rgba(43,38,32,.13); transform: translateY(-2px); }
+    .card-num { position: absolute; top: 20px; right: 24px; font-family: 'Shippori Mincho', serif; font-size: 2.8rem; font-weight: 800; color: var(--border); line-height: 1; user-select: none; }
+    .card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; padding-right: 60px; }
+    .badge-theory { display: inline-flex; align-items: center; gap: 5px; background: var(--green); color: #fff; font-size: .64rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: .04em; }
+    .badge-new { background: var(--rose); color: #fff; font-size: .6rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; letter-spacing: .05em; }
+    .tag { color: var(--text-light); font-size: .67rem; padding: 3px 10px; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); }
+    .card-headline { font-family: 'Shippori Mincho', serif; font-size: 1.28rem; font-weight: 700; line-height: 1.5; margin-bottom: 18px; letter-spacing: .01em; }
 
-    /* theory insight box */
-    .insight {
-      background: var(--green-bg);
-      border-left: 3px solid var(--green);
-      border-radius: 0 10px 10px 0;
-      padding: 14px 18px;
-      margin-bottom: 18px;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-    .insight-cat { width: 44px; flex-shrink: 0; }
-    .insight-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: var(--green-dk);
-      letter-spacing: .08em;
-      margin-bottom: 5px;
-    }
-    .insight-text {
-      font-size: 0.82rem;
-      color: var(--text);
-      line-height: 1.75;
-    }
+    /* ─── ARTICLE SECTIONS ─── */
+    .art-section { margin-bottom: 12px; padding: 13px 16px; border-radius: 10px; }
+    .art-section.fact     { background: #F0F8F1; border-left: 3px solid var(--green); }
+    .art-section.analysis { background: var(--amber-bg); border-left: 3px solid var(--amber); }
+    .art-section.insight  { background: var(--blue-bg);  border-left: 3px solid var(--blue); }
+    .art-label { display: block; font-size: .63rem; font-weight: 700; letter-spacing: .09em; margin-bottom: 5px; }
+    .art-section.fact     .art-label { color: var(--green-dk); }
+    .art-section.analysis .art-label { color: var(--amber); }
+    .art-section.insight  .art-label { color: var(--blue); }
+    .art-section p { font-size: .86rem; color: var(--text); line-height: 1.85; }
+    .card-summary { font-size: .87rem; color: var(--text-sub); line-height: 1.85; margin-bottom: 16px; }
 
-    .card-foot {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-    }
-    .card-source { font-size: 0.72rem; color: var(--text-light); }
-    .read-btn {
-      font-size: 0.74rem;
-      color: var(--green-dk);
-      text-decoration: none;
-      font-weight: 700;
-      padding: 6px 16px;
-      border-radius: 20px;
-      background: var(--green-bg);
-      border: 1px solid var(--green-lt);
-      transition: background .15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
+    /* ─── THEORY BOX ─── */
+    .theory-box { background: var(--green-bg); border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 18px; }
+    .theory-box-label { font-size: .65rem; font-weight: 700; color: var(--green-dk); letter-spacing: .08em; margin-bottom: 6px; }
+    .theory-box-text { font-size: .82rem; color: var(--text); line-height: 1.8; }
+
+    /* ─── CARD FOOTER ─── */
+    .card-foot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .card-source { font-size: .72rem; color: var(--text-light); }
+    .card-foot-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .read-btn { font-size: .74rem; color: var(--green-dk); text-decoration: none; font-weight: 700; padding: 6px 16px; border-radius: 20px; background: var(--green-bg); border: 1px solid var(--green-lt); display: inline-flex; align-items: center; gap: 5px; transition: background .15s; }
     .read-btn:hover { background: var(--green-lt); }
 
+    /* ─── FB SHARE ─── */
+    .fb-share { display: inline-flex; align-items: center; gap: 6px; font-size: .72rem; font-weight: 700; color: #fff; background: #1877F2; padding: 6px 14px; border-radius: 20px; text-decoration: none; transition: background .15s; }
+    .fb-share:hover { background: #145DB2; }
+
     /* ─── EMPTY STATE ─── */
-    .empty {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 56px 24px;
-      text-align: center;
-    }
-    .empty-cat { width: 110px; margin: 0 auto 20px; }
-    .empty p { font-size: 0.88rem; color: var(--text-sub); }
+    .empty { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; padding: 56px 24px; text-align: center; }
+    .empty p { font-size: .88rem; color: var(--text-sub); }
 
     /* ─── ARCHIVE ─── */
-    .archive-group { margin-bottom: 36px; }
-    .archive-group-head {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-sub);
-      letter-spacing: .05em;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 14px;
-    }
-    .arc-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 12px;
-      position: relative;
-      transition: box-shadow .15s;
-      opacity: .88;
-    }
-    .arc-card:hover { box-shadow: 0 4px 16px rgba(43,38,32,.07); opacity: 1; }
-    .arc-card .card-num { font-size: 2rem; top: 14px; right: 18px; }
-    .arc-card .card-headline { font-size: 1rem; }
-    .arc-card .card-summary { font-size: 0.82rem; }
+    .archive-group { margin-bottom: 40px; }
+    .archive-group-head { font-family: 'Shippori Mincho', serif; font-size: .88rem; font-weight: 700; color: var(--text-sub); letter-spacing: .05em; padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    .arc-card { background: var(--surface); border: 1.5px solid var(--border); border-left: 4px solid var(--green-lt); border-radius: 12px; padding: 20px 22px; margin-bottom: 14px; transition: box-shadow .15s, border-color .15s; }
+    .arc-card:hover { box-shadow: 0 4px 16px rgba(43,38,32,.07); border-left-color: var(--green); }
+    .arc-card .card-headline { font-size: 1rem; margin-bottom: 8px; }
+    .arc-card .card-summary { font-size: .83rem; }
+
+    /* ─── INSIGHTS PAGE ─── */
+    .insight-banner { background: linear-gradient(135deg, var(--green-bg) 0%, var(--blue-bg) 100%); border: 1.5px solid var(--green-lt); border-radius: 20px; padding: 32px 36px; margin-bottom: 36px; }
+    .insight-banner-title { font-family: 'Shippori Mincho', serif; font-size: 1.3rem; font-weight: 800; color: var(--green-dk); margin-bottom: 10px; }
+    .insight-banner-sub { font-size: .85rem; color: var(--text-sub); line-height: 1.8; }
+    .insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+    .insight-box { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: 0 2px 10px rgba(43,38,32,.05); }
+    .insight-box-title { font-family: 'Shippori Mincho', serif; font-size: .95rem; font-weight: 700; margin-bottom: 16px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .theory-rank { display: flex; flex-direction: column; gap: 12px; }
+    .rank-item { display: flex; align-items: center; gap: 12px; }
+    .rank-label { font-size: .76rem; color: var(--text-sub); min-width: 100px; line-height: 1.3; }
+    .rank-bar-bg { flex: 1; height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+    .rank-bar { height: 100%; background: var(--green); border-radius: 4px; transition: width .5s; }
+    .rank-cnt { font-size: .7rem; font-weight: 700; color: var(--text-light); min-width: 24px; text-align: right; }
+    .theory-feature { background: var(--green-bg); border-radius: 12px; padding: 20px; margin-top: 16px; }
+    .theory-feature-name { font-size: .8rem; font-weight: 700; color: var(--green-dk); margin-bottom: 6px; }
+    .theory-feature-text { font-size: .82rem; color: var(--text-sub); line-height: 1.7; }
+    .insight-articles-title { font-family: 'Shippori Mincho', serif; font-size: 1rem; font-weight: 700; margin: 32px 0 16px; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+
+    /* ─── ABOUT PAGE ─── */
+    .about-page { max-width: 760px; margin: 0 auto; }
+    .about-profile-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 20px; padding: 36px 40px; margin-bottom: 28px; display: grid; grid-template-columns: 100px 1fr; gap: 32px; align-items: start; box-shadow: 0 4px 20px rgba(43,38,32,.06); }
+    .profile-avatar-wrap { text-align: center; }
+    .profile-avatar-wrap svg { width: 80px; margin-bottom: 10px; }
+    .profile-role { font-size: .68rem; font-weight: 700; color: var(--green-dk); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+    .profile-name { font-family: 'Shippori Mincho', serif; font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+    .profile-bio { font-size: .86rem; color: var(--text-sub); line-height: 1.9; }
+    .profile-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .profile-tag { font-size: .7rem; padding: 4px 12px; border-radius: 20px; background: var(--bg); border: 1px solid var(--border); color: var(--text-sub); }
+    .about-origin { background: var(--rose-bg); border: 1.5px solid #F4C8D4; border-radius: 16px; padding: 28px 32px; margin-bottom: 28px; }
+    .about-origin h3 { font-family: 'Shippori Mincho', serif; font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+    .about-origin p { font-size: .87rem; color: var(--text-sub); line-height: 1.9; }
+    .about-faq { margin-bottom: 28px; }
+    .about-faq h3 { font-family: 'Shippori Mincho', serif; font-size: 1rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .faq-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+    .faq-q { font-size: .87rem; font-weight: 700; padding: 14px 18px; background: var(--surface); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q::after { content: '＋'; color: var(--green); font-size: 1.1rem; }
+    .faq-a { font-size: .84rem; color: var(--text-sub); line-height: 1.8; padding: 0 18px; max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s; }
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 18px 14px; }
+    .faq-item.open .faq-q::after { content: '－'; }
+
+    /* ─── CONTACT SECTION ─── */
+    .contact-strip { background: var(--green); color: #fff; padding: 56px 40px; }
+    .contact-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .contact-title { font-family: 'Shippori Mincho', serif; font-size: 1.7rem; font-weight: 800; margin-bottom: 12px; }
+    .contact-desc { font-size: .88rem; opacity: .85; line-height: 1.85; margin-bottom: 28px; }
+    .contact-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .contact-btn-main { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: var(--green-dk); font-size: .9rem; font-weight: 700; padding: 14px 36px; border-radius: 32px; text-decoration: none; transition: all .2s; box-shadow: 0 4px 16px rgba(0,0,0,.15); }
+    .contact-btn-main:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .contact-btn-sub { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.15); color: #fff; font-size: .84rem; font-weight: 700; padding: 13px 28px; border-radius: 32px; text-decoration: none; border: 1.5px solid rgba(255,255,255,.35); transition: all .2s; }
+    .contact-btn-sub:hover { background: rgba(255,255,255,.25); }
+    .contact-services { display: flex; justify-content: center; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+    .contact-service { font-size: .78rem; color: rgba(255,255,255,.7); display: flex; align-items: center; gap: 6px; }
+    .contact-service::before { content: '✓'; font-weight: 700; }
+
+    /* ─── ABOUT STRIP (dark) ─── */
+    .about-strip { background: #2B2620; color: rgba(255,255,255,.65); }
+    .about-inner { max-width: 1080px; margin: 0 auto; padding: 48px 40px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+    .about-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .about-ttl { font-family: 'Shippori Mincho', serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .about-body { font-size: .8rem; line-height: 1.8; }
 
     /* ─── SIDEBAR ─── */
-    .side-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 22px;
-      margin-bottom: 20px;
-    }
-    .side-title {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* mascot box */
-    .mascot-box {
-      text-align: center;
-      padding: 24px 16px 16px;
-      background: linear-gradient(160deg, var(--green-bg) 0%, var(--rose-bg) 100%);
-      border: 1px solid var(--green-lt);
-    }
+    .side-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 20px; }
+    .side-title { font-family: 'Shippori Mincho', serif; font-size: .92rem; font-weight: 700; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .mascot-box { text-align: center; padding: 24px 16px 16px; background: linear-gradient(160deg, var(--green-bg) 0%, var(--rose-bg) 100%); border: 1px solid var(--green-lt); }
     .mascot-box .cat-side { width: 90px; margin: 0 auto 14px; }
-    .mascot-name {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--green-dk);
-      margin-bottom: 8px;
-    }
-    .mascot-desc {
-      font-size: 0.76rem;
-      color: var(--text-sub);
-      line-height: 1.7;
-    }
-
-    /* topics */
+    .mascot-name { font-family: 'Shippori Mincho', serif; font-size: 1rem; font-weight: 700; color: var(--green-dk); margin-bottom: 8px; }
+    .mascot-desc { font-size: .76rem; color: var(--text-sub); line-height: 1.7; }
     .topic-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
-    .topic-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text-sub);
-      font-size: 0.74rem;
-      padding: 5px 12px;
-      border-radius: 20px;
-      transition: all .15s;
-      cursor: default;
-    }
+    .topic-pill { display: inline-flex; align-items: center; gap: 5px; background: var(--bg); border: 1px solid var(--border); color: var(--text-sub); font-size: .74rem; padding: 5px 12px; border-radius: 20px; cursor: default; transition: all .15s; }
     .topic-pill:hover { background: var(--green-bg); border-color: var(--green-lt); color: var(--green-dk); }
-    .topic-cnt {
-      font-size: 0.62rem;
-      background: var(--border);
-      padding: 1px 6px;
-      border-radius: 10px;
-      color: var(--text-light);
-    }
-
-    /* archive list */
-    .arc-list-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--bg);
-      text-decoration: none;
-    }
+    .topic-cnt { font-size: .62rem; background: var(--border); padding: 1px 6px; border-radius: 10px; color: var(--text-light); }
+    .arc-list-item { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--bg); text-decoration: none; }
     .arc-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 7px; }
-    .arc-text { font-size: 0.78rem; color: var(--text-sub); line-height: 1.5; transition: color .15s; }
+    .arc-text { font-size: .78rem; color: var(--text-sub); line-height: 1.5; transition: color .15s; }
     .arc-list-item:hover .arc-text { color: var(--green-dk); }
-    .arc-date-lbl { font-size: 0.68rem; font-weight: 700; color: var(--text-light); letter-spacing: .06em; padding-bottom: 6px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
-
-    /* ─── ABOUT STRIP ─── */
-    .about-strip {
-      background: var(--green);
-      color: #fff;
-    }
-    .about-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 48px 40px;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 32px;
-    }
-    .about-item {}
-    .about-icon { font-size: 1.6rem; margin-bottom: 10px; }
-    .about-ttl {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .about-body { font-size: 0.8rem; line-height: 1.75; opacity: .85; }
+    .arc-date-lbl { font-size: .68rem; font-weight: 700; color: var(--text-light); letter-spacing: .06em; padding-bottom: 6px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
+    .share-side-box { text-align: center; }
+    .share-side-box a { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; color: #fff; background: #1877F2; padding: 10px 20px; border-radius: 24px; text-decoration: none; transition: background .15s; }
+    .share-side-box a:hover { background: #145DB2; }
+    .share-side-label { font-size: .72rem; color: var(--text-light); margin-bottom: 10px; }
 
     /* ─── FOOTER ─── */
-    footer {
-      background: var(--text);
-      color: rgba(255,255,255,.55);
-      padding: 44px 40px;
-    }
-    .foot-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
+    footer { background: #1A1410; color: rgba(255,255,255,.45); padding: 36px 40px 20px; }
+    .foot-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.07); }
     .foot-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .foot-brand-name { font-family: 'Shippori Mincho', serif; font-size: 1.05rem; font-weight: 700; color: #fff; }
-    .foot-copy { font-size: 0.75rem; line-height: 1.7; }
+    .foot-brand-name { font-family: 'Shippori Mincho', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+    .foot-copy { font-size: .74rem; line-height: 1.75; }
     .foot-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
-    .foot-links a { font-size: 0.72rem; color: rgba(255,255,255,.45); text-decoration: none; transition: color .15s; }
-    .foot-links a:hover { color: #fff; }
-    .foot-bottom { border-top: 1px solid rgba(255,255,255,.1); margin-top: 28px; padding-top: 20px; font-size: 0.68rem; text-align: center; }
+    .foot-links a, .foot-links span { font-size: .72rem; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; cursor: pointer; }
+    .foot-links a:hover, .foot-links span:hover { color: #fff; }
+    .foot-bottom { max-width: 1080px; margin: 20px auto 0; font-size: .68rem; text-align: center; }
+
+    /* ─── WALKING CAT ─── */
+    .cat-walk { position: fixed; bottom: 14px; left: 0; z-index: 50; pointer-events: none; animation: walkAcross 34s linear infinite; }
+    .cat-walk svg { animation: bodyBob .42s ease-in-out infinite alternate; display: block; }
+    @keyframes walkAcross {
+      0%    { transform: translateX(-80px); }
+      46%   { transform: translateX(calc(100vw + 80px)); }
+      46.1% { transform: translateX(-80px); }
+      100%  { transform: translateX(-80px); }
+    }
+    @keyframes bodyBob {
+      from { transform: translateY(0) rotate(-1.5deg); }
+      to   { transform: translateY(-5px) rotate(1.5deg); }
+    }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 880px) {
@@ -504,44 +279,66 @@
       .hero-right { display: none; }
       .wrap { grid-template-columns: 1fr; gap: 36px; }
       .about-inner { grid-template-columns: 1fr; }
-      .foot-links { align-items: flex-start; }
+      .insights-grid { grid-template-columns: 1fr; }
       nav { padding: 0 16px; }
-      .wrap, footer, .about-inner { padding-left: 20px; padding-right: 20px; }
+      .wrap, .full-wrap, footer, .about-inner, .contact-strip { padding-left: 20px; padding-right: 20px; }
       .hero-inner { padding-left: 20px; padding-right: 20px; }
+      .about-profile-card { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .hero-h1 { font-size: 1.85rem; }
       .card { padding: 20px 18px 16px; }
-      .card-headline { font-size: 1.05rem; }
       .hero-stats { flex-direction: column; }
       .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .tab-btn { padding: 12px 16px; font-size: .78rem; }
+      .cat-walk { display: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════ NAV ══════════════════ -->
+<!-- ══════ WALKING CAT ══════ -->
+<div class="cat-walk" aria-hidden="true">
+  <svg width="62" height="54" viewBox="0 0 62 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 28 Q60 14 52 7" stroke="#3B1E08" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <ellipse cx="34" cy="35" rx="18" ry="12" fill="white" stroke="#3B1E08" stroke-width="2.5"/>
+    <path d="M14 20 Q17 8 26 12 Q24 18 17 23Z" fill="white" stroke="#3B1E08" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M15 20 Q18 10 25 13 Q23 18 18 22Z" fill="#F9C5D0"/>
+    <path d="M34 18 Q36 6 44 10 Q42 16 36 21Z" fill="white" stroke="#3B1E08" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M35 18 Q37 8 43 11 Q41 16 37 20Z" fill="#F9C5D0"/>
+    <circle cx="26" cy="24" r="15" fill="white" stroke="#3B1E08" stroke-width="2.5"/>
+    <path d="M18 22 Q22 19 26 22" stroke="#3B1E08" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M26 22 Q30 19 34 22" stroke="#3B1E08" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <ellipse cx="26" cy="26" rx="2.5" ry="1.8" fill="#3B1E08"/>
+    <ellipse cx="18" cy="28" rx="5" ry="3" fill="#F4A0B4" opacity=".5"/>
+    <ellipse cx="34" cy="28" rx="5" ry="3" fill="#F4A0B4" opacity=".5"/>
+    <path d="M20 46 L16 54" stroke="#3B1E08" stroke-width="3" stroke-linecap="round"/>
+    <path d="M28 47 L32 54" stroke="#3B1E08" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 44 L36 54" stroke="#3B1E08" stroke-width="3" stroke-linecap="round"/>
+    <path d="M47 43 L51 54" stroke="#3B1E08" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<!-- ══════ NAV ══════ -->
 <nav>
-  <a class="nav-logo" href="#">
+  <div class="nav-logo" onclick="showPage('today')">
     <img src="favicon.svg" alt="はるねこちゃん">
     <span class="nav-logo-text">はるねこちゃん</span>
-  </a>
+  </div>
   <span class="nav-spacer"></span>
-  <div class="nav-links">
-    <a href="#today">今日のニュース</a>
-    <a href="#archive">アーカイブ</a>
-    <a href="#about">このサイトについて</a>
+  <div class="nav-right">
+    <a class="nav-contact-btn" onclick="showPage('about')">📩 お問い合わせ</a>
     <span class="nav-pill">毎朝自動更新</span>
   </div>
 </nav>
 
-<!-- ══════════════════ HERO ══════════════════ -->
+<!-- ══════ HERO ══════ -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-left">
       <p class="hero-kicker">Daily HR &amp; Management News</p>
       <h1 class="hero-h1">人事・経営の最前線を<br><em>理論で読み解く</em></h1>
-      <p class="hero-lead">毎朝届く人事・経営ニュースを、入山章栄『世界標準の経営理論』のフレームワークで解説。現場で使える理論的視点を、わかりやすくお届けします。</p>
+      <p class="hero-lead">毎朝届く人事・経営ニュースを、入山章栄『世界標準の経営理論』のフレームワークで深掘り解説。<strong>事実・考察・示唆</strong>の3ステップで、現場で使えるインサイトをお届けします。</p>
       <div class="hero-stats">
         <div class="stat">
           <div class="stat-val"><!-- TODAY_COUNT --><small>件</small></div>
@@ -552,111 +349,82 @@
           <div class="stat-lbl">TOTAL ARTICLES</div>
         </div>
         <div class="stat">
-          <div class="stat-val">3<small>理論</small></div>
+          <div class="stat-val">25<small>理論</small></div>
           <div class="stat-lbl">THEORY TYPES</div>
         </div>
       </div>
     </div>
-    <!-- CAT GIRL: Waving -->
+    <!-- CAT: chibi waving -->
     <div class="hero-right">
       <svg class="cat-hero" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- tail -->
-        <path d="M115 248 Q155 210 138 172" stroke="#4A3728" stroke-width="11" stroke-linecap="round" fill="none"/>
-        <!-- skirt -->
-        <path d="M65 174 Q100 196 135 174 L130 240 Q100 252 70 240 Z" fill="#E8D5C0"/>
-        <!-- skirt overlay detail -->
-        <path d="M75 185 Q100 200 125 185 L122 230 Q100 240 78 230Z" fill="#F0E4D4" opacity=".5"/>
-        <!-- torso -->
-        <rect x="70" y="134" width="60" height="48" rx="10" fill="#6B8F71"/>
-        <!-- collar detail -->
-        <path d="M85 134 Q100 148 115 134" stroke="#4F6E55" stroke-width="2" fill="none"/>
-        <!-- neck -->
-        <rect x="88" y="120" width="24" height="18" rx="5" fill="#FDDCCC"/>
-        <!-- left arm down -->
-        <path d="M70 148 Q52 168 54 184" stroke="#6B8F71" stroke-width="15" stroke-linecap="round" fill="none"/>
-        <ellipse cx="53" cy="186" rx="10" ry="7" fill="#FDDCCC"/>
-        <!-- right arm raised waving -->
-        <path d="M130 145 Q148 122 144 104" stroke="#6B8F71" stroke-width="15" stroke-linecap="round" fill="none"/>
-        <ellipse cx="144" cy="102" rx="10" ry="7" fill="#FDDCCC" transform="rotate(-30 144 102)"/>
-        <!-- legs -->
-        <ellipse cx="82" cy="248" rx="13" ry="8" fill="#4A3728"/>
-        <ellipse cx="118" cy="248" rx="13" ry="8" fill="#4A3728"/>
-        <!-- head -->
-        <circle cx="100" cy="82" r="48" fill="#FDDCCC"/>
-        <!-- hair back -->
-        <path d="M52 82 Q54 28 100 24 Q146 28 148 82 Q142 52 130 44 Q118 28 100 26 Q82 28 70 44 Q58 52 52 82 Z" fill="#4A3728"/>
-        <!-- hair sides -->
-        <path d="M53 80 Q46 108 54 130 Q62 118 63 100 Z" fill="#4A3728"/>
-        <path d="M147 80 Q154 108 146 130 Q138 118 137 100 Z" fill="#4A3728"/>
-        <!-- cat ears on hair -->
-        <polygon points="62,52 68,20 84,50" fill="#4A3728"/>
-        <polygon points="138,52 132,20 116,50" fill="#4A3728"/>
-        <polygon points="65,50 70,26 81,48" fill="#E8A0B4"/>
-        <polygon points="135,50 130,26 119,48" fill="#E8A0B4"/>
-        <!-- eyes white -->
-        <ellipse cx="82" cy="82" rx="12" ry="13" fill="white"/>
-        <ellipse cx="118" cy="82" rx="12" ry="13" fill="white"/>
-        <!-- iris -->
-        <ellipse cx="82" cy="84" rx="8" ry="9" fill="#5B8A70"/>
-        <ellipse cx="118" cy="84" rx="8" ry="9" fill="#5B8A70"/>
-        <!-- pupil -->
-        <circle cx="82" cy="84" r="5" fill="#1A1410"/>
-        <circle cx="118" cy="84" r="5" fill="#1A1410"/>
-        <!-- eye shine -->
-        <circle cx="85" cy="81" r="2.5" fill="white"/>
-        <circle cx="121" cy="81" r="2.5" fill="white"/>
-        <!-- upper lash line -->
-        <path d="M70 76 Q82 72 94 76" stroke="#2B2620" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <path d="M106 76 Q118 72 130 76" stroke="#2B2620" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <!-- nose -->
-        <ellipse cx="100" cy="94" rx="3.5" ry="2.5" fill="#E8A0B4"/>
-        <!-- mouth -->
-        <path d="M92 100 Q100 106 108 100" stroke="#D4607A" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <!-- cheeks -->
-        <ellipse cx="70" cy="96" rx="10" ry="6" fill="#F4A0B4" opacity=".45"/>
-        <ellipse cx="130" cy="96" rx="10" ry="6" fill="#F4A0B4" opacity=".45"/>
-        <!-- sparkles -->
-        <text x="154" y="76" font-size="16" fill="#E8A0B4">✦</text>
-        <text x="22" y="100" font-size="12" fill="#6B8F71">✦</text>
-        <text x="160" y="112" font-size="9" fill="#6B8F71">✦</text>
+        <ellipse cx="100" cy="254" rx="46" ry="6" fill="#D4CABC" opacity=".4"/>
+        <path d="M120 220 Q162 196 144 162" stroke="#3B1E08" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <path d="M65 156 Q100 174 135 156 L130 220 Q100 232 70 220Z" fill="white" stroke="#3B1E08" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M72 163 Q50 186 54 206" stroke="#3B1E08" stroke-width="12" stroke-linecap="round" fill="none"/>
+        <circle cx="53" cy="209" r="12" fill="white" stroke="#3B1E08" stroke-width="3"/>
+        <circle cx="46" cy="204" r="4" fill="#F4A0B4" opacity=".6"/>
+        <circle cx="57" cy="200" r="4" fill="#F4A0B4" opacity=".6"/>
+        <circle cx="53" cy="216" r="4" fill="#F4A0B4" opacity=".6"/>
+        <path d="M128 162 Q152 136 154 112" stroke="#3B1E08" stroke-width="12" stroke-linecap="round" fill="none"/>
+        <circle cx="155" cy="109" r="12" fill="white" stroke="#3B1E08" stroke-width="3"/>
+        <circle cx="148" cy="104" r="4" fill="#F4A0B4" opacity=".6"/>
+        <circle cx="160" cy="102" r="4" fill="#F4A0B4" opacity=".6"/>
+        <circle cx="158" cy="115" r="4" fill="#F4A0B4" opacity=".6"/>
+        <ellipse cx="82" cy="230" rx="18" ry="11" fill="white" stroke="#3B1E08" stroke-width="3"/>
+        <ellipse cx="118" cy="230" rx="18" ry="11" fill="white" stroke="#3B1E08" stroke-width="3"/>
+        <ellipse cx="82" cy="234" rx="9" ry="5" fill="#F4A0B4" opacity=".5"/>
+        <ellipse cx="118" cy="234" rx="9" ry="5" fill="#F4A0B4" opacity=".5"/>
+        <path d="M44 78 Q50 18 86 38 Q80 62 60 82Z" fill="white" stroke="#3B1E08" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M49 76 Q55 26 84 40 Q78 60 63 78Z" fill="#F9C5D0"/>
+        <path d="M156 78 Q150 18 114 38 Q120 62 140 82Z" fill="white" stroke="#3B1E08" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M151 76 Q145 26 116 40 Q122 60 137 78Z" fill="#F9C5D0"/>
+        <circle cx="100" cy="98" r="66" fill="white" stroke="#3B1E08" stroke-width="4"/>
+        <path d="M70 90 Q83 82 96 90" stroke="#3B1E08" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M104 90 Q117 82 130 90" stroke="#3B1E08" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="100" cy="104" rx="5" ry="3.5" fill="#3B1E08"/>
+        <path d="M89 113 Q95 119 100 115 Q105 119 111 113" stroke="#3B1E08" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="66" cy="110" rx="16" ry="9" fill="#F4A0B4" opacity=".45"/>
+        <ellipse cx="134" cy="110" rx="16" ry="9" fill="#F4A0B4" opacity=".45"/>
+        <text x="160" y="68" font-size="14" fill="#E8A0B4" opacity=".8">✦</text>
+        <text x="24" y="120" font-size="10" fill="#6B8F71" opacity=".8">✦</text>
       </svg>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════ MAIN LAYOUT ══════════════════ -->
-<div class="wrap">
+<!-- ══════ TAB NAVIGATION ══════ -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showPage('today')" data-page="today">📰 今日のニュース</button>
+  <button class="tab-btn" onclick="showPage('archive')" data-page="archive">📚 アーカイブ</button>
+  <button class="tab-btn" onclick="showPage('insights')" data-page="insights">🔍 考察・示唆</button>
+  <button class="tab-btn" onclick="showPage('about')" data-page="about">🐱 はるねこについて</button>
+</div>
 
-  <!-- ── LEFT: ARTICLES ── -->
-  <div class="main-col">
+<!-- ══════════════════════════════════════════════
+     PAGE 1: 今日のニュース
+══════════════════════════════════════════════ -->
+<div class="page-section active" id="today">
+  <div class="wrap">
 
-    <!-- TODAY -->
-    <section id="today">
+    <!-- MAIN COL -->
+    <div class="main-col">
       <div class="sec-head">
-        <!-- mini cat girl reading icon -->
-        <svg class="sec-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="16" r="11" fill="#FDDCCC"/>
-          <path d="M9 16 Q10 6 20 5 Q30 6 31 16 Q29 10 26 8 Q22 4 20 4 Q18 4 14 8 Q11 10 9 16Z" fill="#4A3728"/>
-          <polygon points="11,10 13,3 18,10" fill="#4A3728"/>
-          <polygon points="29,10 27,3 22,10" fill="#4A3728"/>
-          <polygon points="12,9 13.5,4 17,9" fill="#E8A0B4"/>
-          <polygon points="28,9 26.5,4 23,9" fill="#E8A0B4"/>
-          <ellipse cx="15" cy="15" rx="3.5" ry="4" fill="white"/>
-          <ellipse cx="25" cy="15" rx="3.5" ry="4" fill="white"/>
-          <circle cx="15" cy="16" r="2.5" fill="#5B8A70"/>
-          <circle cx="25" cy="16" r="2.5" fill="#5B8A70"/>
-          <circle cx="15" cy="16" r="1.5" fill="#1A1410"/>
-          <circle cx="25" cy="16" r="1.5" fill="#1A1410"/>
-          <circle cx="16.2" cy="14.8" r=".8" fill="white"/>
-          <circle cx="26.2" cy="14.8" r=".8" fill="white"/>
-          <ellipse cx="20" cy="20" rx="2" ry="1.5" fill="#E8A0B4"/>
-          <ellipse cx="67" cy="96" rx="8" ry="5" fill="#F4A0B4" opacity=".4"/>
-          <ellipse cx="20" cy="32" rx="12" ry="8" fill="#6B8F71"/>
-          <!-- newspaper -->
-          <rect x="26" y="24" width="13" height="10" rx="2" fill="white" stroke="#E5DFD4" stroke-width=".8"/>
-          <line x1="27.5" y1="27" x2="37.5" y2="27" stroke="#E5DFD4" stroke-width="1"/>
-          <line x1="27.5" y1="29.5" x2="35" y2="29.5" stroke="#E5DFD4" stroke-width="1"/>
-          <line x1="27.5" y1="32" x2="36" y2="32" stroke="#E5DFD4" stroke-width="1"/>
+        <!-- CAT: reading newspaper -->
+        <svg class="sec-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 19 Q10 7 18 10 Q17 15 11 21Z" fill="white" stroke="#3B1E08" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9 19 Q11 9 17 11 Q16.5 15 12 20Z" fill="#F9C5D0"/>
+          <path d="M36 19 Q34 7 26 10 Q27 15 33 21Z" fill="white" stroke="#3B1E08" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M35 19 Q33 9 27 11 Q27.5 15 32 20Z" fill="#F9C5D0"/>
+          <circle cx="22" cy="22" r="14" fill="white" stroke="#3B1E08" stroke-width="2.2"/>
+          <path d="M14 20 Q18 17.5 22 20" stroke="#3B1E08" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M22 20 Q26 17.5 30 20" stroke="#3B1E08" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <ellipse cx="22" cy="24" rx="2.2" ry="1.6" fill="#3B1E08"/>
+          <ellipse cx="13" cy="24.5" rx="4.5" ry="2.8" fill="#F4A0B4" opacity=".5"/>
+          <ellipse cx="31" cy="24.5" rx="4.5" ry="2.8" fill="#F4A0B4" opacity=".5"/>
+          <rect x="26" y="25" width="16" height="12" rx="2.5" fill="white" stroke="#3B1E08" stroke-width="1.3"/>
+          <line x1="28" y1="28" x2="40" y2="28" stroke="#A89F96" stroke-width="1"/>
+          <line x1="28" y1="30.5" x2="39" y2="30.5" stroke="#A89F96" stroke-width="1"/>
+          <line x1="28" y1="33" x2="38" y2="33" stroke="#A89F96" stroke-width="1"/>
         </svg>
         <div>
           <div class="sec-title">TODAY'S PICKS &nbsp;—&nbsp; <!-- DATE_LABEL --></div>
@@ -664,135 +432,282 @@
         </div>
       </div>
       <!-- TODAY_CARDS -->
-    </section>
+    </div>
 
-    <!-- ARCHIVE -->
-    <section id="archive" style="margin-top:60px;">
-      <div class="sec-head">
-        <svg class="sec-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="16" r="11" fill="#FDDCCC" opacity=".7"/>
-          <path d="M9 16 Q10 6 20 5 Q30 6 31 16 Q29 10 26 8 Q22 4 20 4 Q18 4 14 8 Q11 10 9 16Z" fill="#9B8878"/>
-          <polygon points="11,10 13,3 18,10" fill="#9B8878"/>
-          <polygon points="29,10 27,3 22,10" fill="#9B8878"/>
-          <!-- sleeping eyes -->
-          <path d="M11.5 15 Q15 12.5 18.5 15" stroke="#9B8878" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <path d="M21.5 15 Q25 12.5 28.5 15" stroke="#9B8878" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <ellipse cx="20" cy="20" rx="2" ry="1.5" fill="#D4B4B4" opacity=".7"/>
-          <ellipse cx="20" cy="32" rx="12" ry="8" fill="#9B8878" opacity=".7"/>
-          <text x="28" y="10" font-size="9" fill="#A89F96" font-weight="bold">z</text>
-          <text x="32" y="5" font-size="6" fill="#A89F96" font-weight="bold">z</text>
+    <!-- SIDEBAR -->
+    <aside class="side-col">
+
+      <!-- Mascot box -->
+      <div class="side-box mascot-box">
+        <!-- CAT: thinking pose -->
+        <svg class="cat-side" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M58 122 Q80 104 68 84" stroke="#3B1E08" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M30 84 Q50 94 70 84 L67 112 Q50 120 33 112Z" fill="white" stroke="#3B1E08" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M32 88 Q17 82 21 68" stroke="#3B1E08" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <circle cx="20" cy="66" r="9" fill="white" stroke="#3B1E08" stroke-width="2.5"/>
+          <circle cx="15" cy="62" r="3" fill="#F4A0B4" opacity=".6"/>
+          <circle cx="24" cy="60" r="3" fill="#F4A0B4" opacity=".6"/>
+          <circle cx="20" cy="72" r="3" fill="#F4A0B4" opacity=".6"/>
+          <path d="M68 88 Q80 96 78 108" stroke="#3B1E08" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <ellipse cx="40" cy="116" rx="10" ry="6" fill="white" stroke="#3B1E08" stroke-width="2"/>
+          <ellipse cx="60" cy="116" rx="10" ry="6" fill="white" stroke="#3B1E08" stroke-width="2"/>
+          <path d="M22 38 Q26 10 44 18 Q42 30 32 42Z" fill="white" stroke="#3B1E08" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M24 37 Q28 14 43 20 Q41 30 34 40Z" fill="#F9C5D0"/>
+          <path d="M78 38 Q74 10 56 18 Q58 30 68 42Z" fill="white" stroke="#3B1E08" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M76 37 Q72 14 57 20 Q59 30 66 40Z" fill="#F9C5D0"/>
+          <circle cx="50" cy="50" r="34" fill="white" stroke="#3B1E08" stroke-width="3"/>
+          <path d="M34 46 Q41 42 48 46" stroke="#3B1E08" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M52 46 Q59 42 66 46" stroke="#3B1E08" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <ellipse cx="50" cy="54" rx="3" ry="2" fill="#3B1E08"/>
+          <path d="M43 60 Q47 64 50 61 Q53 64 57 60" stroke="#3B1E08" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <ellipse cx="32" cy="56" rx="8" ry="5" fill="#F4A0B4" opacity=".45"/>
+          <ellipse cx="68" cy="56" rx="8" ry="5" fill="#F4A0B4" opacity=".45"/>
+          <circle cx="74" cy="24" r="10" fill="#EEF4EF" stroke="#6B8F71" stroke-width="1.5"/>
+          <text x="68" y="28" font-size="11" fill="#4F6E55" font-weight="bold">?</text>
+          <circle cx="70" cy="35" r="4" fill="#EEF4EF" stroke="#6B8F71" stroke-width="1.2"/>
+          <circle cx="67" cy="42" r="2.5" fill="#EEF4EF" stroke="#6B8F71" stroke-width="1"/>
         </svg>
+        <div class="mascot-name">はるねこちゃん</div>
+        <p class="mascot-desc">毎朝6時にニュースを探して<br>理論で読み解いています🌿<br>一緒に考えましょう！</p>
+      </div>
+
+      <!-- Share -->
+      <div class="side-box share-side-box">
+        <div class="share-side-label">このサイトをシェアする</div>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdaiyatsuda.github.io%2Fharunekochan%2F" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          Facebookでシェア
+        </a>
+      </div>
+
+      <!-- Topics -->
+      <div class="side-box">
+        <div class="side-title">🏷 トピックス</div>
+        <div class="topic-cloud"><!-- TOPIC_TAGS_HTML --></div>
+      </div>
+
+      <!-- Archive list -->
+      <div class="side-box">
+        <div class="side-title">📅 最近のアーカイブ</div>
+        <!-- ARCHIVE_LIST_HTML -->
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 2: アーカイブ
+══════════════════════════════════════════════ -->
+<div class="page-section" id="archive">
+  <div class="full-wrap">
+    <div class="sec-head">
+      <!-- CAT: sleeping -->
+      <svg class="sec-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 20 Q10 8 18 11 Q17 16 11 22Z" fill="white" stroke="#3B1E08" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M9 20 Q11 10 17 12 Q16.5 16 12 21Z" fill="#F9C5D0"/>
+        <path d="M36 20 Q34 8 26 11 Q27 16 33 22Z" fill="white" stroke="#3B1E08" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M35 20 Q33 10 27 12 Q27.5 16 32 21Z" fill="#F9C5D0"/>
+        <circle cx="22" cy="24" r="14" fill="white" stroke="#3B1E08" stroke-width="2.2"/>
+        <path d="M12 22 Q17 19.5 22 22" stroke="#3B1E08" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M22 22 Q27 19.5 32 22" stroke="#3B1E08" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M12 22 Q17 24 22 22" stroke="#3B1E08" stroke-width="0.8" stroke-linecap="round" fill="none" opacity=".4"/>
+        <path d="M22 22 Q27 24 32 22" stroke="#3B1E08" stroke-width="0.8" stroke-linecap="round" fill="none" opacity=".4"/>
+        <ellipse cx="22" cy="26.5" rx="2.2" ry="1.6" fill="#3B1E08"/>
+        <ellipse cx="12" cy="28.5" rx="5" ry="3" fill="#F4A0B4" opacity=".5"/>
+        <ellipse cx="32" cy="28.5" rx="5" ry="3" fill="#F4A0B4" opacity=".5"/>
+        <text x="30" y="11" font-size="8" fill="#A89F96" font-weight="bold">z</text>
+        <text x="36" y="6" font-size="5.5" fill="#A89F96" font-weight="bold">z</text>
+      </svg>
+      <div>
+        <div class="sec-title">ARCHIVE</div>
+        <div class="sec-sub">過去のニュース一覧</div>
+      </div>
+    </div>
+    <!-- ARCHIVE_HTML -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 3: 考察・示唆
+══════════════════════════════════════════════ -->
+<div class="page-section" id="insights">
+  <div class="full-wrap">
+    <div class="insight-banner">
+      <div class="insight-banner-title">🔍 考察・示唆レポート</div>
+      <div class="insight-banner-sub">AIが蓄積データを分析。どの経営理論が今の人事・経営トレンドを読み解くカギになっているか、傾向と示唆をお伝えします。</div>
+    </div>
+    <!-- INSIGHTS_HTML -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 4: はるねこについて
+══════════════════════════════════════════════ -->
+<div class="page-section" id="about">
+  <div class="full-wrap">
+    <div class="about-page">
+
+      <!-- Profile -->
+      <div class="about-profile-card">
+        <div class="profile-avatar-wrap">
+          <!-- CAT: side/neutral -->
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28 38 Q32 12 46 18 Q44 28 36 40Z" fill="white" stroke="#3B1E08" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M30 37 Q34 16 45 20 Q43 28 38 38Z" fill="#F9C5D0"/>
+            <path d="M72 38 Q68 12 54 18 Q56 28 64 40Z" fill="white" stroke="#3B1E08" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M70 37 Q66 16 55 20 Q57 28 62 38Z" fill="#F9C5D0"/>
+            <circle cx="50" cy="54" r="36" fill="white" stroke="#3B1E08" stroke-width="3"/>
+            <path d="M34 50 Q42 46 50 50" stroke="#3B1E08" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+            <path d="M50 50 Q58 46 66 50" stroke="#3B1E08" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+            <ellipse cx="50" cy="58" rx="4" ry="2.8" fill="#3B1E08"/>
+            <path d="M41 67 Q46 72 50 68 Q54 72 59 67" stroke="#3B1E08" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <ellipse cx="32" cy="61" rx="10" ry="6" fill="#F4A0B4" opacity=".45"/>
+            <ellipse cx="68" cy="61" rx="10" ry="6" fill="#F4A0B4" opacity=".45"/>
+          </svg>
+        </div>
         <div>
-          <div class="sec-title">ARCHIVE</div>
-          <div class="sec-sub">過去のニュース一覧</div>
+          <div class="profile-role">HR &amp; Management Professional</div>
+          <div class="profile-name">このサイトの管理人について</div>
+          <p class="profile-bio">
+            人事・組織・採用の実務に10年以上携わるHRプロフェッショナル。
+            制度設計・組織開発・マネジメント育成など、人に関わる幅広い領域で活動しています。<br><br>
+            経営理論を現場で実践するなかで「難しいフレームワークをもっと身近に」との思いから、
+            このサイトを立ち上げました。毎朝AIが収集したニュースを、入山章栄先生の『世界標準の経営理論』の視点で深掘り解説します。<br><br>
+            フリーランスでのコンサルティング・研修設計・組織診断・講演等のご依頼も受け付けています。
+          </p>
+          <div class="profile-tags">
+            <span class="profile-tag">人事制度設計</span>
+            <span class="profile-tag">組織開発</span>
+            <span class="profile-tag">採用戦略</span>
+            <span class="profile-tag">マネジメント育成</span>
+            <span class="profile-tag">経営理論実践</span>
+          </div>
         </div>
       </div>
-      <!-- ARCHIVE_HTML -->
-    </section>
 
-  </div><!-- /main-col -->
-
-  <!-- ── RIGHT: SIDEBAR ── -->
-  <aside class="side-col">
-
-    <!-- Mascot box -->
-    <div class="side-box mascot-box">
-      <!-- CAT GIRL: thinking/side pose -->
-      <svg class="cat-side" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M58 124 Q78 106 68 86" stroke="#4A3728" stroke-width="7" stroke-linecap="round" fill="none"/>
-        <path d="M32 90 Q50 100 66 90 L63 120 Q50 126 37 120Z" fill="#E8D5C0"/>
-        <rect x="34" y="68" width="32" height="26" rx="6" fill="#6B8F71"/>
-        <rect x="44" y="60" width="12" height="11" rx="4" fill="#FDDCCC"/>
-        <!-- arm on chin -->
-        <path d="M34 76 Q22 88 24 98" stroke="#6B8F71" stroke-width="9" stroke-linecap="round" fill="none"/>
-        <ellipse cx="23" cy="100" rx="7" ry="5" fill="#FDDCCC"/>
-        <!-- other arm -->
-        <path d="M66 76 Q78 84 76 92" stroke="#6B8F71" stroke-width="9" stroke-linecap="round" fill="none"/>
-        <circle cx="50" cy="38" r="26" fill="#FDDCCC"/>
-        <path d="M24 38 Q25 12 50 10 Q75 12 76 38 Q73 22 66 16 Q58 8 50 8 Q42 8 34 16 Q27 22 24 38Z" fill="#4A3728"/>
-        <path d="M25 36 Q20 52 26 64 Q32 57 33 46Z" fill="#4A3728"/>
-        <path d="M75 36 Q80 52 74 64 Q68 57 67 46Z" fill="#4A3728"/>
-        <polygon points="30,28 33,10 43,27" fill="#4A3728"/>
-        <polygon points="70,28 67,10 57,27" fill="#4A3728"/>
-        <polygon points="32,27 34,14 41,26" fill="#E8A0B4"/>
-        <polygon points="68,27 66,14 59,26" fill="#E8A0B4"/>
-        <ellipse cx="40" cy="38" rx="7" ry="8" fill="white"/>
-        <ellipse cx="60" cy="38" rx="7" ry="8" fill="white"/>
-        <ellipse cx="40" cy="40" rx="5" ry="6" fill="#5B8A70"/>
-        <ellipse cx="60" cy="40" rx="5" ry="6" fill="#5B8A70"/>
-        <circle cx="40" cy="40" r="3" fill="#1A1410"/>
-        <circle cx="60" cy="40" r="3" fill="#1A1410"/>
-        <circle cx="41.5" cy="38.5" r="1.2" fill="white"/>
-        <circle cx="61.5" cy="38.5" r="1.2" fill="white"/>
-        <ellipse cx="50" cy="47" rx="2.5" ry="1.8" fill="#E8A0B4"/>
-        <path d="M44 52 Q50 56 56 52" stroke="#D4607A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <ellipse cx="33" cy="48" rx="7" ry="4" fill="#F4A0B4" opacity=".4"/>
-        <ellipse cx="67" cy="48" rx="7" ry="4" fill="#F4A0B4" opacity=".4"/>
-        <text x="72" y="26" font-size="9" fill="#E8A0B4">?</text>
-      </svg>
-      <div class="mascot-name">はるねこちゃん</div>
-      <p class="mascot-desc">毎朝6時にニュースを探して<br>Notionにまとめています。<br>理論の視点から一緒に考えましょう🌿</p>
-    </div>
-
-    <!-- Topics -->
-    <div class="side-box" id="topics">
-      <div class="side-title">🏷 トピックス</div>
-      <div class="topic-cloud">
-        <!-- TOPIC_TAGS_HTML -->
+      <!-- Cat origin story -->
+      <div class="about-origin">
+        <h3>🐱 はるねこちゃんの由来</h3>
+        <p>
+          「はる」は息子の名前から。「ねこ」は息子が大好きな猫から。ふたつを合体させて、<strong>はるねこちゃん</strong>が誕生しました。<br>
+          毎朝6時に人事・経営ニュースを探し、経営理論で読み解いてNotionにまとめ、7時にサイトを更新する——そんな働き者のAIアシスタントです。息子が大きくなったとき「面白い仕事してたんだね」と思ってもらえたら嬉しいです。
+        </p>
       </div>
-    </div>
 
-    <!-- Archive list -->
-    <div class="side-box">
-      <div class="side-title">📅 最近のアーカイブ</div>
-      <!-- ARCHIVE_LIST_HTML -->
-    </div>
+      <!-- FAQ -->
+      <div class="about-faq">
+        <h3>よくある質問</h3>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">このサイトの情報はどこから来ていますか？</div>
+          <div class="faq-a">Web労政時報（rosei.jp）やその他の人事・経営メディアをAIが毎朝巡回し、直近24時間以内（労政時報は7日以内）の新着記事を自動収集しています。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">経営理論の解説の根拠は？</div>
+          <div class="faq-a">入山章栄先生の著書『世界標準の経営理論』（ダイヤモンド社）に掲載されている25の理論をベースにしています。各ニュースに対し、最も関連性の高い理論を選定して解説しています。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">更新頻度はどのくらいですか？</div>
+          <div class="faq-a">毎朝6時にAIがニュースを収集し、7時にサイトを自動更新します。収集できるニュースがない日はスキップされます。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">副業・お仕事のご依頼はできますか？</div>
+          <div class="faq-a">人事コンサルティング・研修設計・組織診断・講演・執筆等のご依頼を受け付けています。下記のお問い合わせフォームよりお気軽にご連絡ください。</div>
+        </div>
+      </div>
 
-  </aside>
-
-</div><!-- /wrap -->
-
-<!-- ══════════════════ ABOUT STRIP ══════════════════ -->
-<div class="about-strip" id="about">
-  <div class="about-inner">
-    <div class="about-item">
-      <div class="about-icon">🤖</div>
-      <div class="about-ttl">毎朝AI自動収集</div>
-      <p class="about-body">毎朝6時にAIがWeb上の人事・経営ニュースを自動収集。Notionデータベースに蓄積された情報を、毎朝7時にサイトへ自動反映します。</p>
-    </div>
-    <div class="about-item">
-      <div class="about-icon">📚</div>
-      <div class="about-ttl">経営理論で読み解く</div>
-      <p class="about-body">入山章栄『世界標準の経営理論』をベースに、資源ベース理論（RBV）・センスメイキング理論・ダイナミック・ケイパビリティの3理論でニュースを解説します。</p>
-    </div>
-    <div class="about-item">
-      <div class="about-icon">🐱</div>
-      <div class="about-ttl">はるねこちゃんとは</div>
-      <p class="about-body">人事・経営に関心を持つすべての方に向けて、理論と実践をつなぐ情報をお届けするAI秘書キャラクターです。難しい理論をやさしく解説します。</p>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════ FOOTER ══════════════════ -->
+<!-- ══════ ABOUT STRIP ══════ -->
+<div class="about-strip" id="about-strip">
+  <div class="about-inner">
+    <div class="about-item">
+      <div class="about-icon">🤖</div>
+      <div class="about-ttl">毎朝AI自動収集</div>
+      <p class="about-body">毎朝6時にAIがWeb上の人事・経営ニュースを自動収集。Notionに蓄積された情報を、毎朝7時にサイトへ自動反映します。</p>
+    </div>
+    <div class="about-item">
+      <div class="about-icon">📚</div>
+      <div class="about-ttl">経営理論で読み解く</div>
+      <p class="about-body">入山章栄『世界標準の経営理論』をベースに、全25の経営理論からニュースに最も適した理論を選定。なぜ起きたのか・今後どう動くかを多角的に解説します。</p>
+    </div>
+    <div class="about-item">
+      <div class="about-icon">💡</div>
+      <div class="about-ttl">事実・考察・示唆</div>
+      <p class="about-body">単なる要約ではなく、「何が起きたか」「なぜ起きたか」「どう活かすか」の3ステップで解説。現場の意思決定に役立てられます。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ CONTACT ══════ -->
+<div class="contact-strip" id="contact">
+  <div class="contact-inner">
+    <div class="contact-title">副業・お仕事のご依頼</div>
+    <p class="contact-desc">
+      人事コンサルティング・研修設計・組織診断・講演・執筆など、<br>人事・経営に関するお仕事のご依頼をお受けしています。
+    </p>
+    <div class="contact-btns">
+      <a class="contact-btn-main" href="mailto:contact@harunekochan.jp">
+        📩 お問い合わせはこちら
+      </a>
+      <a class="contact-btn-sub" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdaiyatsuda.github.io%2Fharunekochan%2F" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Facebookでシェア
+      </a>
+    </div>
+    <div class="contact-services">
+      <span class="contact-service">人事コンサルティング</span>
+      <span class="contact-service">研修・講演</span>
+      <span class="contact-service">組織診断</span>
+      <span class="contact-service">執筆・監修</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ FOOTER ══════ -->
 <footer>
   <div class="foot-inner">
     <div>
       <div class="foot-brand">
-        <img src="favicon.svg" width="26" height="26" alt="" style="opacity:.75">
+        <img src="favicon.svg" width="26" height="26" alt="" style="opacity:.7">
         <span class="foot-brand-name">はるねこちゃん</span>
       </div>
       <p class="foot-copy">
         人事・経営ニュース × 世界標準の経営理論<br>
-        Powered by Notion + GitHub Actions<br>
+        Powered by Notion + GitHub Actions + Claude AI<br>
         経営理論の解説は入山章栄『世界標準の経営理論』を参考にしています。
       </p>
     </div>
     <div class="foot-links">
-      <a href="#today">↑ トップへ</a>
+      <span onclick="showPage('today')">↑ トップへ</span>
+      <span onclick="showPage('about')">お問い合わせ</span>
     </div>
   </div>
   <div class="foot-bottom">© 2025 はるねこちゃん. All rights reserved.</div>
 </footer>
 
+<script>
+function showPage(pageId) {
+  document.querySelectorAll('.page-section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn[data-page]').forEach(function(b){ b.classList.remove('active'); });
+  var page = document.getElementById(pageId);
+  var btn  = document.querySelector('.tab-btn[data-page="' + pageId + '"]');
+  if (page) page.classList.add('active');
+  if (btn)  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (history.pushState) { history.pushState(null, null, '#' + pageId); }
+}
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+// Hash routing on load
+(function() {
+  var hash = window.location.hash.replace('#', '');
+  var validPages = ['today','archive','insights','about'];
+  if (hash && validPages.indexOf(hash) !== -1) { showPage(hash); }
+})();
+</script>
 </body>
 </html>
