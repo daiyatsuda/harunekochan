@@ -23,24 +23,27 @@ THEORY_DESCRIPTIONS = {
 }
 
 CARD_TEMPLATE = """
-    <article class="card">
-      <div class="card-header">
-        <span class="theory-badge">{theory}</span>
-        <h2 class="card-headline">{headline}</h2>
-      </div>
-      <div class="card-tags">{tags_html}</div>
-      <p class="card-summary">{summary}</p>
-      {theory_box}
-      <div class="card-footer">
-        <span class="source">{source}</span>
-        {link_html}
+    <article class="article">
+      <div class="article-num">{num:02d}</div>
+      <div class="article-body">
+        <div class="article-meta">
+          <span class="theory-badge">{theory}</span>
+          <div class="article-tags">{tags_html}</div>
+        </div>
+        <h2 class="article-headline">{headline}</h2>
+        <p class="article-summary">{summary}</p>
+        {theory_box}
+        <div class="article-footer">
+          <span class="source">{source}</span>
+          {link_html}
+        </div>
       </div>
     </article>"""
 
-THEORY_BOX_TEMPLATE = """      <div class="theory-box">
-        <div class="theory-box-label">経営理論の視点 ▶ {theory}</div>
-        <p class="theory-box-text">{description}</p>
-      </div>"""
+THEORY_BOX_TEMPLATE = """        <div class="theory-box">
+          <div class="theory-box-label">経営理論の視点 ▶ {theory}</div>
+          <p class="theory-box-text">{description}</p>
+        </div>"""
 
 
 def notion_request(path: str, payload: dict) -> dict:
@@ -103,17 +106,18 @@ def page_to_item(page: dict) -> dict:
     }
 
 
-def render_card(item: dict) -> str:
+def render_card(item: dict, num: int = 1) -> str:
     tags_html = "".join(f'<span class="tag">{t}</span>' for t in item["tags"])
     theory = item["theory"] or "未分類"
     desc = THEORY_DESCRIPTIONS.get(theory, "")
     theory_box = THEORY_BOX_TEMPLATE.format(theory=theory, description=desc) if desc else ""
     link_html = (
-        f'<a class="read-link" href="{item["link"]}" target="_blank" rel="noopener">元記事を読む →</a>'
+        f'<a class="read-link" href="{item["link"]}" target="_blank" rel="noopener">元記事を読む</a>'
         if item["link"]
         else ""
     )
     return CARD_TEMPLATE.format(
+        num=num,
         theory=theory,
         headline=item["headline"],
         tags_html=tags_html,
@@ -129,18 +133,11 @@ def main():
     items = [page_to_item(p) for p in pages]
 
     if items:
-        cards_html = "\n".join(render_card(i) for i in items)
+        cards_html = "\n".join(render_card(i, n + 1) for n, i in enumerate(items))
     else:
         cards_html = """
     <div class="empty">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-        <polygon points="8,22 18,6 26,22" fill="#6B8F71"/>
-        <polygon points="38,22 46,6 56,22" fill="#6B8F71"/>
-        <circle cx="32" cy="36" r="22" fill="#6B8F71"/>
-        <ellipse cx="24" cy="34" rx="3" ry="3.5" fill="#FAF7F2"/>
-        <ellipse cx="40" cy="34" rx="3" ry="3.5" fill="#FAF7F2"/>
-        <ellipse cx="32" cy="42" rx="2" ry="1.5" fill="#E8A0B4"/>
-      </svg>
+      <div class="empty-icon">🐱</div>
       <p>今日のニュースはまだありません。</p>
     </div>"""
 

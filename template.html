@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #FAF7F2;
@@ -15,8 +15,10 @@
       --border: #E5DFD4;
       --text: #2B2620;
       --text-sub: #6B645C;
+      --text-light: #9E968D;
       --green: #6B8F71;
       --green-dark: #4F6E55;
+      --green-bg: #F0F5F1;
       --rose: #E8A0B4;
     }
 
@@ -30,141 +32,234 @@
       line-height: 1.75;
     }
 
-    /* ===== HEADER ===== */
-    header {
+    /* ===== NAV ===== */
+    nav {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 20px 24px;
+      padding: 0 24px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
+      height: 56px;
       position: sticky;
       top: 0;
       z-index: 100;
     }
 
-    .header-icon {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
     }
 
-    .header-title h1 {
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-logo-text {
       font-family: 'Shippori Mincho', serif;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
       color: var(--text);
+      letter-spacing: 0.03em;
     }
 
-    .header-title p {
-      font-size: 0.75rem;
+    .nav-sep {
+      flex: 1;
+    }
+
+    .nav-tag {
+      font-size: 0.72rem;
       color: var(--text-sub);
-      margin-top: 1px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 12px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--green-dark);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      color: var(--green);
+    }
+
+    .hero-desc {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.8;
     }
 
     /* ===== MAIN ===== */
     main {
-      max-width: 760px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 32px 16px 64px;
+      padding: 48px 16px 80px;
     }
 
-    /* ===== DATE LABEL ===== */
-    .date-label {
-      font-size: 0.8rem;
-      color: var(--text-sub);
-      text-align: right;
-      margin-bottom: 20px;
-    }
-
-    /* ===== CARD ===== */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 20px;
-      transition: box-shadow 0.2s;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(43,38,32,0.08);
-    }
-
-    .card-header {
+    /* ===== SECTION HEADER ===== */
+    .section-header {
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 14px;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--text);
+    }
+
+    .section-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+
+    .section-date {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+    }
+
+    /* ===== ARTICLE ===== */
+    .article {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0 20px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .article-num {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--border);
+      line-height: 1;
+      padding-top: 4px;
+      text-align: right;
+    }
+
+    .article-body {}
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .theory-badge {
       background: var(--green);
       color: #fff;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 500;
       padding: 3px 10px;
       border-radius: 20px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-top: 3px;
+      letter-spacing: 0.03em;
     }
 
-    .card-headline {
-      font-family: 'Shippori Mincho', serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      line-height: 1.55;
-      color: var(--text);
-    }
-
-    .card-tags {
+    .article-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 14px;
+      gap: 5px;
     }
 
     .tag {
+      color: var(--text-light);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
       background: var(--bg);
       border: 1px solid var(--border);
-      color: var(--text-sub);
-      font-size: 0.72rem;
-      padding: 2px 10px;
-      border-radius: 20px;
     }
 
-    .card-summary {
-      font-size: 0.9rem;
+    .article-headline {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.5;
       color: var(--text);
-      line-height: 1.8;
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .article-summary {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.85;
       margin-bottom: 16px;
     }
 
     .theory-box {
-      background: #F0F5F1;
+      background: var(--green-bg);
       border-left: 3px solid var(--green);
       border-radius: 0 8px 8px 0;
-      padding: 12px 16px;
+      padding: 14px 18px;
       margin-bottom: 16px;
     }
 
     .theory-box-label {
-      font-size: 0.7rem;
+      font-size: 0.67rem;
       font-weight: 500;
       color: var(--green-dark);
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
+      letter-spacing: 0.08em;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .theory-box-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
     }
 
     .theory-box-text {
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    .card-footer {
+    .article-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -173,75 +268,126 @@
     }
 
     .source {
-      font-size: 0.75rem;
-      color: var(--text-sub);
+      font-size: 0.72rem;
+      color: var(--text-light);
     }
 
     .read-link {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--green-dark);
       text-decoration: none;
-      border: 1px solid var(--green);
-      border-radius: 6px;
-      padding: 4px 12px;
-      transition: background 0.15s;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: opacity 0.15s;
     }
 
-    .read-link:hover {
-      background: var(--green);
-      color: #fff;
-    }
+    .read-link:hover { opacity: 0.7; }
 
-    /* ===== EMPTY STATE ===== */
+    .read-link::after { content: ' →'; }
+
+    /* ===== EMPTY ===== */
     .empty {
       text-align: center;
-      padding: 64px 16px;
+      padding: 80px 16px;
       color: var(--text-sub);
+      grid-column: 1 / -1;
     }
 
-    .empty svg {
-      width: 56px;
-      height: 56px;
+    .empty-icon {
+      font-size: 3rem;
       margin-bottom: 16px;
-      opacity: 0.4;
+      opacity: 0.3;
     }
 
-    .empty p {
-      font-size: 0.9rem;
-    }
+    .empty p { font-size: 0.9rem; }
 
     /* ===== FOOTER ===== */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 16px;
-      text-align: center;
-      font-size: 0.75rem;
+      border-top: 2px solid var(--text);
+      padding: 32px 16px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-brand img {
+      width: 24px;
+      height: 24px;
+      opacity: 0.6;
+    }
+
+    .footer-brand-name {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
       color: var(--text-sub);
     }
 
-    footer a {
-      color: var(--green-dark);
+    .footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-links a {
+      font-size: 0.72rem;
+      color: var(--text-light);
       text-decoration: none;
     }
 
-    @media (max-width: 480px) {
-      .card { padding: 18px; }
-      .card-headline { font-size: 0.95rem; }
+    .footer-links a:hover { color: var(--green-dark); }
+
+    .footer-note {
+      width: 100%;
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 520px) {
+      .hero { padding: 40px 20px 36px; }
+      .article { grid-template-columns: 36px 1fr; gap: 0 12px; }
+      .article-num { font-size: 1.5rem; }
+      .article-headline { font-size: 1.1rem; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <img class="header-icon" src="favicon.svg" alt="はるねこちゃん">
-  <div class="header-title">
-    <h1>はるねこちゃん</h1>
-    <p>人事・経営ニュース × 世界標準の経営理論</p>
-  </div>
-</header>
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="favicon.svg" alt="はるねこちゃん">
+    <span class="nav-logo-text">はるねこちゃん</span>
+  </a>
+  <span class="nav-sep"></span>
+  <span class="nav-tag">人事 × 経営理論</span>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">Daily HR &amp; Management News</p>
+  <h1 class="hero-title">人事・経営の今を<br><span>理論で読み解く</span></h1>
+  <p class="hero-desc">毎朝届く厳選ニュースを、入山章栄『世界標準の経営理論』のフレームワークで解説します。</p>
+</div>
 
 <main>
-  <p class="date-label"><!-- DATE_LABEL --></p>
+  <div class="section-header">
+    <span class="section-title">TODAY'S PICKS</span>
+    <span class="section-date"><!-- DATE_LABEL --></span>
+  </div>
 
   <div id="news-container">
     <!-- NEWS_CARDS -->
@@ -249,8 +395,17 @@
 </main>
 
 <footer>
-  <p>経営理論の解説は入山章栄『世界標準の経営理論』を参考にしています。</p>
-  <p style="margin-top:4px;">Powered by <a href="https://www.notion.so/" target="_blank">Notion</a> + <a href="https://github.com/daiyatsuda/harunekochan" target="_blank">GitHub Actions</a></p>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="favicon.svg" alt="">
+      <span class="footer-brand-name">はるねこちゃん</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/daiyatsuda/harunekochan" target="_blank">GitHub</a>
+      <a href="https://www.notion.so/" target="_blank">Notion</a>
+    </div>
+    <p class="footer-note">経営理論の解説は入山章栄『世界標準の経営理論』を参考にしています。</p>
+  </div>
 </footer>
 
 </body>
