@@ -8,9 +8,10 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="はるねこちゃん — 人事・経営ニュース × 経営理論">
   <meta property="og:description" content="毎朝届く人事・経営ニュースを、世界標準の経営理論で読み解くAI解説サイト。事実・考察・示唆で現場に役立つインサイトを提供します。">
-  <meta property="og:url" content="https://daiyatsuda.github.io/harunekochan/">
+  <meta property="og:url" content="https://keieiriron.github.io/harunekochan/">
   <meta property="og:site_name" content="はるねこちゃん">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -259,6 +260,15 @@
     .foot-links a:hover, .foot-links span:hover { color: #fff; }
     .foot-bottom { max-width: 1080px; margin: 20px auto 0; font-size: .68rem; text-align: center; }
 
+    /* ─── AUTHOR COMMENT ─── */
+    .author-comment { background: var(--rose-bg); border: 1.5px solid #F4C8D4; border-radius: 12px; padding: 16px 20px; margin-bottom: 18px; }
+    .author-comment-head { font-size: .7rem; font-weight: 700; color: var(--rose); letter-spacing: .08em; margin-bottom: 8px; }
+    .author-comment-text { font-size: .86rem; color: var(--text); line-height: 1.8; font-style: italic; }
+
+    /* ─── GISCUS ─── */
+    .giscus-wrap { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .giscus-wrap-title { font-family: 'Shippori Mincho', serif; font-size: .95rem; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+
     /* ─── WALKING CAT ─── */
     .cat-walk { position: fixed; bottom: 14px; left: 0; z-index: 50; pointer-events: none; animation: walkAcross 34s linear infinite; }
     .cat-walk svg { animation: bodyBob .42s ease-in-out infinite alternate; display: block; }
@@ -341,11 +351,11 @@
       <p class="hero-lead">毎朝届く人事・経営ニュースを、入山章栄『世界標準の経営理論』のフレームワークで深掘り解説。<strong>事実・考察・示唆</strong>の3ステップで、現場で使えるインサイトをお届けします。</p>
       <div class="hero-stats">
         <div class="stat">
-          <div class="stat-val">6<small>件</small></div>
+          <div class="stat-val">9<small>件</small></div>
           <div class="stat-lbl">TODAY'S NEWS</div>
         </div>
         <div class="stat">
-          <div class="stat-val">6<small>件</small></div>
+          <div class="stat-val">9<small>件</small></div>
           <div class="stat-lbl">TOTAL ARTICLES</div>
         </div>
         <div class="stat">
@@ -398,6 +408,8 @@
   <button class="tab-btn" onclick="showPage('archive')" data-page="archive">📚 アーカイブ</button>
   <button class="tab-btn" onclick="showPage('insights')" data-page="insights">🔍 考察・示唆</button>
   <button class="tab-btn" onclick="showPage('about')" data-page="about">🐱 はるねこについて</button>
+  <a class="tab-btn" href="theories/" target="_blank" rel="noopener">📖 理論用語集</a>
+  <a class="tab-btn" href="diagnose/sensemaking/" target="_blank" rel="noopener">🧠 自己診断</a>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -434,41 +446,85 @@
       <div class="card">
   <div class="card-num">01</div>
   <div class="card-meta">
-    <span class="badge-theory">📚 センスメイキング理論</span>
+    <a class="badge-theory" href="../../theories/others/" title="未分類の解説ページへ">📚 未分類</a>
     <span class="badge-new">NEW</span>
-    <span class="tag">管理職</span><span class="tag">リーダーシップ</span>
+    <span class="tag">人事制度</span>
   </div>
-  <h2 class="card-headline">若手の失敗経験、6割超が成長につながると回答</h2>
-  <p class="card-summary">ジェイックが20代正社員258名を調査したところ、直近1年で大きな失敗を経験したのは約3割、そのうち6割超が「成長につながった」と回答した。失敗の主因は知識・スキル不足と判断ミスであり、上司が原因分析に伴走するマネジメントスタイルが成長促進に有効であることが示唆された。</p>
-  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ センスメイキング理論</div><p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。</p></div>
+  <h2 class="card-headline">メンタル休職者の復職判断と配置転換留意点</h2>
+  <div class="art-section fact"><span class="art-label">📰 事実</span><p>労政時報（第4121号、2026年6月）に「メンタルヘルス不調による休職者の復職判断と『他業務配置』における留意点」が掲載された。同記事では、精神疾患等を原因として休職した社員が職場復帰する際の判断プロセスについて、法的・産業医学的・人事実務的な3つの観点から分析している。特に注目されるのは「他業務配置」、すなわち元の職場・職務以外の部署への復帰配置に関する対応の難しさである。厚生労働省の「心の健康問題により休業した労働者の職場復帰支援の手引き」（5ステップ方式）に則った対応が基本とされるが、実務上は主治医・産業医の見解の相違、本人の希望、職場の受け入れ態勢など複合的な要因が絡み合い、判断が難しいケースが多い。近年、精神的な疾患を起因とした休職者数は高止まりの傾向にあり、復職支援を適切に設計できる企業とそうでない企業との間で、人材定着率に大きな差が生まれている。</p></div><div class="art-section analysis"><span class="art-label">🔍 考察</span><p>メンタルヘルス不調による休職・復職問題は、法的リスクと組織的配慮が交差する複雑な領域だ。「他業務配置」は配慮措置として活用される一方、本人の病状・スキル・本人意向・職場のキャパシティなど多様な条件が絡み、適切に運用しなければ二次不調や解雇トラブルに発展するリスクがある。背景にある構造的問題は3つある。①精神疾患の特性（波のある回復経過）、②職場環境そのものがストレス源となっている場合の難しさ、③主治医と産業医の見解の乖離である。センスメイキング理論の観点では、不確実な状況（いつ復帰できるか、どこに配置するか）において、管理職・人事担当者・産業保健スタッフが一致した「意味づけ」を持てるかが復職支援の成否を分ける。また、資源ベース理論(RBV)の視点では、休職者の人的資本を組織に再統合することは、企業の知識・スキルベースを守る観点からも重要であり、復職支援の質は「人的資源の保全力」として競争優位に繋がりうる。採用コストが高騰する現代において、既存社員の復職成功率を高めることは経営的にも合理的な投資である。</p></div><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事担当者は復職判断において「画一的な基準」に頼らず、主治医・産業医との三者連携を強化し、個別事案ごとに丁寧に対応する体制を整えることが求められる。具体的な実践として、①「職場環境のアセスメント」：復帰先の職場環境が不調の原因でないかを産業医と連携して確認する、②「段階的復職の設計」：軽業務・短時間勤務から本格復職まで段階別のプランを本人と合意して策定する、③「他業務配置の運用マニュアル化」：判断基準・期間・評価方法を文書化し担当者が変わっても対応がブレないようにする、の3点が有効だ。中長期的には、そもそも不調者を生まない予防的メンタルヘルス施策（EAPの整備・管理職のラインケア研修等）への先行投資が不可欠である。復職対応の質は企業の「組織の安全基地」としての信頼に直結し、優秀な人材の長期定着を左右する。</p></div>
+  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ 未分類</div><p class="theory-box-text">現時点では既存の経営理論に明確に分類しにくいニュースです。今後の理論的文脈の変化とともに再分類される可能性があります。 <a href="../../theories/others/" class="theory-box-more">→ 理論を詳しく見る</a></p></div>
+  
   <div class="card-foot">
-    <a class="card-source" href="https://jinjibu.jp/news/detl/26522/" target="_blank" rel="noopener">📎 日本の人事部（ジェイック調査） 2026年6月18日</a>
-    <div class="card-foot-right">
-      <a class="read-btn" href="https://jinjibu.jp/news/detl/26522/" target="_blank" rel="noopener">元記事 →</a>
-      <a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjinjibu.jp%2Fnews%2Fdetl%2F26522%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a>
-    </div>
+    <a class="card-source" href="https://www.rosei.jp/readers" target="_blank" rel="noopener">📎 Web労政時報 第4121号 2026年6月</a>
+    <div class="card-foot-right"><a class="read-btn" href="https://www.rosei.jp/readers" target="_blank" rel="noopener">元記事 →</a><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.rosei.jp%2Freaders" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
   </div>
 </div>
 <div class="card">
   <div class="card-num">02</div>
   <div class="card-meta">
-    <span class="badge-theory">📚 ダイナミック・ケイパビリティ</span>
+    <span class="badge-theory">📚 資源ベース理論(RBV)</span>
+    <span class="badge-new">NEW</span>
+    <span class="tag">人事制度</span>
+  </div>
+  <h2 class="card-headline">育休研修2時間で父親の育児時間が週末1時間増</h2>
+  <div class="art-section fact"><span class="art-label">📰 事実</span><p>東京大学の山口慎太郎教授・田中万理准教授、同志社大学の奥平寛子准教授、筑波大学の目麻里子准教授らの研究チームが、民間企業2社と地方自治体2団体に所属する1,200名超の男性従業員を対象にランダム化比較試験（RCT）を実施した成果が、2026年6月18日に日本の人事部で紹介された。研修は2時間のプログラムで、男性講師が「育児参画とキャリアの両立」について講義し、管理職には部下の育児休業取得を支援する方法を伝えるという内容だった。結果、研修を受けた父親の週末育児時間が1日あたり約1時間増加し、5歳以下の子どもを持つ家庭では2.3時間の増加が確認された。研修を受けていない母親の労働時間が週3.6時間増加するという波及効果も見られ、研修後に育児休業制度を自ら調べた参加者の割合が16ポイント増加した。一方で「同僚が育休に好意的だ」という情報提供は認識改善には繋がるが、行動変化には不十分であることも示された。本研究は科学的根拠（エビデンス）に基づく人事施策の重要性を示す好事例として注目されている。</p></div><div class="art-section analysis"><span class="art-label">🔍 考察</span><p>この研究が重要な理由は、「育休研修の効果」を高精度なRCT（ランダム化比較試験）で実証した点にある。これまで多くの企業が「育休取得を促進しよう」と啓発活動を実施してきたが、実際に行動変容につながるかどうかは曖昧なままだった。本研究は「たった2時間の研修」で父親の育児時間や母親の就労時間に測定可能な変化をもたらしたという事実を科学的に示した意義は大きい。背景には、日本における男性育休取得率の急上昇（2024年度30%超）と、それでも根強く残る「職場の暗黙のプレッシャー」という構造がある。単に制度を整備するだけでは行動変容は起きず、「管理職の関与」と「組織的な支援行動」が鍵であることが示されている。資源ベース理論(RBV)の観点では、人的資本の最大活用（特に女性の労働参画促進）に向けて、職場内の知識・行動規範をアップデートすることが企業の持続的競争力に直結する。また、情報提供だけでは行動変容は起きないという知見は、人事施策の設計者に対して「仕組みと介入設計」の重要性を強く示している。エビデンスを重視した人事施策（EBHRマネジメント）への転換が求められる時代に合致する研究成果だ。</p></div><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事担当者が育休取得促進施策を設計する際は、啓発・情報提供だけでなく「行動変容を促す介入設計」を組み込む必要がある。実践的な提言として、①「管理職向け育休研修の必須化」：管理職が部下の育休取得を支援する方法を学ぶ研修を、昇進後のオンボーディングに組み込む、②「数値目標の設定」：男性育休取得率・育児時間・パートナーの労働時間変化など、行動変容を測定できるKPIを設定し効果を可視化する、③「RCT的思考の導入」：施策の効果検証をパイロット展開＋比較対照という形で設計し、感覚ではなくデータで判断できる仕組みにする、の3点が有効だ。中長期的には、育休研修の定着は男女の家庭内役割分担の変化→女性の就労継続・キャリアアップ→組織の多様性向上という好循環を生む。「育休研修2時間」への投資対効果は非常に高く、未実施の企業は早急に導入を検討すべきだ。</p></div>
+  
+  
+  <div class="card-foot">
+    <a class="card-source" href="https://jinjibu.jp/news/detl/26532/" target="_blank" rel="noopener">📎 日本の人事部 2026年6月18日</a>
+    <div class="card-foot-right"><a class="read-btn" href="https://jinjibu.jp/news/detl/26532/" target="_blank" rel="noopener">元記事 →</a><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjinjibu.jp%2Fnews%2Fdetl%2F26532%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-num">03</div>
+  <div class="card-meta">
+    <a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a>
+    <span class="badge-new">NEW</span>
+    <span class="tag">管理職</span>
+  </div>
+  <h2 class="card-headline">管理職スキル支援、3社の取組事例</h2>
+  <div class="art-section fact"><span class="art-label">📰 事実</span><p>労政時報（第4121号、2026年6月）に掲載された事例調査によると、3社が管理職に対する働き方・マネジメントスキル支援策を実施している。具体的には、残業削減を目的とした業務効率化の取り組み、プロモーション後の管理職を対象とした動画コンテンツによるスキル習得機会の提供、そしてワークショップ形式でのマネジメント能力強化が実施されている。近年、「管理職の罰ゲーム化」と呼ばれる現象が社会問題となる中、業務負荷の増大や部下マネジメントの複雑化に直面する管理職を組織として支援する動きが加速している。コロナ禍以降のハイブリッドワーク定着や多様な働き方の広がりにより、管理職が担う役割はかつてとは大きく変化しており、昇進後に必要なスキルを体系的に習得できる環境整備が急務となっている。3社が取り組む残業削減・動画研修・ワークショップの組み合わせは、「管理職を組織として育てる」姿勢の象徴と言える。</p></div><div class="art-section analysis"><span class="art-label">🔍 考察</span><p>管理職が置かれる状況は構造的に変化している。人件費増加や人員不足によりプレイングマネージャー化が進む一方、部下の多様化・メンタルヘルス対応・ハラスメント防止など、管理職が対応すべき課題は年々増加している。これに対して若手の管理職就任意欲低下（「管理職離れ」）が生じており、企業は管理職を増やすだけでなく、その役割を魅力あるものにする仕組みが必要だ。センスメイキング理論の観点から見ると、管理職は組織変革や不確実性の中でメンバーに意味を付与する「センスメイカー」としての役割を担っている。管理職自身がその役割を理解し、組織の文脈を解釈してメンバーに伝える力こそが、今まさに求められているスキルである。3社の事例では、動画コンテンツやワークショップという学習形式の多様化によって、多忙な管理職でも継続的にスキルアップできる環境を整えている点が注目される。また、昇進後という「最も支援が必要なタイミング」に着眼しているのも、現場の実態に即した対応と言える。類似の動きとして、人事白書2025でも「管理職に最も身に付けてほしい能力」として部下育成スキルが34.6%でトップに挙がっており、業界全体としての優先度の高さが伺える。</p></div><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事・経営担当者は、管理職支援を「昇進後の一次研修」に限定せず、継続的な仕組みとして設計する必要がある。特に以下の3点が重要だ。①「役割の明確化」：管理職が何に集中すべきかを組織として定義し、業務過多になっている場合は権限委譲や業務削減を検討する。②「学習の仕組み化」：動画・マイクロラーニング・ピアラーニングなど多様な形式で、現場を離れずに学べる環境を整備する。③「心理的支援」：管理職自身のメンタルヘルスや孤独感に対するサポート制度（メンター・コーチング等）を設ける。中長期的には、管理職ポストの魅力再設計が採用競争力にも直結する。優秀な社員が管理職を「選びたくなる」制度・文化をどう作るかが、組織の持続的競争力を左右する重要な経営課題だ。</p></div>
+  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ センスメイキング理論</div><p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。 <a href="../../theories/sensemaking/" class="theory-box-more">→ 理論を詳しく見る</a></p></div>
+  
+  <div class="card-foot">
+    <a class="card-source" href="https://www.rosei.jp/readers" target="_blank" rel="noopener">📎 Web労政時報 第4121号 2026年6月</a>
+    <div class="card-foot-right"><a class="read-btn" href="https://www.rosei.jp/readers" target="_blank" rel="noopener">元記事 →</a><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.rosei.jp%2Freaders" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-num">04</div>
+  <div class="card-meta">
+    <a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a>
+    <span class="badge-new">NEW</span>
+    <span class="tag">管理職</span><span class="tag">リーダーシップ</span>
+  </div>
+  <h2 class="card-headline">若手の失敗経験、6割超が成長につながると回答</h2>
+  <p class="card-summary">ジェイックが20代正社員258名を調査したところ、直近1年で大きな失敗を経験したのは約3割、そのうち6割超が「成長につながった」と回答した。失敗の主因は知識・スキル不足と判断ミスであり、上司が原因分析に伴走するマネジメントスタイルが成長促進に有効であることが示唆された。</p>
+  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ センスメイキング理論</div><p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。 <a href="../../theories/sensemaking/" class="theory-box-more">→ 理論を詳しく見る</a></p></div>
+  
+  <div class="card-foot">
+    <a class="card-source" href="https://jinjibu.jp/news/detl/26522/" target="_blank" rel="noopener">📎 日本の人事部（ジェイック調査） 2026年6月18日</a>
+    <div class="card-foot-right"><a class="read-btn" href="https://jinjibu.jp/news/detl/26522/" target="_blank" rel="noopener">元記事 →</a><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjinjibu.jp%2Fnews%2Fdetl%2F26522%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-num">05</div>
+  <div class="card-meta">
+    <a class="badge-theory" href="../../theories/dynamic-capability/" title="ダイナミック・ケイパビリティの解説ページへ">📚 ダイナミック・ケイパビリティ</a>
     <span class="badge-new">NEW</span>
     <span class="tag">採用</span><span class="tag">AI活用</span>
   </div>
   <h2 class="card-headline">採用AIを5割超の企業が「機能していない」</h2>
   <p class="card-summary">TalentXが従業員500名超の企業の人事担当者213名を調査。採用AIを導入した企業の53.3%が工数削減や費用対効果を実現できていないと回答し、67.9%がAIと人の役割分担が不明確と答えた。成功の鍵はツール導入ではなく、候補者体験を軸とした採用戦略の再設計にあるとされる。</p>
-  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ ダイナミック・ケイパビリティ</div><p class="theory-box-text">環境変化に合わせて自社の能力を感知・捕捉・再構成する力。テクノロジーが急変する時代において、静的な強みではなく変化する能力そのものが競争優位になります。</p></div>
+  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ ダイナミック・ケイパビリティ</div><p class="theory-box-text">環境変化に合わせて自社の能力を感知・捕捉・再構成する力。テクノロジーが急変する時代において、静的な強みではなく変化する能力そのものが競争優位になります。 <a href="../../theories/dynamic-capability/" class="theory-box-more">→ 理論を詳しく見る</a></p></div>
+  
   <div class="card-foot">
     <a class="card-source" href="https://prtimes.jp/main/html/rd/p/000000268.000036924.html" target="_blank" rel="noopener">📎 TalentX / PR TIMES 2026年6月18日</a>
-    <div class="card-foot-right">
-      <a class="read-btn" href="https://prtimes.jp/main/html/rd/p/000000268.000036924.html" target="_blank" rel="noopener">元記事 →</a>
-      <a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprtimes.jp%2Fmain%2Fhtml%2Frd%2Fp%2F000000268.000036924.html" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a>
-    </div>
+    <div class="card-foot-right"><a class="read-btn" href="https://prtimes.jp/main/html/rd/p/000000268.000036924.html" target="_blank" rel="noopener">元記事 →</a><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprtimes.jp%2Fmain%2Fhtml%2Frd%2Fp%2F000000268.000036924.html" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
   </div>
 </div>
 <div class="card">
-  <div class="card-num">03</div>
+  <div class="card-num">06</div>
   <div class="card-meta">
     <span class="badge-theory">📚 資源ベース理論(RBV)</span>
     <span class="badge-new">NEW</span>
@@ -477,34 +533,30 @@
   <h2 class="card-headline">「天職」に出会えた人は約4割</h2>
   <p class="card-summary">Persol Career（doda）が働く人約5,000名に「天職」意識を調査した結果、自身が天職に就いていると感じる人は約41%にとどまった。天職の条件として「仕事への熱意・関心」「強みや能力の活用」が上位に挙がり、職種によっても定義が異なることが判明。キャリア設計や人材育成施策への活用が期待される。</p>
   
+  
   <div class="card-foot">
     <a class="card-source" href="https://jinjibu.jp/news/detl/26535/" target="_blank" rel="noopener">📎 日本の人事部（doda/Persol Career調査） 2026年6月19日</a>
-    <div class="card-foot-right">
-      <a class="read-btn" href="https://jinjibu.jp/news/detl/26535/" target="_blank" rel="noopener">元記事 →</a>
-      <a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjinjibu.jp%2Fnews%2Fdetl%2F26535%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a>
-    </div>
+    <div class="card-foot-right"><a class="read-btn" href="https://jinjibu.jp/news/detl/26535/" target="_blank" rel="noopener">元記事 →</a><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjinjibu.jp%2Fnews%2Fdetl%2F26535%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
   </div>
 </div>
 <div class="card">
-  <div class="card-num">04</div>
+  <div class="card-num">07</div>
   <div class="card-meta">
-    <span class="badge-theory">📚 センスメイキング理論</span>
+    <a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a>
     <span class="badge-new">NEW</span>
     <span class="tag">管理職</span><span class="tag">組織変革</span>
   </div>
   <h2 class="card-headline">「管理職になりたくない」、背景に負担増</h2>
   <p class="card-summary">HR総研の調査で、管理職の役割や負担が増す中、若手が昇進を避ける傾向が浮き彫りに。本人の意欲だけでなく、役割設計そのものの見直しが必要との指摘が出ている。</p>
-  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ センスメイキング理論</div><p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。</p></div>
+  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ センスメイキング理論</div><p class="theory-box-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。 <a href="../../theories/sensemaking/" class="theory-box-more">→ 理論を詳しく見る</a></p></div>
+  
   <div class="card-foot">
     <span class="card-source">HR総研 調査(2026年4月実施)</span>
-    <div class="card-foot-right">
-      
-      <a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdaiyatsuda.github.io%2Fharunekochan%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a>
-    </div>
+    <div class="card-foot-right"><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkeieiriron.github.io%2Fharunekochan%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
   </div>
 </div>
 <div class="card">
-  <div class="card-num">05</div>
+  <div class="card-num">08</div>
   <div class="card-meta">
     <span class="badge-theory">📚 資源ベース理論(RBV)</span>
     <span class="badge-new">NEW</span>
@@ -513,32 +565,46 @@
   <h2 class="card-headline">JT、定年を65歳へ引き上げ</h2>
   <p class="card-summary">日本たばこ産業(JT)が、2027年4月から定年年齢を現行の60歳から65歳へ引き上げると発表。年齢にかかわらず継続的に活躍できる仕組みづくりと、社員自身のキャリア自律の促進をあわせて進める方針。</p>
   
+  
   <div class="card-foot">
     <span class="card-source">日本たばこ産業株式会社 発表(2026年6月11日)</span>
-    <div class="card-foot-right">
-      
-      <a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdaiyatsuda.github.io%2Fharunekochan%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a>
-    </div>
+    <div class="card-foot-right"><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkeieiriron.github.io%2Fharunekochan%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
   </div>
 </div>
 <div class="card">
-  <div class="card-num">06</div>
+  <div class="card-num">09</div>
   <div class="card-meta">
-    <span class="badge-theory">📚 ダイナミック・ケイパビリティ</span>
+    <a class="badge-theory" href="../../theories/dynamic-capability/" title="ダイナミック・ケイパビリティの解説ページへ">📚 ダイナミック・ケイパビリティ</a>
     <span class="badge-new">NEW</span>
     <span class="tag">AI活用</span><span class="tag">採用</span>
   </div>
   <h2 class="card-headline">新卒採用、6割超がAI書類選考で不合格経験</h2>
   <p class="card-summary">新卒採用担当者の64%が、AIによる書類選考で学生を不合格にした経験があると回答。一方で判定基準を社内で整備できている企業は15%未満にとどまる。</p>
-  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ ダイナミック・ケイパビリティ</div><p class="theory-box-text">環境変化に合わせて自社の能力を感知・捕捉・再構成する力。テクノロジーが急変する時代において、静的な強みではなく変化する能力そのものが競争優位になります。</p></div>
+  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ ダイナミック・ケイパビリティ</div><p class="theory-box-text">環境変化に合わせて自社の能力を感知・捕捉・再構成する力。テクノロジーが急変する時代において、静的な強みではなく変化する能力そのものが競争優位になります。 <a href="../../theories/dynamic-capability/" class="theory-box-more">→ 理論を詳しく見る</a></p></div>
+  
   <div class="card-foot">
     <span class="card-source">調査機関発表(2026年6月)</span>
-    <div class="card-foot-right">
-      
-      <a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdaiyatsuda.github.io%2Fharunekochan%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a>
-    </div>
+    <div class="card-foot-right"><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkeieiriron.github.io%2Fharunekochan%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
   </div>
 </div>
+      <div class="giscus-wrap">
+        <div class="giscus-wrap-title">💬 コメント・リアクション</div>
+        <script src="https://giscus.app/client.js"
+          data-repo="keieiriron/harunekochan"
+          data-repo-id="R_kgDOTAoukg"
+          data-category="General"
+          data-category-id="DIC_kwDOTAouks4C_lvj"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="light"
+          data-lang="ja"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
     </div>
 
     <!-- SIDEBAR -->
@@ -581,7 +647,7 @@
       <!-- Share -->
       <div class="side-box share-side-box">
         <div class="share-side-label">このサイトをシェアする</div>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdaiyatsuda.github.io%2Fharunekochan%2F" target="_blank" rel="noopener">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkeieiriron.github.io%2Fharunekochan%2F" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
           Facebookでシェア
         </a>
@@ -590,10 +656,10 @@
       <!-- Topics -->
       <div class="side-box">
         <div class="side-title">🏷 トピックス</div>
-        <div class="topic-cloud"><span class="topic-pill">管理職<span class="topic-cnt">2</span></span>
+        <div class="topic-cloud"><span class="topic-pill">人事制度<span class="topic-cnt">4</span></span>
+<span class="topic-pill">管理職<span class="topic-cnt">3</span></span>
 <span class="topic-pill">採用<span class="topic-cnt">2</span></span>
 <span class="topic-pill">AI活用<span class="topic-cnt">2</span></span>
-<span class="topic-pill">人事制度<span class="topic-cnt">2</span></span>
 <span class="topic-pill">リーダーシップ<span class="topic-cnt">1</span></span>
 <span class="topic-pill">組織変革<span class="topic-cnt">1</span></span>
 <span class="topic-pill">シニア活躍<span class="topic-cnt">1</span></span>
@@ -654,24 +720,21 @@
     <div class="insights-grid">
   <div class="insight-box">
     <div class="insight-box-title">📊 よく出る経営理論 TOP6</div>
-    <div class="theory-rank">
-      <div class="rank-item"><span class="rank-label">センスメイキング理論</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">ダイナミック・ケイパビリティ</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">資源ベース理論(RBV)</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%"></div></div><span class="rank-cnt">2件</span></div>
-    </div>
-    <div class="theory-feature"><div class="theory-feature-name">🏆 最頻出理論：センスメイキング理論</div><div class="theory-feature-text">不確実な状況を人々がどう「意味づけ」するかに注目する組織論。変化の渦中にあるとき、リーダーが語るナラティブが組織行動を方向づけます。</div></div>
+    <div class="theory-rank"><div class="rank-item"><span class="rank-label"><a href="../../theories//" style="color:inherit;text-decoration:none;">資源ベース理論(RBV)</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%"></div></div><span class="rank-cnt">3件</span></div><div class="rank-item"><span class="rank-label"><a href="../../theories/sensemaking/" style="color:inherit;text-decoration:none;">センスメイキング理論</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%"></div></div><span class="rank-cnt">3件</span></div><div class="rank-item"><span class="rank-label"><a href="../../theories/dynamic-capability/" style="color:inherit;text-decoration:none;">ダイナミック・ケイパビリティ</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:66%"></div></div><span class="rank-cnt">2件</span></div></div>
+    
   </div>
   <div class="insight-box">
     <div class="insight-box-title">🏷 注目トピック TOP5</div>
-    <div class="theory-rank">
-      <div class="rank-item"><span class="rank-label">管理職</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">採用</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">AI活用</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">人事制度</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">リーダーシップ</span><div class="rank-bar-bg"><div class="rank-bar" style="width:50%;background:var(--rose)"></div></div><span class="rank-cnt">1件</span></div>
-    </div>
+    <div class="theory-rank"><div class="rank-item"><span class="rank-label">人事制度</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%;background:var(--rose)"></div></div><span class="rank-cnt">4件</span></div><div class="rank-item"><span class="rank-label">管理職</span><div class="rank-bar-bg"><div class="rank-bar" style="width:75%;background:var(--rose)"></div></div><span class="rank-cnt">3件</span></div><div class="rank-item"><span class="rank-label">採用</span><div class="rank-bar-bg"><div class="rank-bar" style="width:50%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">AI活用</span><div class="rank-bar-bg"><div class="rank-bar" style="width:50%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">リーダーシップ</span><div class="rank-bar-bg"><div class="rank-bar" style="width:25%;background:var(--rose)"></div></div><span class="rank-cnt">1件</span></div></div>
     <div style="margin-top:20px;padding:14px;background:var(--bg);border-radius:10px;">
       <div style="font-size:.72rem;font-weight:700;color:var(--text-light);margin-bottom:6px;">📈 直近7日間</div>
-      <div style="font-family:'Shippori Mincho',serif;font-size:1.6rem;font-weight:800;color:var(--text);">6<small style="font-size:.85rem;font-weight:400;font-family:'Zen Kaku Gothic New',sans-serif;">件</small></div>
+      <div style="font-family:'Shippori Mincho',serif;font-size:1.6rem;font-weight:800;color:var(--text);">9<small style="font-size:.85rem;font-weight:400;font-family:'Zen Kaku Gothic New',sans-serif;">件</small></div>
       <div style="font-size:.72rem;color:var(--text-light);">のニュースを収集・解説</div>
     </div>
   </div>
 </div>
-
+<div class="insight-articles-title">💎 深掘り記事ピックアップ</div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><a class="badge-theory" href="../../theories/others/" title="未分類の解説ページへ">📚 未分類</a></div><h3 class="card-headline"><a href="https://www.rosei.jp/readers" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">メンタル休職者の復職判断と配置転換留意点</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事担当者は復職判断において「画一的な基準」に頼らず、主治医・産業医との三者連携を強化し、個別事案ごとに丁寧に対応する体制を整えることが求められる。具体的な実践として、①「職場環境のアセスメント」：復帰先の職場環境が不調の原因でないかを産業医と連携して確認する、②「段階的復職の設計」：軽業務・短時間勤務から本格復職まで段階別のプランを本人と合意して策定する、③「他業務配置の運用マニュアル化」：判断基準・期間・評価方法を文書化し担当者が変わっても対応がブレないようにする、の3点が有効だ。中長期的には、そもそも不調者を生まない予防的メンタルヘルス施策（EAPの整備・管理職のラインケア研修等）への先行投資が不可欠である。復職対応の質は企業の「組織の安全基地」としての信頼に直結し、優秀な人材の長期定着を左右する。</p></div><div class="card-foot"><span class="card-source">Web労政時報 第4121号 2026年6月 / 6月21日</span></div></div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><span class="badge-theory">📚 資源ベース理論(RBV)</span></div><h3 class="card-headline"><a href="https://jinjibu.jp/news/detl/26532/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">育休研修2時間で父親の育児時間が週末1時間増</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事担当者が育休取得促進施策を設計する際は、啓発・情報提供だけでなく「行動変容を促す介入設計」を組み込む必要がある。実践的な提言として、①「管理職向け育休研修の必須化」：管理職が部下の育休取得を支援する方法を学ぶ研修を、昇進後のオンボーディングに組み込む、②「数値目標の設定」：男性育休取得率・育児時間・パートナーの労働時間変化など、行動変容を測定できるKPIを設定し効果を可視化する、③「RCT的思考の導入」：施策の効果検証をパイロット展開＋比較対照という形で設計し、感覚ではなくデータで判断できる仕組みにする、の3点が有効だ。中長期的には、育休研修の定着は男女の家庭内役割分担の変化→女性の就労継続・キャリアアップ→組織の多様性向上という好循環を生む。「育休研修2時間」への投資対効果は非常に高く、未実施の企業は早急に導入を検討すべきだ。</p></div><div class="card-foot"><span class="card-source">日本の人事部 2026年6月18日 / 6月21日</span></div></div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a></div><h3 class="card-headline"><a href="https://www.rosei.jp/readers" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">管理職スキル支援、3社の取組事例</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事・経営担当者は、管理職支援を「昇進後の一次研修」に限定せず、継続的な仕組みとして設計する必要がある。特に以下の3点が重要だ。①「役割の明確化」：管理職が何に集中すべきかを組織として定義し、業務過多になっている場合は権限委譲や業務削減を検討する。②「学習の仕組み化」：動画・マイクロラーニング・ピアラーニングなど多様な形式で、現場を離れずに学べる環境を整備する。③「心理的支援」：管理職自身のメンタルヘルスや孤独感に対するサポート制度（メンター・コーチング等）を設ける。中長期的には、管理職ポストの魅力再設計が採用競争力にも直結する。優秀な社員が管理職を「選びたくなる」制度・文化をどう作るかが、組織の持続的競争力を左右する重要な経営課題だ。</p></div><div class="card-foot"><span class="card-source">Web労政時報 第4121号 2026年6月 / 6月21日</span></div></div>
+<p style="margin-top:24px;"><a href="../../theories/" style="color:var(--green-dk);font-weight:700;font-size:.9rem;">📚 全25理論の用語集を見る →</a></p>
   </div>
 </div>
 
@@ -786,7 +849,7 @@
       <a class="contact-btn-main" href="mailto:harunekochan65@gmail.com">
         📩 お問い合わせはこちら
       </a>
-      <a class="contact-btn-sub" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdaiyatsuda.github.io%2Fharunekochan%2F" target="_blank" rel="noopener">
+      <a class="contact-btn-sub" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkeieiriron.github.io%2Fharunekochan%2F" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
         Facebookでシェア
       </a>
