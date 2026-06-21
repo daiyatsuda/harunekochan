@@ -15,7 +15,7 @@ NOTION_API_KEY = os.environ["NOTION_API_KEY"]
 NOTION_DATABASE_ID = os.environ["NOTION_DATABASE_ID"]
 NOTION_VERSION = "2022-06-28"
 JST = timezone(timedelta(hours=9))
-SITE_URL = "https://daiyatsuda.github.io/harunekochan/"
+SITE_URL = "https://keieiriron.github.io/harunekochan/"
 
 THEORY_DESCRIPTIONS = {
     # ── 競争戦略系 ──
