@@ -1,0 +1,41 @@
+name: Update Site
+
+on:
+  schedule:
+    # 毎日 07:00 JST = 22:00 UTC (前日)
+    - cron: "0 22 * * *"
+  workflow_dispatch:  # 手動実行も可能
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate index.html
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: python scripts/generate_site.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "haruneko-bot"
+          git config user.email "actions@github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "変更なし — スキップ"
+          else
+            git commit -m "chore: update site $(date +'%Y-%m-%d')"
+            git push
+          fi

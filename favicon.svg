@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 耳（左） -->
+  <polygon points="8,22 18,6 26,22" fill="#6B8F71"/>
+  <!-- 耳（右） -->
+  <polygon points="38,22 46,6 56,22" fill="#6B8F71"/>
+  <!-- 顔の丸 -->
+  <circle cx="32" cy="36" r="22" fill="#6B8F71"/>
+  <!-- 目（左） -->
+  <ellipse cx="24" cy="34" rx="3" ry="3.5" fill="#FAF7F2"/>
+  <!-- 目（右） -->
+  <ellipse cx="40" cy="34" rx="3" ry="3.5" fill="#FAF7F2"/>
+  <!-- 鼻 -->
+  <ellipse cx="32" cy="42" rx="2" ry="1.5" fill="#E8A0B4"/>
+</svg>
