@@ -112,29 +112,9 @@ def render_theory_box(theory: str) -> str:
     desc = THEORY_DESCRIPTIONS.get(theory, "")
     if not desc:
         return ""
-    # Thinking cat SVG inline
-    cat_svg = """<svg class="theory-box-cat" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="16" r="10" fill="#6B8F71"/>
-          <polygon points="12,10 14,4 18,10" fill="#6B8F71"/>
-          <polygon points="28,10 26,4 22,10" fill="#6B8F71"/>
-          <polygon points="12.5,9 14.5,5 17.5,9" fill="#E8A0B4"/>
-          <polygon points="27.5,9 25.5,5 22.5,9" fill="#E8A0B4"/>
-          <ellipse cx="16" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <ellipse cx="24" cy="15" rx="2.5" ry="3" fill="#FAF7F2"/>
-          <circle cx="16.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <circle cx="24.5" cy="15.5" r="1.5" fill="#2B2620"/>
-          <ellipse cx="20" cy="20" rx="1.5" ry="1" fill="#E8A0B4"/>
-          <ellipse cx="20" cy="31" rx="10" ry="8" fill="#6B8F71"/>
-          <ellipse cx="13" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <ellipse cx="27" cy="38" rx="5" ry="3.5" fill="#6B8F71"/>
-          <text x="28" y="10" font-size="7" fill="#E8A0B4">?</text>
-        </svg>"""
     return f"""<div class="theory-box">
-          {cat_svg}
-          <div class="theory-box-content">
-            <div class="theory-box-label">経営理論の視点 ▶ {theory}</div>
-            <p class="theory-box-text">{desc}</p>
-          </div>
+          <div class="theory-box-label">📚 経営理論の視点 ▶ {theory}</div>
+          <p class="theory-box-text">{desc}</p>
         </div>"""
 
 

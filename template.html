@@ -209,16 +209,19 @@
     /* ─── NEWS CARD ─── */
     .card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
+      border-top: 4px solid var(--green);
       border-radius: 16px;
       padding: 28px 28px 22px;
-      margin-bottom: 20px;
+      margin-bottom: 32px;
       position: relative;
-      transition: box-shadow .2s, border-color .2s;
+      box-shadow: 0 4px 16px rgba(43,38,32,.07);
+      transition: box-shadow .2s, border-color .2s, transform .2s;
     }
     .card:hover {
-      box-shadow: 0 8px 30px rgba(43,38,32,.09);
+      box-shadow: 0 10px 36px rgba(43,38,32,.13);
       border-color: var(--green-lt);
+      transform: translateY(-2px);
     }
     .card-num {
       position: absolute;
