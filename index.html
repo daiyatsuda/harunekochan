@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://keieiriron.github.io/harunekochan/">
   <meta property="og:site_name" content="はるねこちゃん">
   <meta name="twitter:card" content="summary_large_image">
-  
+  <meta property="og:image" content="https://keieiriron.github.io/harunekochan/assets/og/today.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -283,24 +283,139 @@
       to   { transform: translateY(-5px) rotate(1.5deg); }
     }
 
-    /* ─── RESPONSIVE ─── */
+    /* ─── RESPONSIVE: TABLET ─── */
     @media (max-width: 880px) {
-      .hero-inner { grid-template-columns: 1fr; padding-bottom: 32px; }
+      .hero-inner { grid-template-columns: 1fr; padding: 40px 20px 0; }
       .hero-right { display: none; }
-      .wrap { grid-template-columns: 1fr; gap: 36px; }
-      .about-inner { grid-template-columns: 1fr; }
+      .wrap { grid-template-columns: 1fr; gap: 28px; padding: 32px 20px 60px; }
+      .full-wrap { padding: 32px 20px 60px; }
+      .about-inner { grid-template-columns: 1fr; padding: 32px 20px; }
       .insights-grid { grid-template-columns: 1fr; }
       nav { padding: 0 16px; }
-      .wrap, .full-wrap, footer, .about-inner, .contact-strip { padding-left: 20px; padding-right: 20px; }
-      .hero-inner { padding-left: 20px; padding-right: 20px; }
+      footer { padding: 28px 20px 16px; }
+      .contact-strip { padding: 40px 20px; }
       .about-profile-card { grid-template-columns: 1fr; }
+      .foot-inner { flex-direction: column; gap: 16px; }
+      .foot-links { align-items: flex-start; }
     }
-    @media (max-width: 480px) {
-      .hero-h1 { font-size: 1.85rem; }
-      .card { padding: 20px 18px 16px; }
-      .hero-stats { flex-direction: column; }
-      .stat { border-right: none; border-bottom: 1px solid var(--border); }
-      .tab-btn { padding: 12px 16px; font-size: .78rem; }
+
+    /* ─── RESPONSIVE: MOBILE ─── */
+    @media (max-width: 600px) {
+      /* Nav */
+      nav { height: 52px; padding: 0 14px; }
+      .nav-logo img { width: 28px; height: 28px; }
+      .nav-logo-text { font-size: .95rem; }
+      .nav-pill { display: none; }
+      .nav-contact-btn { font-size: .7rem; padding: 5px 12px; }
+
+      /* Hero */
+      .hero-inner { padding: 28px 16px 0; gap: 20px; }
+      .hero-kicker { font-size: .62rem; margin-bottom: 12px; }
+      .hero-h1 { font-size: 1.65rem; margin-bottom: 12px; }
+      .hero-lead { font-size: .84rem; margin-bottom: 24px; }
+      .hero-stats { flex-direction: row; flex-wrap: wrap; border-radius: 10px 10px 0 0; }
+      .stat { flex: 1 1 30%; padding: 12px 10px; border-right: 1px solid var(--border); }
+      .stat:last-child { border-right: none; }
+      .stat-val { font-size: 1.4rem; }
+      .stat-lbl { font-size: .58rem; }
+
+      /* Tab nav */
+      .tab-nav { top: 52px; }
+      .tab-btn { padding: 13px 14px; font-size: .76rem; letter-spacing: 0; }
+
+      /* Page layouts */
+      .wrap { padding: 20px 14px 56px; gap: 20px; }
+      .full-wrap { padding: 20px 14px 56px; }
+
+      /* Cards */
+      .card { padding: 18px 16px 14px; border-radius: 12px; margin-bottom: 24px; }
+      .card-num { font-size: 2rem; top: 14px; right: 16px; }
+      .card-meta { gap: 6px; padding-right: 44px; margin-bottom: 10px; }
+      .badge-theory { font-size: .6rem; padding: 3px 10px; }
+      .badge-new { font-size: .58rem; }
+      .tag { font-size: .62rem; }
+      .card-headline { font-size: 1.05rem; margin-bottom: 14px; }
+
+      /* Article sections */
+      .art-section { padding: 10px 13px; margin-bottom: 8px; }
+      .art-label { font-size: .6rem; }
+      .art-section p { font-size: .82rem; line-height: 1.8; }
+
+      /* Theory box */
+      .theory-box { padding: 12px 14px; margin-bottom: 14px; }
+      .theory-box-label { font-size: .62rem; }
+      .theory-box-text { font-size: .8rem; }
+
+      /* Author comment */
+      .author-comment { padding: 12px 14px; }
+      .author-comment-text { font-size: .82rem; }
+
+      /* Card footer */
+      .card-foot { flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 12px; }
+      .card-foot-right { width: 100%; justify-content: flex-start; }
+      .read-btn { font-size: .72rem; padding: 7px 14px; }
+      .fb-share { font-size: .72rem; padding: 7px 12px; }
+
+      /* Sidebar */
+      .side-col .mascot-box { padding: 18px 14px 14px; }
+      .mascot-box .cat-side { width: 70px; margin-bottom: 10px; }
+      .mascot-name { font-size: .9rem; }
+      .mascot-desc { font-size: .72rem; }
+      .side-box { padding: 16px; }
+      .side-title { font-size: .85rem; margin-bottom: 12px; }
+      .topic-pill { font-size: .7rem; padding: 4px 10px; }
+      .share-side-box a { font-size: .75rem; padding: 9px 16px; }
+
+      /* Archive */
+      .archive-group-head { font-size: .8rem; }
+      .arc-card { padding: 16px 16px; }
+      .arc-card .card-headline { font-size: .92rem; }
+
+      /* Insights */
+      .insight-banner { padding: 20px 18px; border-radius: 14px; margin-bottom: 24px; }
+      .insight-banner-title { font-size: 1.05rem; }
+      .insight-banner-sub { font-size: .8rem; }
+      .insight-box { padding: 18px; }
+
+      /* About */
+      .about-profile-card { padding: 22px 18px; gap: 20px; }
+      .profile-avatar-wrap svg { width: 64px; }
+      .profile-bio { font-size: .82rem; }
+      .about-origin { padding: 20px 18px; }
+      .about-origin p { font-size: .82rem; }
+      .faq-q { font-size: .82rem; padding: 12px 14px; }
+      .faq-a { font-size: .8rem; }
+
+      /* Contact */
+      .contact-strip { padding: 36px 16px; }
+      .contact-title { font-size: 1.3rem; }
+      .contact-desc { font-size: .82rem; }
+      .contact-btns { flex-direction: column; align-items: center; gap: 10px; }
+      .contact-btn-main { font-size: .84rem; padding: 13px 28px; width: 100%; justify-content: center; }
+      .contact-btn-sub { font-size: .8rem; padding: 11px 22px; width: 100%; justify-content: center; }
+      .contact-services { gap: 14px; }
+      .contact-service { font-size: .74rem; }
+
+      /* About strip */
+      .about-inner { padding: 28px 16px; gap: 20px; }
+
+      /* Footer */
+      footer { padding: 24px 16px 14px; }
+      .foot-brand-name { font-size: .9rem; }
+      .foot-copy { font-size: .7rem; }
+      .foot-bottom { font-size: .64rem; }
+
+      /* Giscus */
+      .giscus-wrap { margin-top: 32px; padding-top: 24px; }
+      .giscus-wrap-title { font-size: .88rem; }
+
+      /* Section heads */
+      .sec-head { gap: 10px; margin-bottom: 20px; }
+      .sec-icon { width: 36px; height: 36px; }
+      .sec-title { font-size: .95rem; }
+      .sec-sub { font-size: .65rem; }
+
+      /* Walking cat */
       .cat-walk { display: none; }
     }
   </style>
@@ -351,11 +466,11 @@
       <p class="hero-lead">毎朝届く人事・経営ニュースを、入山章栄『世界標準の経営理論』のフレームワークで深掘り解説。<strong>事実・考察・示唆</strong>の3ステップで、現場で使えるインサイトをお届けします。</p>
       <div class="hero-stats">
         <div class="stat">
-          <div class="stat-val">9<small>件</small></div>
+          <div class="stat-val">11<small>件</small></div>
           <div class="stat-lbl">TODAY'S NEWS</div>
         </div>
         <div class="stat">
-          <div class="stat-val">9<small>件</small></div>
+          <div class="stat-val">11<small>件</small></div>
           <div class="stat-lbl">TOTAL ARTICLES</div>
         </div>
         <div class="stat">
@@ -408,6 +523,7 @@
   <button class="tab-btn" onclick="showPage('archive')" data-page="archive">📚 アーカイブ</button>
   <button class="tab-btn" onclick="showPage('insights')" data-page="insights">🔍 考察・示唆</button>
   <button class="tab-btn" onclick="showPage('about')" data-page="about">🐱 はるねこについて</button>
+  <a class="tab-btn" href="blog/">✏️ ブログ</a>
   <a class="tab-btn" href="theories/" target="_blank" rel="noopener">📖 理論用語集</a>
   <a class="tab-btn" href="diagnose/sensemaking/" target="_blank" rel="noopener">🧠 自己診断</a>
 </div>
@@ -446,6 +562,38 @@
       <div class="card">
   <div class="card-num">01</div>
   <div class="card-meta">
+    <span class="badge-theory">📚 資源ベース理論(RBV)</span>
+    <span class="badge-new">NEW</span>
+    <span class="tag">人事制度</span>
+  </div>
+  <h2 class="card-headline">国家公務員、転勤手当拡充へ</h2>
+  <div class="art-section fact"><span class="art-label">📰 事実</span><p>人事院は2026年6月17日、国家公務員の転勤に関連する手当の拡充方針を明らかにした。同院が一般職の国家公務員を対象に実施した調査では、「転勤を敬遠する」との回答が半数超に達した。転勤に伴う引越し費用の増大、家賃差額負担、単身赴任による生活費の二重化など、金銭的な負担の大きさが転勤回避の主因として浮かび上がった。人事院は新たな一時金の創設を含む制度拡充を検討しており、大手民間企業の転勤関連手当を参考に設計する方針だ。この動きは、国家公務員の転勤に関する調査で約53%が「行きたくない」と回答したことを受けた対応策の一環とも見られる。共働き世帯の拡大、子育て・介護との両立困難化、パートナーのキャリア継続優先意識の高まりを背景に、官民を問わず「転勤の壁」が組織の人材確保・活用の障害となりつつある。人事院が民間大手を参考に制度設計する方針は、公民間の人事政策が相互に収斂していく動きとして注目される。</p></div><div class="art-section analysis"><span class="art-label">🔍 考察</span><p>国家公務員の「転勤離れ」は、日本社会における働き方と家族形態の根本的な変容を反映している。1990年代まで主流だった「片稼ぎモデル（男性が転勤、配偶者が専業主婦）」から、現在は共働きが過半数を占める状況に変わり、転勤は「キャリアの登竜門」ではなく「生活の破壊者」として忌避される存在になりつつある。転勤に応じることで生じる損失（パートナーの離職、子育て環境の変化、持ち家購入断念）が、転勤手当で補える金銭的利益を大幅に上回るという認識が広まっているのだ。資源ベース理論（RBV）の観点からは、組織が持続的競争優位を保つために必要な「希少で模倣困難な人材」を確保・定着させるためには、その人材にとって受け入れ可能な就労条件を提供することが前提条件となる。国家公務員の場合、全国規模でのジェネラリスト育成が組織の知識循環・政策遂行力を支えてきた歴史的背景がある。しかし転勤回避傾向が強まる中、この前提そのものが揺らいでいる。単なる手当拡充にとどまらず、転勤の「設計変更」が求められている局面だ。具体的には、①転勤頻度・期間の圧縮、②デジタルを活用した遠隔業務拡大、③勤務地選択可能な複線型キャリアパスの整備——が方向性として考えられる。民間でも同様の圧力は高まっており、「転勤ありき」の雇用モデルを維持する組織は採用競争力を失っていくだろう。</p></div><div class="art-section insight"><span class="art-label">💡 示唆</span><p>民間企業の人事担当者は、この国家公務員の動向を「対岸の火事」として捉えるべきではない。まず今すぐ着手できる施策として、①転勤に関する社員サーベイの実施（転勤意向・拒否の実態把握）、②転勤手当・住宅補助の実態との乖離チェック（現状制度が現実の負担をカバーしているか）、③勤務地限定型コースの整備可否の検討——を行うことが推奨される。中長期的には、全国転勤を前提とした「幹部候補=転勤可能者」という等式を解体し、専門職・地域特化型キャリアでも管理職に登用できる制度設計が必要となる。転勤拒否が「評価マイナス」になるような暗黙のペナルティ文化は、優秀な女性社員や共働き社員の離職・モチベーション低下の原因となっており、DE&I推進の観点からも見直しが急務だ。「転勤制度の見直し」は単なる福利厚生の問題ではなく、組織が優秀人材を確保し続けられるかを左右する経営戦略そのものである。</p></div>
+  
+  
+  <div class="card-foot">
+    <a class="card-source" href="https://www.hokkaido-np.co.jp/article/1326216/" target="_blank" rel="noopener">📎 Web労政時報 / 北海道新聞デジタル 2026年6月17日</a>
+    <div class="card-foot-right"><a class="read-btn" href="https://www.hokkaido-np.co.jp/article/1326216/" target="_blank" rel="noopener">元記事 →</a><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.hokkaido-np.co.jp%2Farticle%2F1326216%2F" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-num">02</div>
+  <div class="card-meta">
+    <a class="badge-theory" href="../../theories/others/" title="未分類の解説ページへ">📚 未分類</a>
+    <span class="badge-new">NEW</span>
+    <span class="tag">人事制度</span>
+  </div>
+  <h2 class="card-headline">障害者法定雇用率2.7%、7月施行迫る</h2>
+  <div class="art-section fact"><span class="art-label">📰 事実</span><p>2026年7月1日より、民間企業に課される障害者の法定雇用率が現行の2.5%から2.7%に引き上げられる。施行まで約10日に迫った現在、多くの企業で対応が急がれている。同時に、義務対象企業の範囲も常時雇用労働者数「40人以上」から「37.5人以上」に拡大されるため、これまで義務対象外だった37.5〜40人未満規模の企業が初めて法的義務を負う。2025年6月時点での民間企業の達成率はわずか約46%にとどまっており、障害者を全く雇用していない未達成企業が約57%に達している。未達成の場合、常時雇用100人超の企業は不足障害者1人につき月額5万円の「障害者雇用納付金」が徴収される。さらに行政指導に従わない場合は企業名が公表されるリスクもある。今回の引き上げは2024年4月（2.3%→2.5%）に続く第二段階であり、厚生労働省が2023年に策定した段階的見直し計画の一環だ。ESGや社会的包摂への社会的要請が法的義務の形で企業に課されたものと捉えられる。</p></div><div class="art-section analysis"><span class="art-label">🔍 考察</span><p>障害者雇用率の段階的引き上げは、制度理論（Institutional Theory）の観点から見ると、社会的正統性を維持するために企業が支配的な規範・規制に適応することを強いられる典型的な動きだ。達成率が約46%に留まる現状は、多くの企業が「罰則覚悟」または「認識不足」のまま制度変化に乗り遅れていることを意味する。特に今回の改正で新たに対象となる37.5〜40人規模の企業の多くは、義務化を認識していない可能性が高い。一方、障害者雇用に積極的に取り組む先進企業では「戦略的障害者雇用」が競争優位の源泉となっている事例も増えてきた。業務の分解・再設計（ジョブコーチ活用・テレワーク活用）を通じて障害者が活躍できる環境を整備することは、定型業務の効率化・職場の多様性強化・既存社員の意識変容をもたらし、組織全体のパフォーマンス向上につながる。つまり、制度への対応を「コスト」と捉えるか「DEI投資」と捉えるかで、企業の対応の質と中長期的な競争力が大きく変わる。「数合わせ採用」に終始する企業では現場の混乱や早期離職が頻発し、かえってコストと混乱を招きやすい点も見逃せない。</p></div><div class="art-section insight"><span class="art-label">💡 示唆</span><p>施行まで約10日というこの局面で、人事担当者がすぐに確認・着手すべき事項は以下の通りだ。①自社の常時雇用者数を再確認し、37.5人以上かどうかを確認する（特に新たに義務化の対象となる37.5〜40人規模の企業は即対応が必要）。②現状の法定雇用率達成状況を試算し、不足人数を把握する。③ハローワーク・就労移行支援事業所との連携を急いで開始する（採用には通常数か月のリードタイムが必要なため、今期は納付金対応も視野に入れる）。④納付金の支払い義務発生時期と金額を確認し、経理・経営層に報告する。中長期的には、障害者雇用を「コンプライアンス対応」から「戦略的DEI推進」に位置づけ直す経営方針の転換が重要だ。障害特性に合わせた業務切り出しと職場環境整備には、産業医・ジョブコーチ・支援機関との連携が不可欠となる。今後も法定雇用率のさらなる引き上げが見込まれる中、今から先手を打った企業が採用競争力・社会的信頼の両面で優位に立てる。</p></div>
+  <div class="theory-box"><div class="theory-box-label">📚 経営理論の視点 ▶ 未分類</div><p class="theory-box-text">現時点では既存の経営理論に明確に分類しにくいニュースです。今後の理論的文脈の変化とともに再分類される可能性があります。 <a href="../../theories/others/" class="theory-box-more">→ 理論を詳しく見る</a></p></div>
+  
+  <div class="card-foot">
+    <a class="card-source" href="https://www.shiodome-sr.jp/%E3%80%90%E7%A4%BE%E5%8A%B4%E5%A3%AB%E8%A7%A3%E8%AA%AC%E3%80%912026%E5%B9%B47%E6%9C%88%E3%80%8C%E9%9A%9C%E5%AE%B3%E8%80%85%E6%B3%95%E5%AE%9A%E9%9B%87%E7%94%A8%E7%8E%87%E3%80%8D%E5%BC%95%E3%81%8D" target="_blank" rel="noopener">📎 汐留社会保険労務士法人（社労士解説） 2026年6月5日</a>
+    <div class="card-foot-right"><a class="read-btn" href="https://www.shiodome-sr.jp/%E3%80%90%E7%A4%BE%E5%8A%B4%E5%A3%AB%E8%A7%A3%E8%AA%AC%E3%80%912026%E5%B9%B47%E6%9C%88%E3%80%8C%E9%9A%9C%E5%AE%B3%E8%80%85%E6%B3%95%E5%AE%9A%E9%9B%87%E7%94%A8%E7%8E%87%E3%80%8D%E5%BC%95%E3%81%8D" target="_blank" rel="noopener">元記事 →</a><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shiodome-sr.jp%2F%25E3%2580%2590%25E7%25A4%25BE%25E5%258A%25B4%25E5%25A3%25AB%25E8%25A7%25A3%25E8%25AA%25AC%25E3%2580%25912026%25E5%25B9%25B47%25E6%259C%2588%25E3%2580%258C%25E9%259A%259C%25E5%25AE%25B3%25E8%2580%2585%25E6%25B3%2595%25E5%25AE%259A%25E9%259B%2587%25E7%2594%25A8%25E7%258E%2587%25E3%2580%258D%25E5%25BC%2595%25E3%2581%258D" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>シェア</a></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-num">03</div>
+  <div class="card-meta">
     <a class="badge-theory" href="../../theories/others/" title="未分類の解説ページへ">📚 未分類</a>
     <span class="badge-new">NEW</span>
     <span class="tag">人事制度</span>
@@ -460,7 +608,7 @@
   </div>
 </div>
 <div class="card">
-  <div class="card-num">02</div>
+  <div class="card-num">04</div>
   <div class="card-meta">
     <span class="badge-theory">📚 資源ベース理論(RBV)</span>
     <span class="badge-new">NEW</span>
@@ -476,7 +624,7 @@
   </div>
 </div>
 <div class="card">
-  <div class="card-num">03</div>
+  <div class="card-num">05</div>
   <div class="card-meta">
     <a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a>
     <span class="badge-new">NEW</span>
@@ -492,7 +640,7 @@
   </div>
 </div>
 <div class="card">
-  <div class="card-num">04</div>
+  <div class="card-num">06</div>
   <div class="card-meta">
     <a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a>
     <span class="badge-new">NEW</span>
@@ -508,7 +656,7 @@
   </div>
 </div>
 <div class="card">
-  <div class="card-num">05</div>
+  <div class="card-num">07</div>
   <div class="card-meta">
     <a class="badge-theory" href="../../theories/dynamic-capability/" title="ダイナミック・ケイパビリティの解説ページへ">📚 ダイナミック・ケイパビリティ</a>
     <span class="badge-new">NEW</span>
@@ -524,7 +672,7 @@
   </div>
 </div>
 <div class="card">
-  <div class="card-num">06</div>
+  <div class="card-num">08</div>
   <div class="card-meta">
     <span class="badge-theory">📚 資源ベース理論(RBV)</span>
     <span class="badge-new">NEW</span>
@@ -540,7 +688,7 @@
   </div>
 </div>
 <div class="card">
-  <div class="card-num">07</div>
+  <div class="card-num">09</div>
   <div class="card-meta">
     <a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a>
     <span class="badge-new">NEW</span>
@@ -556,7 +704,7 @@
   </div>
 </div>
 <div class="card">
-  <div class="card-num">08</div>
+  <div class="card-num">10</div>
   <div class="card-meta">
     <span class="badge-theory">📚 資源ベース理論(RBV)</span>
     <span class="badge-new">NEW</span>
@@ -572,7 +720,7 @@
   </div>
 </div>
 <div class="card">
-  <div class="card-num">09</div>
+  <div class="card-num">11</div>
   <div class="card-meta">
     <a class="badge-theory" href="../../theories/dynamic-capability/" title="ダイナミック・ケイパビリティの解説ページへ">📚 ダイナミック・ケイパビリティ</a>
     <span class="badge-new">NEW</span>
@@ -656,7 +804,7 @@
       <!-- Topics -->
       <div class="side-box">
         <div class="side-title">🏷 トピックス</div>
-        <div class="topic-cloud"><span class="topic-pill">人事制度<span class="topic-cnt">4</span></span>
+        <div class="topic-cloud"><span class="topic-pill">人事制度<span class="topic-cnt">6</span></span>
 <span class="topic-pill">管理職<span class="topic-cnt">3</span></span>
 <span class="topic-pill">採用<span class="topic-cnt">2</span></span>
 <span class="topic-pill">AI活用<span class="topic-cnt">2</span></span>
@@ -720,20 +868,20 @@
     <div class="insights-grid">
   <div class="insight-box">
     <div class="insight-box-title">📊 よく出る経営理論 TOP6</div>
-    <div class="theory-rank"><div class="rank-item"><span class="rank-label"><a href="../../theories//" style="color:inherit;text-decoration:none;">資源ベース理論(RBV)</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%"></div></div><span class="rank-cnt">3件</span></div><div class="rank-item"><span class="rank-label"><a href="../../theories/sensemaking/" style="color:inherit;text-decoration:none;">センスメイキング理論</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%"></div></div><span class="rank-cnt">3件</span></div><div class="rank-item"><span class="rank-label"><a href="../../theories/dynamic-capability/" style="color:inherit;text-decoration:none;">ダイナミック・ケイパビリティ</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:66%"></div></div><span class="rank-cnt">2件</span></div></div>
+    <div class="theory-rank"><div class="rank-item"><span class="rank-label"><a href="../../theories//" style="color:inherit;text-decoration:none;">資源ベース理論(RBV)</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%"></div></div><span class="rank-cnt">4件</span></div><div class="rank-item"><span class="rank-label"><a href="../../theories/sensemaking/" style="color:inherit;text-decoration:none;">センスメイキング理論</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:75%"></div></div><span class="rank-cnt">3件</span></div><div class="rank-item"><span class="rank-label"><a href="../../theories/dynamic-capability/" style="color:inherit;text-decoration:none;">ダイナミック・ケイパビリティ</a></span><div class="rank-bar-bg"><div class="rank-bar" style="width:50%"></div></div><span class="rank-cnt">2件</span></div></div>
     
   </div>
   <div class="insight-box">
     <div class="insight-box-title">🏷 注目トピック TOP5</div>
-    <div class="theory-rank"><div class="rank-item"><span class="rank-label">人事制度</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%;background:var(--rose)"></div></div><span class="rank-cnt">4件</span></div><div class="rank-item"><span class="rank-label">管理職</span><div class="rank-bar-bg"><div class="rank-bar" style="width:75%;background:var(--rose)"></div></div><span class="rank-cnt">3件</span></div><div class="rank-item"><span class="rank-label">採用</span><div class="rank-bar-bg"><div class="rank-bar" style="width:50%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">AI活用</span><div class="rank-bar-bg"><div class="rank-bar" style="width:50%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">リーダーシップ</span><div class="rank-bar-bg"><div class="rank-bar" style="width:25%;background:var(--rose)"></div></div><span class="rank-cnt">1件</span></div></div>
+    <div class="theory-rank"><div class="rank-item"><span class="rank-label">人事制度</span><div class="rank-bar-bg"><div class="rank-bar" style="width:100%;background:var(--rose)"></div></div><span class="rank-cnt">6件</span></div><div class="rank-item"><span class="rank-label">管理職</span><div class="rank-bar-bg"><div class="rank-bar" style="width:50%;background:var(--rose)"></div></div><span class="rank-cnt">3件</span></div><div class="rank-item"><span class="rank-label">採用</span><div class="rank-bar-bg"><div class="rank-bar" style="width:33%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">AI活用</span><div class="rank-bar-bg"><div class="rank-bar" style="width:33%;background:var(--rose)"></div></div><span class="rank-cnt">2件</span></div><div class="rank-item"><span class="rank-label">リーダーシップ</span><div class="rank-bar-bg"><div class="rank-bar" style="width:16%;background:var(--rose)"></div></div><span class="rank-cnt">1件</span></div></div>
     <div style="margin-top:20px;padding:14px;background:var(--bg);border-radius:10px;">
       <div style="font-size:.72rem;font-weight:700;color:var(--text-light);margin-bottom:6px;">📈 直近7日間</div>
-      <div style="font-family:'Shippori Mincho',serif;font-size:1.6rem;font-weight:800;color:var(--text);">9<small style="font-size:.85rem;font-weight:400;font-family:'Zen Kaku Gothic New',sans-serif;">件</small></div>
+      <div style="font-family:'Shippori Mincho',serif;font-size:1.6rem;font-weight:800;color:var(--text);">11<small style="font-size:.85rem;font-weight:400;font-family:'Zen Kaku Gothic New',sans-serif;">件</small></div>
       <div style="font-size:.72rem;color:var(--text-light);">のニュースを収集・解説</div>
     </div>
   </div>
 </div>
-<div class="insight-articles-title">💎 深掘り記事ピックアップ</div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><a class="badge-theory" href="../../theories/others/" title="未分類の解説ページへ">📚 未分類</a></div><h3 class="card-headline"><a href="https://www.rosei.jp/readers" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">メンタル休職者の復職判断と配置転換留意点</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事担当者は復職判断において「画一的な基準」に頼らず、主治医・産業医との三者連携を強化し、個別事案ごとに丁寧に対応する体制を整えることが求められる。具体的な実践として、①「職場環境のアセスメント」：復帰先の職場環境が不調の原因でないかを産業医と連携して確認する、②「段階的復職の設計」：軽業務・短時間勤務から本格復職まで段階別のプランを本人と合意して策定する、③「他業務配置の運用マニュアル化」：判断基準・期間・評価方法を文書化し担当者が変わっても対応がブレないようにする、の3点が有効だ。中長期的には、そもそも不調者を生まない予防的メンタルヘルス施策（EAPの整備・管理職のラインケア研修等）への先行投資が不可欠である。復職対応の質は企業の「組織の安全基地」としての信頼に直結し、優秀な人材の長期定着を左右する。</p></div><div class="card-foot"><span class="card-source">Web労政時報 第4121号 2026年6月 / 6月21日</span></div></div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><span class="badge-theory">📚 資源ベース理論(RBV)</span></div><h3 class="card-headline"><a href="https://jinjibu.jp/news/detl/26532/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">育休研修2時間で父親の育児時間が週末1時間増</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事担当者が育休取得促進施策を設計する際は、啓発・情報提供だけでなく「行動変容を促す介入設計」を組み込む必要がある。実践的な提言として、①「管理職向け育休研修の必須化」：管理職が部下の育休取得を支援する方法を学ぶ研修を、昇進後のオンボーディングに組み込む、②「数値目標の設定」：男性育休取得率・育児時間・パートナーの労働時間変化など、行動変容を測定できるKPIを設定し効果を可視化する、③「RCT的思考の導入」：施策の効果検証をパイロット展開＋比較対照という形で設計し、感覚ではなくデータで判断できる仕組みにする、の3点が有効だ。中長期的には、育休研修の定着は男女の家庭内役割分担の変化→女性の就労継続・キャリアアップ→組織の多様性向上という好循環を生む。「育休研修2時間」への投資対効果は非常に高く、未実施の企業は早急に導入を検討すべきだ。</p></div><div class="card-foot"><span class="card-source">日本の人事部 2026年6月18日 / 6月21日</span></div></div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a></div><h3 class="card-headline"><a href="https://www.rosei.jp/readers" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">管理職スキル支援、3社の取組事例</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事・経営担当者は、管理職支援を「昇進後の一次研修」に限定せず、継続的な仕組みとして設計する必要がある。特に以下の3点が重要だ。①「役割の明確化」：管理職が何に集中すべきかを組織として定義し、業務過多になっている場合は権限委譲や業務削減を検討する。②「学習の仕組み化」：動画・マイクロラーニング・ピアラーニングなど多様な形式で、現場を離れずに学べる環境を整備する。③「心理的支援」：管理職自身のメンタルヘルスや孤独感に対するサポート制度（メンター・コーチング等）を設ける。中長期的には、管理職ポストの魅力再設計が採用競争力にも直結する。優秀な社員が管理職を「選びたくなる」制度・文化をどう作るかが、組織の持続的競争力を左右する重要な経営課題だ。</p></div><div class="card-foot"><span class="card-source">Web労政時報 第4121号 2026年6月 / 6月21日</span></div></div>
+<div class="insight-articles-title">💎 深掘り記事ピックアップ</div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><span class="badge-theory">📚 資源ベース理論(RBV)</span></div><h3 class="card-headline"><a href="https://www.hokkaido-np.co.jp/article/1326216/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">国家公務員、転勤手当拡充へ</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>民間企業の人事担当者は、この国家公務員の動向を「対岸の火事」として捉えるべきではない。まず今すぐ着手できる施策として、①転勤に関する社員サーベイの実施（転勤意向・拒否の実態把握）、②転勤手当・住宅補助の実態との乖離チェック（現状制度が現実の負担をカバーしているか）、③勤務地限定型コースの整備可否の検討——を行うことが推奨される。中長期的には、全国転勤を前提とした「幹部候補=転勤可能者」という等式を解体し、専門職・地域特化型キャリアでも管理職に登用できる制度設計が必要となる。転勤拒否が「評価マイナス」になるような暗黙のペナルティ文化は、優秀な女性社員や共働き社員の離職・モチベーション低下の原因となっており、DE&I推進の観点からも見直しが急務だ。「転勤制度の見直し」は単なる福利厚生の問題ではなく、組織が優秀人材を確保し続けられるかを左右する経営戦略そのものである。</p></div><div class="card-foot"><span class="card-source">Web労政時報 / 北海道新聞デジタル 2026年6月17日 / 6月21日</span></div></div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><a class="badge-theory" href="../../theories/others/" title="未分類の解説ページへ">📚 未分類</a></div><h3 class="card-headline"><a href="https://www.shiodome-sr.jp/%E3%80%90%E7%A4%BE%E5%8A%B4%E5%A3%AB%E8%A7%A3%E8%AA%AC%E3%80%912026%E5%B9%B47%E6%9C%88%E3%80%8C%E9%9A%9C%E5%AE%B3%E8%80%85%E6%B3%95%E5%AE%9A%E9%9B%87%E7%94%A8%E7%8E%87%E3%80%8D%E5%BC%95%E3%81%8D" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">障害者法定雇用率2.7%、7月施行迫る</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>施行まで約10日というこの局面で、人事担当者がすぐに確認・着手すべき事項は以下の通りだ。①自社の常時雇用者数を再確認し、37.5人以上かどうかを確認する（特に新たに義務化の対象となる37.5〜40人規模の企業は即対応が必要）。②現状の法定雇用率達成状況を試算し、不足人数を把握する。③ハローワーク・就労移行支援事業所との連携を急いで開始する（採用には通常数か月のリードタイムが必要なため、今期は納付金対応も視野に入れる）。④納付金の支払い義務発生時期と金額を確認し、経理・経営層に報告する。中長期的には、障害者雇用を「コンプライアンス対応」から「戦略的DEI推進」に位置づけ直す経営方針の転換が重要だ。障害特性に合わせた業務切り出しと職場環境整備には、産業医・ジョブコーチ・支援機関との連携が不可欠となる。今後も法定雇用率のさらなる引き上げが見込まれる中、今から先手を打った企業が採用競争力・社会的信頼の両面で優位に立てる。</p></div><div class="card-foot"><span class="card-source">汐留社会保険労務士法人（社労士解説） 2026年6月5日 / 6月21日</span></div></div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><a class="badge-theory" href="../../theories/others/" title="未分類の解説ページへ">📚 未分類</a></div><h3 class="card-headline"><a href="https://www.rosei.jp/readers" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">メンタル休職者の復職判断と配置転換留意点</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事担当者は復職判断において「画一的な基準」に頼らず、主治医・産業医との三者連携を強化し、個別事案ごとに丁寧に対応する体制を整えることが求められる。具体的な実践として、①「職場環境のアセスメント」：復帰先の職場環境が不調の原因でないかを産業医と連携して確認する、②「段階的復職の設計」：軽業務・短時間勤務から本格復職まで段階別のプランを本人と合意して策定する、③「他業務配置の運用マニュアル化」：判断基準・期間・評価方法を文書化し担当者が変わっても対応がブレないようにする、の3点が有効だ。中長期的には、そもそも不調者を生まない予防的メンタルヘルス施策（EAPの整備・管理職のラインケア研修等）への先行投資が不可欠である。復職対応の質は企業の「組織の安全基地」としての信頼に直結し、優秀な人材の長期定着を左右する。</p></div><div class="card-foot"><span class="card-source">Web労政時報 第4121号 2026年6月 / 6月21日</span></div></div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><span class="badge-theory">📚 資源ベース理論(RBV)</span></div><h3 class="card-headline"><a href="https://jinjibu.jp/news/detl/26532/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">育休研修2時間で父親の育児時間が週末1時間増</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事担当者が育休取得促進施策を設計する際は、啓発・情報提供だけでなく「行動変容を促す介入設計」を組み込む必要がある。実践的な提言として、①「管理職向け育休研修の必須化」：管理職が部下の育休取得を支援する方法を学ぶ研修を、昇進後のオンボーディングに組み込む、②「数値目標の設定」：男性育休取得率・育児時間・パートナーの労働時間変化など、行動変容を測定できるKPIを設定し効果を可視化する、③「RCT的思考の導入」：施策の効果検証をパイロット展開＋比較対照という形で設計し、感覚ではなくデータで判断できる仕組みにする、の3点が有効だ。中長期的には、育休研修の定着は男女の家庭内役割分担の変化→女性の就労継続・キャリアアップ→組織の多様性向上という好循環を生む。「育休研修2時間」への投資対効果は非常に高く、未実施の企業は早急に導入を検討すべきだ。</p></div><div class="card-foot"><span class="card-source">日本の人事部 2026年6月18日 / 6月21日</span></div></div><div class="arc-card" style="margin-bottom:16px;"><div class="card-meta"><a class="badge-theory" href="../../theories/sensemaking/" title="センスメイキング理論の解説ページへ">📚 センスメイキング理論</a></div><h3 class="card-headline"><a href="https://www.rosei.jp/readers" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">管理職スキル支援、3社の取組事例</a></h3><div class="art-section insight"><span class="art-label">💡 示唆</span><p>人事・経営担当者は、管理職支援を「昇進後の一次研修」に限定せず、継続的な仕組みとして設計する必要がある。特に以下の3点が重要だ。①「役割の明確化」：管理職が何に集中すべきかを組織として定義し、業務過多になっている場合は権限委譲や業務削減を検討する。②「学習の仕組み化」：動画・マイクロラーニング・ピアラーニングなど多様な形式で、現場を離れずに学べる環境を整備する。③「心理的支援」：管理職自身のメンタルヘルスや孤独感に対するサポート制度（メンター・コーチング等）を設ける。中長期的には、管理職ポストの魅力再設計が採用競争力にも直結する。優秀な社員が管理職を「選びたくなる」制度・文化をどう作るかが、組織の持続的競争力を左右する重要な経営課題だ。</p></div><div class="card-foot"><span class="card-source">Web労政時報 第4121号 2026年6月 / 6月21日</span></div></div>
 <p style="margin-top:24px;"><a href="../../theories/" style="color:var(--green-dk);font-weight:700;font-size:.9rem;">📚 全25理論の用語集を見る →</a></p>
   </div>
 </div>
