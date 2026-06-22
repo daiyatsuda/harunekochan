@@ -21,6 +21,7 @@ from collections import Counter, defaultdict
 NOTION_API_KEY      = os.environ["NOTION_API_KEY"]
 NOTION_DATABASE_ID  = os.environ["NOTION_DATABASE_ID"]
 BLOG_DATABASE_ID    = "72e7bb27a6fe40e0ae5e111e94163f7a"
+REPORT_DATABASE_ID  = "a75d8dd55cc84bd085fdbba646283b67"
 NOTION_VERSION      = "2022-06-28"
 JST                 = timezone(timedelta(hours=9))
 SITE_URL            = "https://keieiriron.github.io/harunekochan/"
@@ -1050,6 +1051,207 @@ def generate_blog_pages(posts: list[dict]) -> None:
     print(f"✅ ブログページ生成完了（{len(posts)}件）")
 
 
+# ── 統合報告書: Notion取得 & パース ────────────────────────────
+def fetch_all_reports() -> list[dict]:
+    payload = {
+        "filter": {"property": "公開", "checkbox": {"equals": True}},
+        "sorts": [{"property": "配信日", "direction": "descending"}],
+        "page_size": 60,
+    }
+    return notion_request(f"databases/{REPORT_DATABASE_ID}/query", payload).get("results", [])
+
+
+def report_page_to_item(page: dict) -> dict:
+    props = page.get("properties", {})
+    return {
+        "company":  extract_text(props.get("企業名", {})),
+        "industry": extract_text(props.get("業界", {})),
+        "lead":     extract_text(props.get("リード文", {})),
+        "body":     extract_text(props.get("本文", {})),
+        "insights": extract_text(props.get("気づき・示唆", {})),
+        "source":   extract_text(props.get("出典", {})),
+        "link":     extract_text(props.get("リンク", {})),
+        "date":     extract_text(props.get("配信日", {})),
+        "slug":     extract_text(props.get("スラッグ", {})),
+    }
+
+
+REPORT_CSS = """<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAF7F2;color:#2B2620;font-family:'Noto Sans JP',sans-serif;line-height:1.75;min-height:100vh}
+nav{background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid #E5DFD4;height:56px;padding:0 28px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:400}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#2B2620;font-weight:700;font-size:1rem}
+.nav-logo img{width:28px;height:28px}
+.nav-back{font-size:.8rem;color:#C8824A;text-decoration:none;margin-left:auto;font-weight:700}
+.nav-back:hover{color:#A0622A}
+.hero{background:linear-gradient(140deg,#1E1A0A 0%,#2B200E 100%);border-bottom:1px solid #E5DFD4;padding:52px 28px 40px}
+.hero-inner{max-width:900px;margin:0 auto}
+.hero-kicker{font-size:.68rem;font-weight:700;color:#D4B87A;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.hero-kicker::before{content:'';width:16px;height:2px;background:#C8824A;display:block}
+h1{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;line-height:1.25;margin-bottom:14px;color:#fff}
+.hero-lead{font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;max-width:600px}
+.container{max-width:900px;margin:0 auto;padding:48px 28px 80px}
+.report-grid{display:flex;flex-direction:column;gap:28px}
+.report-card{background:#fff;border:1.5px solid #E5DFD4;border-top:4px solid #C8824A;border-radius:16px;padding:28px 28px 22px;box-shadow:0 4px 18px rgba(43,38,32,.06);transition:box-shadow .2s,transform .2s;text-decoration:none;color:inherit;display:block}
+.report-card:hover{box-shadow:0 10px 36px rgba(43,38,32,.12);transform:translateY(-2px)}
+.report-card-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.industry-badge{font-size:.62rem;font-weight:700;padding:3px 10px;border-radius:20px;background:#C8824A;color:#fff;letter-spacing:.04em}
+.date-badge{font-size:.66rem;color:#A89F96;font-weight:500}
+.report-card-company{font-size:1.25rem;font-weight:800;line-height:1.4;margin-bottom:8px;font-family:serif;color:#2B2620}
+.report-card-lead{font-size:.87rem;color:#6B645C;line-height:1.8;margin-bottom:14px}
+.read-more{font-size:.76rem;font-weight:700;color:#A0622A;display:inline-flex;align-items:center;gap:4px}
+.read-more::after{content:'→'}
+/* Single post */
+.post-hero{background:linear-gradient(140deg,#1E1A0A 0%,#2B200E 100%);border-bottom:1px solid #E5DFD4;padding:52px 28px 40px}
+.post-hero-inner{max-width:760px;margin:0 auto}
+.post-hero .industry-badge{display:inline-block;margin-bottom:14px}
+.post-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;line-height:1.3;margin-bottom:16px;color:#fff}
+.post-hero-lead{font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.85;padding:18px 22px;background:rgba(200,130,74,.15);border-left:3px solid #C8824A;border-radius:0 10px 10px 0}
+.post-meta{margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.post-body{max-width:760px;margin:0 auto;padding:48px 28px 80px}
+.post-body p{font-size:.93rem;line-height:1.95;color:#2B2620;margin-bottom:1.4em}
+.post-body h2{font-family:serif;font-size:1.2rem;font-weight:800;color:#2B2620;margin:2em 0 .8em;padding-bottom:.4em;border-bottom:2px solid #E5DFD4}
+.post-body h3{font-family:serif;font-size:1rem;font-weight:700;color:#2B2620;margin:1.5em 0 .6em}
+.insights-box{background:#FDF5EE;border:1.5px solid #E8C49A;border-left:4px solid #C8824A;border-radius:0 14px 14px 0;padding:22px 26px;margin:32px 0}
+.insights-box-label{font-size:.62rem;font-weight:700;color:#A0622A;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.insights-box p{font-size:.9rem;color:#2B2620;line-height:1.9;margin-bottom:0}
+.source-line{font-size:.76rem;color:#A89F96;padding-top:20px;border-top:1px solid #E5DFD4;margin-top:24px}
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;font-weight:700;color:#A0622A;background:#FDF5EE;border:1px solid #E8C49A;padding:10px 22px;border-radius:24px;text-decoration:none;margin-top:32px;transition:background .15s}
+.back-btn:hover{background:#F0E8DC}
+.empty-state{text-align:center;padding:60px 24px;color:#A89F96;font-size:.9rem}
+footer{background:#1A1410;color:rgba(255,255,255,.45);padding:24px 28px;text-align:center;font-size:.75rem}
+@media(max-width:600px){
+  nav{padding:0 14px;height:52px}
+  .hero,.post-hero{padding:36px 16px 28px}
+  .container,.post-body{padding:28px 16px 60px}
+  .report-card{padding:18px 16px 14px}
+  .report-card-company{font-size:1.05rem}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" rel="stylesheet">"""
+
+
+def generate_report_pages(reports: list[dict]) -> None:
+    Path("reports/posts").mkdir(parents=True, exist_ok=True)
+
+    # ── 個別レポートページ ──────────────────────────────
+    for report in reports:
+        slug = report["slug"] or re.sub(r"[^\w\-]", "-", report["company"])[:40]
+        if not slug:
+            continue
+        body_html     = _body_to_html(report["body"])
+        industry_html = f'<span class="industry-badge">{report["industry"]}</span>' if report["industry"] else ""
+        date_ja       = format_date_ja(report["date"])
+        insights_html = ""
+        if report["insights"]:
+            insights_html = (
+                f'<div class="insights-box">'
+                f'<div class="insights-box-label">💡 気づき・示唆</div>'
+                f'<p>{report["insights"]}</p>'
+                f'</div>'
+            )
+        if report["link"]:
+            source_html = f'<p class="source-line">📎 出典：<a href="{report["link"]}" target="_blank" rel="noopener">{report["source"]}</a></p>'
+        else:
+            source_html = f'<p class="source-line">📎 出典：{report["source"]}</p>' if report["source"] else ""
+
+        post_html = f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{report["company"]} 統合報告書分析 | はるねこちゃん</title>
+<meta name="description" content="{report['lead'][:120]}">
+<meta property="og:title" content="{report['company']} 人的資本の取り組み分析">
+<meta property="og:description" content="{report['lead'][:120]}">
+<meta property="og:url" content="{SITE_URL}reports/posts/{slug}/">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+{REPORT_CSS}
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../../../"><img src="../../../favicon.svg" alt="">はるねこちゃん</a>
+  <a class="nav-back" href="../../">← 統合報告書一覧</a>
+</nav>
+<div class="post-hero">
+  <div class="post-hero-inner">
+    {industry_html}
+    <h1>{report["company"]}</h1>
+    <p class="post-hero-lead">{report["lead"]}</p>
+    <div class="post-meta">
+      <span>📅 {date_ja}</span>
+    </div>
+  </div>
+</div>
+<div class="post-body">
+  {body_html}
+  {insights_html}
+  {source_html}
+  <a class="back-btn" href="../../">← 統合報告書一覧に戻る</a>
+</div>
+<footer>© 2025 はるねこちゃん — 人的資本 × 統合報告書読み解き</footer>
+</body>
+</html>"""
+        out_dir = Path("reports/posts") / slug
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "index.html").write_text(post_html, encoding="utf-8")
+
+    # ── 一覧ページ ─────────────────────────────────────
+    cards_html = ""
+    for report in reports:
+        slug = report["slug"] or re.sub(r"[^\w\-]", "-", report["company"])[:40]
+        if not slug:
+            continue
+        industry_html = f'<span class="industry-badge">{report["industry"]}</span>' if report["industry"] else ""
+        date_ja = format_date_ja(report["date"])
+        cards_html += f"""<a class="report-card" href="posts/{slug}/">
+  <div class="report-card-meta">{industry_html}<span class="date-badge">📅 {date_ja}</span></div>
+  <div class="report-card-company">{report["company"]}</div>
+  <div class="report-card-lead">{report["lead"]}</div>
+  <span class="read-more">分析を読む</span>
+</a>\n"""
+
+    if not cards_html:
+        cards_html = '<div class="empty-state">まだレポート分析がありません。<br>近日公開予定です。</div>'
+
+    index_html = f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>統合報告書読み解き | はるねこちゃん</title>
+<meta name="description" content="人的資本に関して評価の高い企業を毎日1社取り上げ、統合報告書から取り組みの内容・背景・成果・示唆を深掘り解説します。">
+<meta property="og:title" content="統合報告書読み解き | はるねこちゃん">
+<meta property="og:url" content="{SITE_URL}reports/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+{REPORT_CSS}
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../"><img src="../favicon.svg" alt="">はるねこちゃん</a>
+  <a class="nav-back" href="../">← トップへ</a>
+</nav>
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Integrated Report Analysis — Human Capital</p>
+    <h1>統合報告書読み解き</h1>
+    <p class="hero-lead">人的資本に関して評価の高い企業を毎日1社取り上げ、統合報告書から取り組みの全貌・経営的背景・成果・実務への示唆を深掘り解説します。</p>
+  </div>
+</div>
+<div class="container">
+  <div class="report-grid">
+    {cards_html}
+  </div>
+</div>
+<footer>© 2025 はるねこちゃん — 人的資本 × 統合報告書読み解き</footer>
+</body>
+</html>"""
+
+    (Path("reports") / "index.html").write_text(index_html, encoding="utf-8")
+    print(f"✅ 統合報告書ページ生成完了（{len(reports)}件）")
+
+
 # ── メイン ────────────────────────────────────────────────────
 def main():
     pages = fetch_all_news()
@@ -1154,6 +1356,11 @@ def main():
     blog_pages = fetch_all_blog_posts()
     blog_posts = [blog_page_to_item(p) for p in blog_pages]
     generate_blog_pages(blog_posts)
+
+    # ─ 統合報告書
+    report_pages = fetch_all_reports()
+    reports      = [report_page_to_item(p) for p in report_pages]
+    generate_report_pages(reports)
 
 
 if __name__ == "__main__":
