@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>富士通 統合報告書分析 | はるねこちゃん</title>
+<meta name="description" content="富士通は「ジョブ型人材マネジメント」への全面移行を通じ、データドリブンな人的資本経営で組織変革と事業成長を両立させている。">
+<meta property="og:title" content="富士通 人的資本の取り組み分析">
+<meta property="og:description" content="富士通は「ジョブ型人材マネジメント」への全面移行を通じ、データドリブンな人的資本経営で組織変革と事業成長を両立させている。">
+<meta property="og:url" content="https://keieiriron.github.io/harunekochan/reports/posts/fujitsu-20260623/">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAF7F2;color:#2B2620;font-family:'Noto Sans JP',sans-serif;line-height:1.75;min-height:100vh}
+nav{background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid #E5DFD4;height:56px;padding:0 28px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:400}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#2B2620;font-weight:700;font-size:1rem}
+.nav-logo img{width:28px;height:28px}
+.nav-back{font-size:.8rem;color:#C8824A;text-decoration:none;margin-left:auto;font-weight:700}
+.nav-back:hover{color:#A0622A}
+.hero{background:linear-gradient(140deg,#1E1A0A 0%,#2B200E 100%);border-bottom:1px solid #E5DFD4;padding:52px 28px 40px}
+.hero-inner{max-width:900px;margin:0 auto}
+.hero-kicker{font-size:.68rem;font-weight:700;color:#D4B87A;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.hero-kicker::before{content:'';width:16px;height:2px;background:#C8824A;display:block}
+h1{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;line-height:1.25;margin-bottom:14px;color:#fff}
+.hero-lead{font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;max-width:600px}
+.container{max-width:900px;margin:0 auto;padding:48px 28px 80px}
+.report-grid{display:flex;flex-direction:column;gap:28px}
+.report-card{background:#fff;border:1.5px solid #E5DFD4;border-top:4px solid #C8824A;border-radius:16px;padding:28px 28px 22px;box-shadow:0 4px 18px rgba(43,38,32,.06);transition:box-shadow .2s,transform .2s;text-decoration:none;color:inherit;display:block}
+.report-card:hover{box-shadow:0 10px 36px rgba(43,38,32,.12);transform:translateY(-2px)}
+.report-card-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.industry-badge{font-size:.62rem;font-weight:700;padding:3px 10px;border-radius:20px;background:#C8824A;color:#fff;letter-spacing:.04em}
+.date-badge{font-size:.66rem;color:#A89F96;font-weight:500}
+.report-card-company{font-size:1.25rem;font-weight:800;line-height:1.4;margin-bottom:8px;font-family:serif;color:#2B2620}
+.report-card-lead{font-size:.87rem;color:#6B645C;line-height:1.8;margin-bottom:14px}
+.read-more{font-size:.76rem;font-weight:700;color:#A0622A;display:inline-flex;align-items:center;gap:4px}
+.read-more::after{content:'→'}
+/* Single post */
+.post-hero{background:linear-gradient(140deg,#1E1A0A 0%,#2B200E 100%);border-bottom:1px solid #E5DFD4;padding:52px 28px 40px}
+.post-hero-inner{max-width:760px;margin:0 auto}
+.post-hero .industry-badge{display:inline-block;margin-bottom:14px}
+.post-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;line-height:1.3;margin-bottom:16px;color:#fff}
+.post-hero-lead{font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.85;padding:18px 22px;background:rgba(200,130,74,.15);border-left:3px solid #C8824A;border-radius:0 10px 10px 0}
+.post-meta{margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.post-body{max-width:760px;margin:0 auto;padding:48px 28px 80px}
+.post-body p{font-size:.93rem;line-height:1.95;color:#2B2620;margin-bottom:1.4em}
+.post-body h2{font-family:serif;font-size:1.2rem;font-weight:800;color:#2B2620;margin:2em 0 .8em;padding-bottom:.4em;border-bottom:2px solid #E5DFD4}
+.post-body h3{font-family:serif;font-size:1rem;font-weight:700;color:#2B2620;margin:1.5em 0 .6em}
+.insights-box{background:#FDF5EE;border:1.5px solid #E8C49A;border-left:4px solid #C8824A;border-radius:0 14px 14px 0;padding:22px 26px;margin:32px 0}
+.insights-box-label{font-size:.62rem;font-weight:700;color:#A0622A;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.insights-box p{font-size:.9rem;color:#2B2620;line-height:1.9;margin-bottom:0}
+.source-line{font-size:.76rem;color:#A89F96;padding-top:20px;border-top:1px solid #E5DFD4;margin-top:24px}
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;font-weight:700;color:#A0622A;background:#FDF5EE;border:1px solid #E8C49A;padding:10px 22px;border-radius:24px;text-decoration:none;margin-top:32px;transition:background .15s}
+.back-btn:hover{background:#F0E8DC}
+.empty-state{text-align:center;padding:60px 24px;color:#A89F96;font-size:.9rem}
+footer{background:#1A1410;color:rgba(255,255,255,.45);padding:24px 28px;text-align:center;font-size:.75rem}
+@media(max-width:600px){
+  nav{padding:0 14px;height:52px}
+  .hero,.post-hero{padding:36px 16px 28px}
+  .container,.post-body{padding:28px 16px 60px}
+  .report-card{padding:18px 16px 14px}
+  .report-card-company{font-size:1.05rem}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../../../"><img src="../../../favicon.svg" alt="">はるねこちゃん</a>
+  <a class="nav-back" href="../../">← 統合報告書一覧</a>
+</nav>
+<div class="post-hero">
+  <div class="post-hero-inner">
+    <span class="industry-badge">IT・テクノロジー</span>
+    <h1>富士通</h1>
+    <p class="post-hero-lead">富士通は「ジョブ型人材マネジメント」への全面移行を通じ、データドリブンな人的資本経営で組織変革と事業成長を両立させている。</p>
+    <div class="post-meta">
+      <span>📅 6月23日</span>
+    </div>
+  </div>
+</div>
+<div class="post-body">
+  <p>【企業概要と人的資本への姿勢】<br>富士通株式会社（Fujitsu Limited）は、売上高約3.7兆円（2024年度）、従業員数約12万人（グローバル）のIT・デジタルサービス大手。かつての「ハードウェア・SIer企業」からDXを推進する「テクノロジーカンパニー」への転換を掲げ、事業構造改革と並行して人材戦略の抜本的変革を進めている。CHRO（最高人事責任者）に取締役執行役員専務の平松浩樹氏を置き、「人的資本の強化を未来への投資と捉え、データドリブンで戦略的なマネジメントを追求する」という哲学のもと、人材戦略を経営戦略の中核に据えている。2022年度から推進してきた「ジョブ型人材マネジメント」への全面移行が富士通の人的資本経営の根幹であり、「適所適材」の人材配置と「キャリア自律」の促進を両輪とする。第4回日経統合報告書アワード（2025年）では準グランプリを受賞しており、人的資本開示の先進企業としても広く認知されている。</p>
+<p>【主な取り組み内容】<br>▼ジョブ型人材マネジメントの全面展開<br>2022年4月に全社員（国内約35,000人）を対象にジョブ型雇用に移行。各ポジションに「ジョブディスクリプション（JD）」を整備し、全員が自分の役割と求められる成果を明確に理解した上で働く環境を実現した。新卒採用においても2025年度よりジョブ型採用を本格化し、入社前から有償インターンシップで実務経験を積む機会を設けている。新入社員の年収は実力次第で550万〜700万円以上も可能となり、年功的な給与体系からの脱却が進む。</p>
+<p>▼データドリブンな人材管理<br>Microsoft Viva Insightsを国内35,000人に導入し、社員のウェルビーイングデータを定量的に収集・分析。Glintをグローバル12万人に展開し、エンゲージメントサーベイの結果をPDCAサイクルで施策改善に活用している。人事データ・業務データ・財務データを統合した「データドリブンHR」により、施策の効果を数値で追跡・改善する体制を構築した。</p>
+<p>▼主なKPI<br>- 1人当たり生産性（営業利益）：2022年度比40%向上（2025年度目標）<br>- 従業員エンゲージメント指数：69（2022年度）→75（2025年度目標）<br>- 女性管理職比率：14%（現状）→20%（2025年度目標）</p>
+<p>▼リスキリング・学習機会<br>コンサルティング人材の1万人規模への拡充を計画。オンライン動画研修受講者が3万6,000人超（前年比3倍）まで急拡大。「ポスティング制度（手挙げによる社内異動）」を活用した自律的なキャリア形成を推進しており、社内人材の流動化と成長機会の均等化を実現している。</p>
+<p>▼多様性推進<br>女性リーダーシップ比率は17%（2024年度末）と目標20%に向け前進中。育児休業の男性取得率・期間の改善にも注力しており、育児と仕事の両立を全社員が実感できる環境整備を進めている。</p>
+<p>【なぜこの取り組みをしているのか】<br>富士通が人的資本経営を徹底する根本的な理由は、「事業モデルの転換」という不可避の経営課題にある。かつてのSIer（システムインテグレーター）モデルでは、客先常駐・人月請負・規模の経済が競争優位の源泉だった。しかし、クラウド・AI・DXの進展により、単純な人手の提供では価値を生み出せなくなった。「一人ひとりの知識・スキルの質」が勝負になるビジネスへの転換は、人材戦略を事業戦略そのものに直結させる必然性を生んだ。</p>
+<p>資源ベース理論（RBV）の観点からは、富士通にとっての持続的競争優位の源泉は「高度に専門化・多様化した人材ポートフォリオ」と「データドリブンなHR運営能力」そのものであり、これは競合他社が容易に模倣できない希少で価値ある経営資源となっている。また、ダイナミック・ケイパビリティの観点では、IT業界の技術変化に対応し続けるために「社員のスキル・知識を継続的に再構成（reconfigure）する能力」が組織の中核的ケイパビリティとして機能している。</p>
+<p>外部環境として、日本の「人材流動化」「ジョブ型推進」という政府方針との連動も大きい。岸田政権以降の「新しい資本主義」政策において、ジョブ型雇用・リスキリング・女性活躍は政策の柱であり、富士通はこれをいち早く取り込んだ企業として社会的認知を高めてきた。</p>
+<p>【どんな結果につながっている（繋げたい）のか】<br>定量的成果として、1人当たり生産性の40%向上（目標）と従業員エンゲージメント指数69→75への改善が主要KPIとして追跡されている。リスキリング受講者の急増（前年比3倍超、3万6,000人超）は、社員が自律的に学習する文化の醸成を示す。ポスティング制度の活用件数増加は、社内人材流動化の実効性を証明しつつある。</p>
+<p>定性的変化として、「ジョブ型への移行」が組織文化そのものを変容させており、「命じられた仕事をこなす」から「自分のキャリアを設計し、成果で評価される」という意識変革が進んでいる。</p>
+<p>課題として、日本でのエンゲージメント指数が海外拠点と比べて低く、目標の75に向けた取り組みが継続中。女性管理職比率も14%（日本は10%）で20%目標への道半ば。ジョブ型への移行に戸惑う中高年層のリスキリング支援と意識変革が引き続き重要な課題だ。</p>
+<p>中長期ゴールとして、「グローバル人材市場で選ばれる企業」になることを目指し、2030年に向けて高度デジタル人材の自前育成と外部獲得の両軸で人材ポートフォリオを高度化する計画がある。</p>
+<p>【取り組みのポイント・他社との違い】<br>富士通の最大の独自性は、「ジョブ型」「データドリブン」「全員対象」の三点を同時に追求した全社規模での変革の速さと徹底度にある。多くの日本企業がジョブ型を一部職種・管理職層に限定して試行的に導入しているのに対し、富士通は国内全35,000人を対象に2022年度から一気に移行し、JD整備・評価制度改革・報酬体系の見直しを同時並行で進めた。これは「点の改善」ではなく「システム全体の再設計」であり、実行リスクを取った経営判断として異例の大胆さといえる。また、Microsoft Viva InsightsとGlintというグローバル標準ツールを全社員に展開し、人事データ・業務データを一元管理するデータ基盤を構築した点も先進的だ。多くの企業が「人的資本開示は定性的コメントと形式KPI」で済ませる中、富士通は数値追跡と施策改善のPDCAを仕組みとして整備している。この「人事の科学化」こそが他社との最大の差異だ。</p>
+  <div class="insights-box"><div class="insights-box-label">💡 気づき・示唆</div><p>富士通の取り組みから学べる最大の教訓は「制度変更を全社で一気にやる覚悟と、データで追跡する仕組みの同時整備」の重要性だ。多くの企業は「ジョブ型を試験導入して様子を見る」という段階的アプローチをとるが、富士通は全員対象・即時移行という大胆な選択をした。この背景には「変革のスピードが遅すぎると事業転換に人材が追いつかない」という経営判断がある。実務担当者へのメッセージ：まず自社の職種・部門ごとに「現状のスキルポートフォリオ」と「3年後に必要なスキルポートフォリオ」のギャップを可視化することから始めよ。そのギャップを埋めるための育成・採用・配置の優先順位が人材戦略の骨格となる。注意点として、ジョブ型は社員の「安心感・所属感」を薄める側面があり、富士通でも日本拠点のエンゲージメントが目標未達という課題が残る。制度設計と並行して、「なぜジョブ型なのか」という意味（センスメイキング）を丁寧に伝える経営コミュニケーションが不可欠だ。このアプローチの「光」は変革スピードの速さと人材力の高度化、「影」は移行期の混乱と一部社員の不安増大だ。</p></div>
+  <p class="source-line">📎 出典：<a href="https://global.fujitsu/ja-jp/about/integrated-report" target="_blank" rel="noopener">富士通統合レポート2025年版</a></p>
+  <a class="back-btn" href="../../">← 統合報告書一覧に戻る</a>
+</div>
+<footer>© 2025 はるねこちゃん — 人的資本 × 統合報告書読み解き</footer>
+</body>
+</html>
